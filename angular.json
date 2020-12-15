@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "turingcare"
+    }
+  },
+  "defaultProject": "turingcare",
+  "cli": {
+    "analytics": "f1fb6a67-ae71-449b-a031-8a17d2baeb75"
+  }
 }
