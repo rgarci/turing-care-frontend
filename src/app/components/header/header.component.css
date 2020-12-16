@@ -1,0 +1,19 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.logo >a img{
+    width: 3rem;
+    height: 3rem;
+}
+
+mat-toolbar{
+    background-color: #189AB4;
+    color: aliceblue;
+}
+
+mat-toolbar > a{
+    padding-left: 24px;
+    text-decoration: none;
+    color: aliceblue;
+}
