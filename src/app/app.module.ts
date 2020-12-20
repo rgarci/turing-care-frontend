@@ -15,7 +15,9 @@ import { MatTableModule } from '@angular/material/table'
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { RegistersTableComponent } from './components/registers-table/registers-table.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { RegistersTableComponent } from './components/registers/registers-table/registers-table.component';
+import { RegisterDetailsComponent } from './components/registers/register-details/register-details.component';
 import { PatientDetailsComponent } from './components/patients/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patients/patient-data-card/patient-data-card.component';
 
@@ -27,7 +29,8 @@ import { PatientDataCardComponent } from './components/patients/patient-data-car
     PatientListComponent,
     RegistersTableComponent,
     PatientDetailsComponent,
-    PatientDataCardComponent
+    PatientDataCardComponent,
+    RegisterDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { PatientDataCardComponent } from './components/patients/patient-data-car
     MatTableModule,
     MatIconModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

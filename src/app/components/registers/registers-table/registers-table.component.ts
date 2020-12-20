@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { RegisterDetailsComponent } from '../register-details/register-details.component';
 
 export interface PeriodicElement {
   position: number;
@@ -26,5 +28,15 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class RegistersTableComponent {
   displayedColumns: string[] = ['position', 'asunto', 'fecha', 'acciones'];
   dataSource = ELEMENT_DATA;
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog() {
+    const dialogRef = this.dialog.open(RegisterDetailsComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
  
 }
