@@ -21,6 +21,8 @@ import { RegisterDetailsComponent } from './components/registers/register-detail
 import { PatientDetailsComponent } from './components/patients/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patients/patient-data-card/patient-data-card.component';
 import {MatInputModule} from '@angular/material/input';
+import {MatPaginatorModule } from '@angular/material/paginator';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +46,8 @@ import {MatInputModule} from '@angular/material/input';
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

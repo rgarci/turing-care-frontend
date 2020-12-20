@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Patient } from 'src/app/interfaces/patients/patient';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 
@@ -12,8 +13,9 @@ import { GetPatientsService } from 'src/app/services/patients/get-patients.servi
 })
 export class PatientListComponent implements OnInit{
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   buscar : string;
-  dataSource : MatTableDataSource<Object>;
+  dataSource : MatTableDataSource<Patient>;
   doctorName : string;
   greeting : string;
   doctorGender : boolean;
@@ -38,6 +40,7 @@ export class PatientListComponent implements OnInit{
     this.getPatientsSvc.getPatients("123").then((response) =>{
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients.results);
+      this.dataSource.paginator = this.paginator;
     }, (error) => {
       alert("Error: " + error.statusText);
     });
