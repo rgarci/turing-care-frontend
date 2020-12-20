@@ -10,6 +10,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table'
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RegistersTableComponent } from './components/registers-table/registers-table.component';
 import { PatientDetailsComponent } from './components/patient-details/patient-details.component';
 
@@ -28,7 +29,8 @@ import { PatientDetailsComponent } from './components/patient-details/patient-de
     MatToolbarModule,
     MatButtonModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
