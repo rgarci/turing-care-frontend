@@ -1,0 +1,14 @@
+.aline-patient-detail{
+    margin: 2rem 8rem 8rem 8rem ;
+    min-height: 24rem;
+    align-content: center;
+}
+
+button{
+    background-color:  #3BBCBE;
+    color: #ffffff;
+}
+
+.card-head{
+    display: flex;
+}
