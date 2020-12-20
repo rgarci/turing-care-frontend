@@ -13,7 +13,20 @@ export class GetPatientsService {
 
   getPatients = (idDoctor : string) : Promise<PatientItf> => {
     let promise = new Promise<PatientItf>((resolve, reject) =>{
-      this.http.get('https://randomuser.me/api/?results=7')
+      this.http.get('https://randomuser.me/api/?results=6')
+      .toPromise()
+      .then((response) => {
+        resolve(response as PatientItf)
+      }, (error) => {
+        reject(error)
+      })
+    })
+    return promise;
+  }
+
+  getPatient = (idPatient : string) : Promise<PatientItf> => {
+    let promise = new Promise<PatientItf>((resolve, reject) =>{
+      this.http.get('https://randomuser.me/api/')
       .toPromise()
       .then((response) => {
         resolve(response as PatientItf)
