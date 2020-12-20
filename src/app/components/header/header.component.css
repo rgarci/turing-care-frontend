@@ -10,6 +10,7 @@
 mat-toolbar{
     background-color: #3BBCBE;
     color: aliceblue;
+    height: 10vh;
 }
 
 mat-toolbar > a{
