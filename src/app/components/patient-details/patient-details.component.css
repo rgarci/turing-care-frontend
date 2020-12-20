@@ -10,5 +10,14 @@ button{
 }
 
 .card-head{
-    display: flex;
+    display: inline-block; 
+    width: 100%;
+}
+
+.card-name{
+    float: left;
+}
+
+.card-button-register{
+    float: right;
 }

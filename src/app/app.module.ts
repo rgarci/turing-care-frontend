@@ -12,9 +12,11 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from "@angular/material/dialog";
 import { RegistersTableComponent } from './components/registers-table/registers-table.component';
 import { PatientDetailsComponent } from './components/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patient-data-card/patient-data-card.component';
+import { RegisterDetailsComponent } from './components/register-details/register-details.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { PatientDataCardComponent } from './components/patient-data-card/patient
     FooterComponent,
     RegistersTableComponent,
     PatientDetailsComponent,
-    PatientDataCardComponent
+    PatientDataCardComponent,
+    RegisterDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { PatientDataCardComponent } from './components/patient-data-card/patient
     MatTableModule,
     MatIconModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
