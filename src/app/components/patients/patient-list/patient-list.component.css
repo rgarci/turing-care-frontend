@@ -1,0 +1,17 @@
+.mat-table {
+    width: 90%;
+  }
+
+.myContainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 73vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+.innerContainer {
+    width: 100%;
+}
