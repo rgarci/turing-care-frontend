@@ -1,6 +1,28 @@
-<mat-tab-group>
-    <mat-tab label="Detalles"> Datos</mat-tab>
-    <mat-tab label="Historial"> 
-        <app-registers-table></app-registers-table>
-    </mat-tab>
-</mat-tab-group>
+<app-header></app-header>
+
+<div class="aline-patient-detail">
+    <mat-card-header>
+        <div class="card-head">
+            <div>
+               <mat-card-title>Eliezer Couoh</mat-card-title>
+                <mat-card-subtitle>9999020190, elieferco@gmail.com</mat-card-subtitle> 
+            </div>
+            <div>
+                <button mat-raised-button >AÑADIR REGISTRO</button>
+            </div> 
+        </div>
+        
+    </mat-card-header>
+
+    <mat-tab-group>
+        <mat-tab label="Datos"> 
+            <app-patient-data-card></app-patient-data-card>
+        </mat-tab>
+        <mat-tab label="Historial"> 
+            <app-registers-table></app-registers-table>
+        </mat-tab>
+    </mat-tab-group>    
+</div>
+
+<app-footer></app-footer>
+

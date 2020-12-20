@@ -11,8 +11,10 @@ import { MatTableModule } from '@angular/material/table'
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 import { RegistersTableComponent } from './components/registers-table/registers-table.component';
 import { PatientDetailsComponent } from './components/patient-details/patient-details.component';
+import { PatientDataCardComponent } from './components/patient-data-card/patient-data-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { PatientDetailsComponent } from './components/patient-details/patient-de
     HeaderComponent,
     FooterComponent,
     RegistersTableComponent,
-    PatientDetailsComponent
+    PatientDetailsComponent,
+    PatientDataCardComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { PatientDetailsComponent } from './components/patient-details/patient-de
     MatButtonModule,
     MatTableModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
