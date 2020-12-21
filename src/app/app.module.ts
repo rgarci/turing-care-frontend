@@ -20,8 +20,15 @@ import { RegistersTableComponent } from './components/registers/registers-table/
 import { RegisterDetailsComponent } from './components/registers/register-details/register-details.component';
 import { PatientDetailsComponent } from './components/patients/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patients/patient-data-card/patient-data-card.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule} from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +39,8 @@ import {MatPaginatorModule } from '@angular/material/paginator';
     RegistersTableComponent,
     PatientDetailsComponent,
     PatientDataCardComponent,
-    RegisterDetailsComponent
+    RegisterDetailsComponent,
+    PatientFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +56,12 @@ import {MatPaginatorModule } from '@angular/material/paginator';
     MatDialogModule,
     MatInputModule,
     MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

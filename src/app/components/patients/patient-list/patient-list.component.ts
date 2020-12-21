@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Patient } from 'src/app/interfaces/patients/patient';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
+import { PatientFormComponent } from '../patient-form/patient-form.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -24,7 +26,7 @@ export class PatientListComponent implements OnInit{
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, 
-    private router : Router) { }
+    private router : Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -49,6 +51,16 @@ export class PatientListComponent implements OnInit{
   getPatient = (event: Event) =>{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openCreateForm() {
+    const dialogRef = this.dialog.open(PatientFormComponent,  {
+      width:'100%'
+    });
+
+    dialogRef.afterClosed().subscribe(result  => {
+      console.log('Dialog result:  %O', result);
+    });
   }
 
 }
