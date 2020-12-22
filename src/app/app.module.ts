@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NewsListComponent } from './components/news/news-list/news-list.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     PatientDetailsComponent,
     PatientDataCardComponent,
     RegisterDetailsComponent,
-    PatientFormComponent
+    PatientFormComponent,
+    NewsListComponent
   ],
   imports: [
     BrowserModule,

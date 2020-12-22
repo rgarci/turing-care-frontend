@@ -1,0 +1,35 @@
+img {
+    width: 30%;
+    height: auto;
+
+}
+.news-card{
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: #FBFBFB;
+}
+.myContainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 2rem;
+}
+ul li{
+    list-style: none;
+}
+mat-card-content {
+    padding-top: 2rem;
+    display: flex;
+    flex-flow: row wrap;
+    font-size: x-large;
+    line-height: 30px;
+    justify-content: space-around;
+}
+mat-card-content > span{
+    width: 50%;
+}
+button a{
+    text-decoration: none;
+    color: white;
+}
