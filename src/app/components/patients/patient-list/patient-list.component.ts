@@ -30,6 +30,7 @@ export class PatientListComponent implements OnInit{
 
   ngOnInit(): void {
 
+    this.idDoctor = "provisionalId";
     this.buscar = '';
     this.doctorGender = true;
     this.doctorName = "Daniela";
@@ -61,6 +62,10 @@ export class PatientListComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result  => {
       console.log('Dialog result:  %O', result);
     });
+  }
+
+  viewPatient(patientId : string){
+    this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
   }
 
 }

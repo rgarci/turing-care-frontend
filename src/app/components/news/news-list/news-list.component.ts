@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NewItf } from 'src/app/interfaces/news/new';
 import { NewsList } from 'src/app/interfaces/news/news-list';
 import { GetNewsService } from 'src/app/services/news/get-news.service';
@@ -11,10 +12,12 @@ import { GetNewsService } from 'src/app/services/news/get-news.service';
 export class NewsListComponent implements OnInit {
 
   news : NewsList;
+  idDoctor : string;
 
-  constructor(private getNewsSvc : GetNewsService) { }
+  constructor(private getNewsSvc : GetNewsService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.getNewsSvc.getNews().then((response) =>{
       this.news = response;
       console.log("resultados %O", response)

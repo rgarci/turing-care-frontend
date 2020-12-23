@@ -18,3 +18,18 @@ mat-toolbar > a{
     text-decoration: none;
     color: aliceblue;
 }
+
+.nav-options{
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    justify-content: space-evenly;
+    font-size: var(--small-font);
+    text-transform: uppercase;
+}
+
+.nav-option > a{
+    padding-right: 24px;
+    text-decoration: none;
+    color: var(--white);
+}

@@ -29,7 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewsListComponent } from './components/news/news-list/news-list.component';
-
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +42,9 @@ import { NewsListComponent } from './components/news/news-list/news-list.compone
     PatientDataCardComponent,
     RegisterDetailsComponent,
     PatientFormComponent,
-    NewsListComponent
-  ],
+    NewsListComponent,
+    PageNotFoundComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
