@@ -1,0 +1,56 @@
+<app-header></app-header>
+<mat-grid-list cols="2" rowHeight="fit" >
+  <mat-grid-tile>
+    <div class = "registerTile">
+      <div>
+        <p class="title"> ¿Nuevo doctor?</p>
+        <br>
+        <p class= "description">Comienza a llevar registro de tus pacientes de manera segura</p>
+      </div>
+      <button mat-raised-button type=submit class= "action-btn">Registro</button>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <div class = "login-Tile">
+      <div class="login-name">
+        <p class="title"> Ingresa a tu cuenta</p>
+      </div>
+      <form (ngSubmit)="login()" #loginForm="ngForm" id="loginForm">
+        <mat-form-field appearance="outline" hideRequiredMarker="true">
+          <mat-label> Usuario </mat-label>
+          <input matInput type="text" name="username" [(ngModel)]="loginFrmTemplate.user" >
+          <mat-hint *ngIf="!loginFrmTemplate.user">Enter your user</mat-hint>
+        </mat-form-field>
+
+        <br>
+        <mat-form-field appearance="outline" hideRequiredMarker="true">
+          <mat-label> Contraseña </mat-label>
+          <input matInput [type]=" hidepswd ? 'password' : 'text'" name="pswd"
+                 [(ngModel)]="loginFrmTemplate.password">
+          <button mat-icon-button matSuffix (click)="hidepassword($event)" class="hide-button"
+                  [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidepswd">
+            <mat-icon>{{hidepswd ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-hint *ngIf="!loginFrmTemplate.password">Enter your password</mat-hint>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type=submit class="action-btn"> Entrar</button>
+      </form>
+    </div>
+
+
+
+<!--    <mat-card class="login-card">-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title class="title">Ingresa a tu cuenta</mat-card-title>-->
+<!--      </mat-card-header>-->
+
+<!--      <mat-card-content>-->
+<!--        -->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+  </mat-grid-tile>
+
+</mat-grid-list>
+<app-footer></app-footer>

@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +11,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {MatButtonModule} from '@angular/material/button';
-import { LoginComponent } from './doctors/login/login.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { LoginComponent } from './components/doctors/login/login.component';
 import { PatientListComponent } from './components/patients/patient-list/patient-list.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -21,6 +24,9 @@ import { RegistersTableComponent } from './components/registers/registers-table/
 import { RegisterDetailsComponent } from './components/registers/register-details/register-details.component';
 import { PatientDetailsComponent } from './components/patients/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patients/patient-data-card/patient-data-card.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { LocationDateToolbarComponent } from './components/location-date-toolbar/location-date-toolbar.component';
 
 
 @NgModule({
@@ -33,12 +39,14 @@ import { PatientDataCardComponent } from './components/patients/patient-data-car
     RegistersTableComponent,
     PatientDetailsComponent,
     PatientDataCardComponent,
-    RegisterDetailsComponent
+    RegisterDetailsComponent,
+    LocationDateToolbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatToolbarModule,
     MatButtonModule,
     HttpClientModule,
@@ -46,9 +54,12 @@ import { PatientDataCardComponent } from './components/patients/patient-data-car
     MatIconModule,
     MatTabsModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatGridListModule
   ],
-  providers: [],
+  providers: [ DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
