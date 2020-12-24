@@ -7,5 +7,16 @@
     <span>SARM</span>
     <a href="#">Mis pacientes</a>
     <span class="example-spacer"></span>
-    <button mat-stroked-button>Cerrar sesión</button>
+
+  <button mat-fab class="account-icon" [mat-menu-trigger-for]="profileMenu" aria-label="My profile">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #profileMenu = "matMenu">
+    <button mat-menu-item (click)="profile()">
+      <span>Ver perfil</span>
+    </button>
+    <button mat-menu-item>
+      <span>Cerrar sesión</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

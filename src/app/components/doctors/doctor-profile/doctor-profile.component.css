@@ -1,0 +1,14 @@
+mat-grid-tile{
+  background: gray;
+}
+.profileImage {
+  align-self: flex-start;
+  width: 70%;
+  padding-top: 8vh;
+}
+.information-tile {
+  width: 100%;
+  height: 85%;
+}
+
+

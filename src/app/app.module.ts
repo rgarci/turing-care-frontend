@@ -27,6 +27,8 @@ import { PatientDataCardComponent } from './components/patients/patient-data-car
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { LocationDateToolbarComponent } from './components/location-date-toolbar/location-date-toolbar.component';
+import { DoctorProfileComponent } from './components/doctors/doctor-profile/doctor-profile.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { LocationDateToolbarComponent } from './components/location-date-toolbar
     PatientDetailsComponent,
     PatientDataCardComponent,
     RegisterDetailsComponent,
-    LocationDateToolbarComponent
+    LocationDateToolbarComponent,
+    DoctorProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { LocationDateToolbarComponent } from './components/location-date-toolbar
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatGridListModule
+    MatGridListModule,
+    MatMenuModule
   ],
   providers: [ DatePipe],
   bootstrap: [AppComponent]
