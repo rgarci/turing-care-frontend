@@ -38,3 +38,6 @@ mat-toolbar > a{
     text-decoration: none;
     color: var(--white);
 }
+a {
+  text-decoration: none;
+}

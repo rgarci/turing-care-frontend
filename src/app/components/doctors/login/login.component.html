@@ -16,23 +16,29 @@
       <div class="login-name">
         <p class="title"> Ingresa a tu cuenta</p>
       </div>
-      <form (ngSubmit)="login()" #loginForm="ngForm" id="loginForm">
+      <form [formGroup]="loginFrmTemplate" (ngSubmit)="login()" id="loginForm">
         <mat-form-field appearance="outline" hideRequiredMarker="true">
           <mat-label> Usuario </mat-label>
-          <input matInput type="text" name="username" [(ngModel)]="loginFrmTemplate.user" >
-          <mat-hint *ngIf="!loginFrmTemplate.user">Enter your user</mat-hint>
+          <input matInput type="text" name="username" formControlName="user" >
+          <mat-hint>Enter your user</mat-hint>
+          <mat-error *ngIf="loginFrmTemplate.get('user').hasError('required')">
+              Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <br>
         <mat-form-field appearance="outline" hideRequiredMarker="true">
           <mat-label> Contraseña </mat-label>
           <input matInput [type]=" hidepswd ? 'password' : 'text'" name="pswd"
-                 [(ngModel)]="loginFrmTemplate.password">
+                 formControlName="password">
           <button mat-icon-button matSuffix (click)="hidepassword($event)" class="hide-button"
                   [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidepswd">
             <mat-icon>{{hidepswd ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-hint *ngIf="!loginFrmTemplate.password">Enter your password</mat-hint>
+          <mat-hint *ngIf="!loginFrmTemplate.get('password').value">Enter your password</mat-hint>
+          <mat-error *ngIf="loginFrmTemplate.get('password').hasError('required')">
+            password is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <br>
         <button mat-raised-button type=submit class="action-btn"> Entrar</button>

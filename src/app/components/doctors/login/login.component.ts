@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginModel } from '../../../classes/login-model';
+import {Router} from '@angular/router';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +9,24 @@ import { LoginModel } from '../../../classes/login-model';
 })
 export class LoginComponent implements OnInit {
 
-  loginFrmTemplate = new LoginModel('', '');
   hidepswd = true;
   logged = false;
-  constructor() { }
+  idDoctor: string;
+  loginFrmTemplate = this.fb.group({
+    user: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+
+  constructor(private router: Router, private fb: FormBuilder) { }
   ngOnInit(): void {
   }
 
   login() {
-    this.logged = true;
-    alert("USer:" + this.loginFrmTemplate.user + "psw:" + this.loginFrmTemplate.password );
+    if (this.loginFrmTemplate.get('user').value && this.loginFrmTemplate.get('password').value) {
+      this.logged = true;
+      this.idDoctor = this.loginFrmTemplate.get('user').value;
+      this.router.navigate(['patients/:idDoctor' , {idDoctor : this.idDoctor}]);
+    }
   }
 
   hidepassword(e) {

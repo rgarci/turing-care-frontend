@@ -25,21 +25,21 @@ export class PatientListComponent implements OnInit{
   idDoctor : string;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
-  constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, 
+  constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
     private router : Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
-    this.idDoctor = "provisionalId";
+    this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.buscar = '';
     this.doctorGender = true;
-    this.doctorName = "Daniela";
+    this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
     if(this.doctorGender){
       this.greeting = "Bienvenida Doctora ".concat(this.doctorName);
     }else{
       this.greeting = "Bienvenido Doctor ".concat(this.doctorName);
     }
-    
+
     this.getPatientsSvc.getPatients("123").then((response) =>{
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients.results);
