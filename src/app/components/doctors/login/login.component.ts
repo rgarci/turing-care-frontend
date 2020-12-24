@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {DoctorFormComponent} from '../doctor-form/doctor-form.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required]
   });
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog) { }
   ngOnInit(): void {
   }
 
@@ -32,5 +34,19 @@ export class LoginComponent implements OnInit {
   hidepassword(e) {
     this.hidepswd = !this.hidepswd;
     e.preventDefault();
+  }
+
+  register(){
+    const dialogRef = this.dialogForm.open(DoctorFormComponent, {
+      width: '500px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`); // Pizza!
+
+      // alert('¡REGISTRO ENVIADO!');
+    });
+
   }
 }

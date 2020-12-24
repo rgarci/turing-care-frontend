@@ -38,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewsListComponent } from './components/news/news-list/news-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     DoctorProfileComponent,
     PatientFormComponent,
     NewsListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DoctorFormComponent
     ],
   imports: [
     BrowserModule,
