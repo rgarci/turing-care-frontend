@@ -11,14 +11,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class DoctorProfileComponent implements OnInit {
 
   doctor: DoctorItf;
+  idDoctor: string;
   // parametro de busqueda de la ruta : doctor/{id}/profile
   idBusqueda: string;
+
 
   constructor(private getDoctorService: GetDoctorsService,
               private  route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
+   this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
    this.idBusqueda = '1881057453';
    this.getDoctor();
   }

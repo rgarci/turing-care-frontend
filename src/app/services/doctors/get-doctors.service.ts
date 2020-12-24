@@ -23,7 +23,7 @@ export class GetDoctorsService {
       if (this.cachedValues[id]){
         resolve(this.cachedValues[id]);
       }else {
-        this.http.get('https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=hospitales-y-centros-de-salud&q=&rows=1' )
+        this.http.get('https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=hospitales-y-centros-de-salud&q=Dra.&rows=1' )
           .toPromise()
           .then((response) => {
             resolve(response as DoctorItf);

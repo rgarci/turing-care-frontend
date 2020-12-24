@@ -1,5 +1,5 @@
-<app-header></app-header>
-<mat-grid-list cols="4">
+<app-header [idDoctor]="idDoctor"></app-header>
+<mat-grid-list *ngIf="doctor;else loading" cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
      <img class = profileImage src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   </mat-grid-tile>
@@ -29,5 +29,5 @@
   </mat-grid-tile>
 
 </mat-grid-list>
-
+<ng-template #loading>Loading...</ng-template>
 <app-footer></app-footer>

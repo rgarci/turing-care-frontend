@@ -15,7 +15,4 @@ export class HeaderComponent implements OnInit {
 
    ngOnInit(): void {
   }
-  profile(){
-    this.router.navigate(['doctors/{{idDoctor}}/profile']);
-  }
 }
