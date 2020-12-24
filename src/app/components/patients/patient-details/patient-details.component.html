@@ -1,11 +1,11 @@
-<app-header></app-header>
+<app-header [idDoctor]="idDoctor"></app-header>
 
 <div class="aline-patient-detail">
     <mat-card-header>
         <div class="card-head">
             <div class="card-name">
-               <mat-card-title>Eliezer Couoh</mat-card-title>
-                <mat-card-subtitle>9999020190, elieferco@gmail.com</mat-card-subtitle> 
+               <mat-card-title>{{patients.results[0].name.first}} {{patients.results[0].name.last}}</mat-card-title>
+                <mat-card-subtitle>Teléfono: {{patients.results[0].phone}}, Edad: {{patients.results[0].registered.age}}</mat-card-subtitle> 
             </div>
             <div class="card-button-register">
                 <button mat-raised-button >AÑADIR REGISTRO</button>
@@ -16,7 +16,7 @@
 
     <mat-tab-group>
         <mat-tab label="Datos"> 
-            <app-patient-data-card></app-patient-data-card>
+            <app-patient-data-card [parentData]="patients" [patients]="patients"></app-patient-data-card>
         </mat-tab>
         <mat-tab label="Historial"> 
             <app-registers-table></app-registers-table>

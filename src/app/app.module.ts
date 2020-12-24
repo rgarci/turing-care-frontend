@@ -24,12 +24,20 @@ import { RegistersTableComponent } from './components/registers/registers-table/
 import { RegisterDetailsComponent } from './components/registers/register-details/register-details.component';
 import { PatientDetailsComponent } from './components/patients/patient-details/patient-details.component';
 import { PatientDataCardComponent } from './components/patients/patient-data-card/patient-data-card.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
 import { LocationDateToolbarComponent } from './components/location-date-toolbar/location-date-toolbar.component';
 import { DoctorProfileComponent } from './components/doctors/doctor-profile/doctor-profile.component';
 import {MatMenuModule} from '@angular/material/menu';
 
+import { MatInputModule} from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
+import {  ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NewsListComponent } from './components/news/news-list/news-list.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +51,11 @@ import {MatMenuModule} from '@angular/material/menu';
     PatientDataCardComponent,
     RegisterDetailsComponent,
     LocationDateToolbarComponent,
-    DoctorProfileComponent
-  ],
+    DoctorProfileComponent,
+    PatientFormComponent,
+    NewsListComponent,
+    PageNotFoundComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -58,10 +69,16 @@ import {MatMenuModule} from '@angular/material/menu';
     MatTabsModule,
     MatCardModule,
     MatDialogModule,
-    MatFormFieldModule,
     MatInputModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatPaginatorModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule
   ],
   providers: [ DatePipe],
   bootstrap: [AppComponent]
