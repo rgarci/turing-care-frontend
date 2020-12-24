@@ -1,0 +1,33 @@
+<app-header [idDoctor]="idDoctor"></app-header>
+<mat-grid-list *ngIf="doctor;else loading" cols="4">
+  <mat-grid-tile class="profileImage-column" rowspan="2" >
+     <img class = profileImage src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3">
+    <div class="information-tile">
+      <div class="information-header">
+        <h1>{{doctor.records[0].fields.nombreDoctor}}</h1>
+        <h2>{{doctor.records[0].fields.nombre}}</h2>
+      </div>
+      <h2 class = "direction" >{{doctor.records[0].fields.direccion}}</h2>
+      <div class="information-footer">
+        <h2>Cédula profesional: {{doctor.records[0].recordid}}</h2>
+        <h2>CURP: {{doctor.records[0].fields.curp}}</h2>
+      </div>
+    </div>
+    <button mat-raised-button class="flex-start">Editar</button>
+  </mat-grid-tile>
+
+  <mat-grid-tile colspan="3">
+    <div class= "all-tile">
+      <mat-tab-group>
+        <mat-tab label="Áreas Medicas"> Ortopedia, Pediatria </mat-tab>
+        <mat-tab label="Otros"> Good Boy </mat-tab>
+      </mat-tab-group>
+    </div>
+  </mat-grid-tile>
+
+</mat-grid-list>
+<ng-template #loading>Loading...</ng-template>
+<app-footer></app-footer>

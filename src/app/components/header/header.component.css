@@ -19,6 +19,11 @@ mat-toolbar > a{
     color: aliceblue;
 }
 
+.account-icon{
+  color: white;
+  background: #1F6566;
+}
+
 .nav-options{
     display: flex;
     flex-flow: row wrap;
@@ -32,4 +37,7 @@ mat-toolbar > a{
     padding-right: 24px;
     text-decoration: none;
     color: var(--white);
+}
+a {
+  text-decoration: none;
 }

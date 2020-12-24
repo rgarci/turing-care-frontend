@@ -1,0 +1,54 @@
+mat-grid-tile{
+  background: white;
+}
+.profileImage {
+  align-self: flex-start;
+  width: 70%;
+  padding-top: 8vh;
+}
+.information-tile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 70%;
+}
+
+.information-header {
+  padding-bottom: 30px;
+}
+.all-tile {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.information-footer {
+  padding-top: 30px;
+}
+h1 {
+  font-weight: bold;
+}
+
+h2 {
+  margin: 0;
+}
+.direction {
+  font-size: small;
+  width: 60%;
+}
+
+.information-footer> h2 {
+  font-size: medium;
+}
+.flex-start {
+  margin-right: 10%;
+  align-self: flex-start;
+  margin-top: 5%;
+}
+button {
+  background: #3BBCBE ;
+  color: #f0f8ff;
+  font-size: medium;
+  width: 10%;
+}

@@ -1,0 +1,13 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar{
+  background-color: aliceblue;
+  color: black;
+  height: 8vh;
+}
+
+mat-toolbar > p {
+  padding-left: 50px;
+}
