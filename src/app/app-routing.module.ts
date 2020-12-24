@@ -8,6 +8,7 @@ import {LoginComponent} from './components/doctors/login/login.component';
 import {DoctorProfileComponent} from './components/doctors/doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
+  {path: "",  redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
   { path: 'patients/:idDoctor', component: PatientListComponent },
   { path: 'patient-details', component: PatientDetailsComponent },
