@@ -41,7 +41,14 @@ h2 {
 .information-footer> h2 {
   font-size: medium;
 }
-.doctorInfoExtra {
+.flex-start {
+  margin-right: 10%;
   align-self: flex-start;
+  margin-top: 5%;
 }
-
+button {
+  background: #3BBCBE ;
+  color: #f0f8ff;
+  font-size: medium;
+  width: 10%;
+}
