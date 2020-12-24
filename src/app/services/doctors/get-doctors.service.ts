@@ -40,7 +40,7 @@ export class GetDoctorsService {
       if (this.cachedValues[limit]){
         resolve();
       }else {
-        this.http.get('https://npiregistry.cms.hhs.gov/api/?version=2.0&enumeration_type=NPI-1&city=baltimore&limit=' + limit)
+        this.http.get('https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=hospitales-y-centros-de-salud&q=&rows=' + limit )
           .toPromise()
           .then((response) => {
             resolve(response as DoctorItf);

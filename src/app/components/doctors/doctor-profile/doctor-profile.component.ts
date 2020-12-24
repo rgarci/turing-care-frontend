@@ -24,13 +24,22 @@ export class DoctorProfileComponent implements OnInit {
   }
 
   getDoctor = () => {
-    this.getDoctorService.getDoctorById(this.idBusqueda)
+       this.getDoctorService.getDoctorById(this.idBusqueda)
       .then((response) => {
         this.doctor = response;
+        this.separateFields();
       }, (error) => {
         alert('Error: ' + error.statusText + this.idBusqueda);
       });
   }
 
+  separateFields = () => {
+    let cadena = this.doctor.records[0].fields.titular;
+    this.doctor.records[0].fields.nombreDoctor =
+      cadena.split("Dirección:")[0].replace("Director:","");
+    this.doctor.records[0].fields.direccion =
+      cadena.split("Dirección:")[1].replace("Dirección:","");
+    this.doctor.records[0].fields.curp = 'AERW134MTXS3009';
+  }
 
 }

@@ -6,9 +6,13 @@ export interface DoctorItf {
   },
   "records": Array <
     {
+      "recordid" : string,
       "fields": {
-        "titular": "Director: Dr. Enrique Garduño Salvador Dirección: Av. San Juan de Aragón No 28, Col. Granjas Modernas. Delegación Gustavo A. Madero C.P. 07460. Teléfono: 55 77 88 67",
-        "nombre": "Hospital General La Villa"
+        "titular": string,
+        "nombre": string,
+        "direccion": string,
+        "nombreDoctor": string,
+        "curp" : string
       }
     }
     >;

@@ -1,29 +1,31 @@
 <app-header></app-header>
-<mat-grid-list cols="3">
+<mat-grid-list cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
      <img class = profileImage src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
   </mat-grid-tile>
 
-  <mat-grid-tile colspan="2">
+  <mat-grid-tile colspan="3">
     <div class="information-tile">
       <div class="information-header">
-        <h1>{{doctor.records[0].fields.titular}}</h1>
-        <h2>Clínica en que da consulta</h2>
+        <h1>{{doctor.records[0].fields.nombreDoctor}}</h1>
+        <h2>{{doctor.records[0].fields.nombre}}</h2>
       </div>
-      <h2>Dirección de la clínica</h2>
-      <div>
-        <h2>Cédula profesional</h2>
-        <h2>CURP</h2>
+      <h2 class = "direction" >{{doctor.records[0].fields.direccion}}</h2>
+      <div class="information-footer">
+        <h2>Cédula profesional: {{doctor.records[0].recordid}}</h2>
+        <h2>CURP: {{doctor.records[0].fields.curp}}</h2>
       </div>
     </div>
 
   </mat-grid-tile>
 
-  <mat-grid-tile colspan="2">
-    <mat-tab-group>
-      <mat-tab label="Áreas Medicas"> Content 1 </mat-tab>
-      <mat-tab label="Otros"> Content 2 </mat-tab>
-    </mat-tab-group>
+  <mat-grid-tile colspan="3">
+    <div class= "all-tile">
+      <mat-tab-group>
+        <mat-tab label="Áreas Medicas"> Ortopedia, Pediatria </mat-tab>
+        <mat-tab label="Otros"> Good Boy </mat-tab>
+      </mat-tab-group>
+    </div>
   </mat-grid-tile>
 
 </mat-grid-list>
