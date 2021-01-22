@@ -1,56 +1,48 @@
-<app-header></app-header>
+<app-header [idDoctor]="idDoctor"></app-header>
+
 <div class="myContainer">
-        <table mat-table [dataSource]="patients.results" class="mat-elevation-z8">
+    <h2>{{greeting}}</h2>
+    <form action="">
+        <mat-form-field appearance="legacy">
+            <input matInput placeholder="Buscar" #input (keyup)="getPatient($event)">
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)=openCreateForm()>Añadir <mat-icon>add</mat-icon></button>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <ng-container matColumnDef="Id">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
-              <td mat-cell *matCellDef="let element" name="id"> {{element.id.value}} </td>
-            </ng-container>
-          
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Nombre </th>
-              <td mat-cell *matCellDef="let element"> {{element.name.title}} </td>
-            </ng-container>
-          
-            <!-- Weight Column -->
-            <ng-container matColumnDef="age">
-              <th mat-header-cell *matHeaderCellDef> Edad </th>
-              <td mat-cell *matCellDef="let element"> {{element.registered.age}} </td>
-            </ng-container>
-          
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="phone">
-              <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-              <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-            </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.name.first}} </td>
+        </ng-container>
+        
+        <!-- Weight Column -->
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef> Edad </th>
+            <td mat-cell *matCellDef="let element"> {{element.registered.age}} </td>
+        </ng-container>
+        
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                <td mat-cell *matCellDef="let element" class="button-row"> 
-                    <div class="flex-container">
-                        <div class="button-container">
-                            <button mat-icon-button (click)="editPatient()">
-                                <mat-icon>edit</mat-icon>
-                            </button>
-                        </div>
-                        <div class="button-container">
-                            <button mat-icon-button (click)="viewPatient()">
-                                <mat-icon>remove_red_eye</mat-icon>
-                            </button>
-                        </div>
-                        <div class="button-container">
-                            <button mat-icon-button (click)="deletePatient()" >
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </div>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element" class="button-row"> 
+                <div class="flex-container">
+                    <div class="button-container">
+                        <button mat-icon-button (click)="viewPatient(element.name.first)">
+                            <mat-icon>remove_red_eye</mat-icon>
+                        </button>
                     </div>
-                </td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-          </table>
-    
+                </div>
+            </td>
+        </ng-container>
+        
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
 <app-footer></app-footer>

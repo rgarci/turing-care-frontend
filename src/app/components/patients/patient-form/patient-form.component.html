@@ -1,0 +1,61 @@
+
+<h2 mat-dialog-title>AGREGAR PACIENTE</h2>
+<mat-dialog-content class="mat-typography">
+
+    <form class="addForm" [formGroup]="frmReactivo">
+        <mat-form-field class="itext" appearance="legacy">
+            <mat-label>Nombre(s):</mat-label>
+            <input matInput type="text" formControlName="firstName">
+        </mat-form-field>
+
+        <mat-form-field class="itext" appearance="legacy">
+            <mat-label>Apellido paterno:</mat-label>
+            <input matInput type="text" formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field class="itext" appearance="legacy">
+            <mat-label>Apellido materno:</mat-label>
+            <input matInput type="text" formControlName="secondLastName">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthdate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Género</mat-label>
+            <mat-select formControlName="gender">
+                <mat-option value="option">Mujer</mat-option>
+                <mat-option value="option">Hombre</mat-option>
+                <mat-option value="option">Otro</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Alergias</mat-label>
+            <textarea matInput formControlName="alergies"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Operaciones previas</mat-label>
+            <textarea matInput formControlName="previousSurgery"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Enfermedades crónicas</mat-label>
+            <textarea matInput formControlName="cronicIllness"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Tratamientos vigentes</mat-label>
+            <textarea matInput formControlName="treatments"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid">Guardar</button>
+</mat-dialog-actions>
