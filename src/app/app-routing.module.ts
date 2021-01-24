@@ -6,6 +6,7 @@ import { PatientDetailsComponent } from './components/patients/patient-details/p
 import { PatientListComponent } from './components/patients/patient-list/patient-list.component';
 import {LoginComponent} from './components/doctors/login/login.component';
 import {DoctorProfileComponent} from './components/doctors/doctor-profile/doctor-profile.component';
+import {DoctorListComponent} from './components/doctors/doctor-list/doctor-list.component';
 
 const routes: Routes = [
   {path: "",  redirectTo: 'login', pathMatch: "full"},
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'patient-details', component: PatientDetailsComponent },
   { path: 'noticias/:idDoctor', component: NewsListComponent },
   { path: 'perfil/:idDoctor', component: DoctorProfileComponent},
+  { path: 'doctores', component: DoctorListComponent},
+  { path: 'doctores/:idDoctor', component: DoctorProfileComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 
