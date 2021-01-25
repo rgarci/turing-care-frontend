@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
+import { RegisterFormComponent } from '../../registers/register-form/register-form.component';
 
 @Component({
   selector: 'app-patient-details',
@@ -13,7 +15,8 @@ export class PatientDetailsComponent implements OnInit {
   idPatient : string;
   idDoctor : string;
 
-  constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, private router : Router) { }
+  constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, private router : Router,
+    public dialog:MatDialog) { }
 
   ngOnInit(): void {
 
@@ -27,5 +30,16 @@ export class PatientDetailsComponent implements OnInit {
     }, (error) => {
       alert("Error: " + error.statusText)
     })
+  }
+
+  openCreateFormRegister(){
+    const dialogRef = this.dialog.open(RegisterFormComponent, {
+      width:'100%'
+    });
+
+    dialogRef.afterClosed().subscribe(result  => {
+      console.log('Dialog result:  %O', result);
+    });
+
   }
 }
