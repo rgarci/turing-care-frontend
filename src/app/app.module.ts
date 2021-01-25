@@ -39,6 +39,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewsListComponent } from './components/news/news-list/news-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-form.component';
+import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-for
     PatientFormComponent,
     NewsListComponent,
     PageNotFoundComponent,
-    DoctorFormComponent
+    DoctorFormComponent,
+    RegisterFormComponent
     ],
   imports: [
     BrowserModule,
