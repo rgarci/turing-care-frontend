@@ -3,30 +3,36 @@
 
     <form class="addForm" [formGroup]="frmReactivo">
         <mat-form-field appearance="fill">
-            <mat-label>Fecha</mat-label>
+            <mat-label>Fecha de cita</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Asuntos</mat-label>
+            <textarea matInput formControlName="asunto"></textarea>
+        </mat-form-field>
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="descripcion"></textarea>
+        </mat-form-field>
+        <mat-form-field class="tarea" appearance="fill">
             <mat-label>Sintomas</mat-label>
             <textarea matInput formControlName="symptoms"></textarea>
+        </mat-form-field>
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput formControlName="observations"></textarea>
         </mat-form-field>
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Medicación recetada</mat-label>
             <textarea matInput formControlName="medications"></textarea>
         </mat-form-field>
         <mat-form-field class="tarea" appearance="fill">
-            <mat-label>Observaciones</mat-label>
-            <textarea matInput formControlName="observations"></textarea>
-        </mat-form-field>
-
-        <mat-form-field class="tarea" appearance="fill">
             <mat-label>Tipo de tratamiento</mat-label>
             <textarea matInput formControlName="type_of_treatment"></textarea>
         </mat-form-field>
-
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Seguimiento de tratamiento</mat-label>
             <textarea matInput formControlName="treatment_monitoring"></textarea>

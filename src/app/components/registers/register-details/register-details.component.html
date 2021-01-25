@@ -1,23 +1,28 @@
-<h2 mat-dialog-title>{{dataSource.patient.label}}</h2>
+<h2 mat-dialog-title>{{dataSource.paciente.nombre}}</h2>
 <mat-dialog-content class="mat-typography">
 
-  <h3>Fecha</h3>
-  <p>{{dataSource.date_time}}</p>
+  <h3>Fecha de cita</h3>
+  <p>{{dataSource.fechaCita}}</p>
+
+  <h3>Asunto</h3>
+  <p>{{dataSource.asunto}}</p>
+
+  <h3>Descripción</h3>
+  <p>{{dataSource.descripcion}}</p>
 
   <h3>Sintomas</h3>
-  <p>{{dataSource.observations}}</p>
-
+  <p>{{dataSource.sintomas}}</p>
   
   <h3>Medicación recetada</h3>
-  <p></p>
+  <p>{{dataSource.medicamentoRecetado}}</p>
 
   <h3>Observaciones</h3>
-  <p>{{dataSource.diagnostic_type.label}}</p>
+  <p>{{dataSource.observaciones}}</p>
   <h3>Tratamiento</h3>
   <h4>Tipo de tratamiento</h4>
-  <p>{{dataSource.diagnostic_classification.label}}</p>
+  <p>{{dataSource.tipoTratamiento}}</p>
   <h4>Seguimiento de tratamiento</h4>
-  <p>{{dataSource.diagnostic_classification.label}}</p>
+  <p>{{dataSource.seguimientoTratamiento}}</p>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">

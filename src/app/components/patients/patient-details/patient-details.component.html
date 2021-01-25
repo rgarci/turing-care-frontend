@@ -4,8 +4,8 @@
     <mat-card-header>
         <div class="card-head">
             <div class="card-name">
-               <mat-card-title>{{patients.results[0].name.first}} {{patients.results[0].name.last}}</mat-card-title>
-                <mat-card-subtitle>Teléfono: {{patients.results[0].phone}}, Edad: {{patients.results[0].registered.age}}</mat-card-subtitle>
+               <mat-card-title>{{patients.nombre}} {{patients.apellidoPaterno}}</mat-card-title>
+                <mat-card-subtitle>Teléfono: {{patients.telefono}}, Fecha de nacimiento: {{patients.fechaNacimiento}}</mat-card-subtitle>
             </div>
             <div class="card-button-register">
                 <button mat-raised-button color="primary" (click)=openCreateFormRegister()>Añadir Registro <mat-icon>add</mat-icon></button>

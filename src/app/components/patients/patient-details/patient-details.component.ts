@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { RegisterFormComponent } from '../../registers/register-form/register-form.component';
@@ -11,7 +12,7 @@ import { RegisterFormComponent } from '../../registers/register-form/register-fo
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit {
-  patients : PatientItf;
+  patients : Paciente;
   idPatient : string;
   idDoctor : string;
 

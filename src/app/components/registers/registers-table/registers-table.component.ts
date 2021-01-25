@@ -4,6 +4,7 @@ import { RegisterDetailsComponent } from '../register-details/register-details.c
 import { RegisterListItf } from "src/app/interfaces/registers/register-list-itf";
 import { GetRegistersService } from 'src/app/services/registers/get-registers.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RegistrosList } from 'src/app/interfaces/registers/registros-list';
 
 
 
@@ -14,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RegistersTableComponent implements OnInit {
   displayedColumns: string[] = ['position', 'asunto', 'fecha', 'acciones'];
-  dataSource:RegisterListItf;
+  dataSource:RegistrosList;
   name: string;
 
   constructor(public dialog: MatDialog, 
@@ -22,7 +23,8 @@ export class RegistersTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRegistersSvc.getRegisters().then((response) =>{
-      this.dataSource = response;
+      console.log(response);
+      this.dataSource= response;
     }, (error) => {
       alert("Error: " + error.statusText)
     })

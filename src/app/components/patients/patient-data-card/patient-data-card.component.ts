@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 
 @Component({
@@ -9,7 +10,7 @@ import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 export class PatientDataCardComponent implements OnInit{
 
   @Input() parentData;
-  @Input("patients") patients : PatientItf;
+  @Input("patients") patients : Paciente;
 
   birthDate : string;
   gender : string;
@@ -19,12 +20,12 @@ export class PatientDataCardComponent implements OnInit{
   treatments: string;
 
   ngOnInit(): void {
-    this.birthDate = this.patients.results[0].registered.date.substr(0, 10);
-    this.gender = this.patients.results[0].gender;
-    this.alergies = this.patients.results[0].login.md5.concat(this.patients.results[0].login.md5);
-    this.previousSurgery = this.patients.results[0].login.md5.concat(this.patients.results[0].login.md5);
-    this.cronicIllness = this.patients.results[0].login.md5.concat(this.patients.results[0].login.md5);
-    this.treatments = this.patients.results[0].login.md5.concat(this.patients.results[0].login.md5);
+    this.birthDate = this.patients.fechaNacimiento;
+    this.gender = this.patients.sexo;
+    this.alergies = this.patients.alergias;
+    this.previousSurgery = this.patients.operacionesPrevias;
+    this.cronicIllness = this.patients.enfermedadesCronicas;
+    this.treatments = this.patients.tratamientosVigentes;
   }
 
 }

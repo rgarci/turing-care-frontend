@@ -3,6 +3,7 @@ import { GetRegistersService } from 'src/app/services/registers/get-registers.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterItf } from "src/app/interfaces/registers/register-itf";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Registros } from 'src/app/interfaces/registers/registros';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class RegisterDetailsComponent  implements OnInit  {
   idRegister:string
-  dataSource:RegisterItf;
+  dataSource:Registros;
 
   constructor(
     private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router,
