@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   user : User;
   hidepswd = true;
   logged = false;
-  idDoctor: string;
+  idDoctor: number;
   loginFrmTemplate = this.fb.group({
     user: ['', Validators.required],
     password: ['', Validators.required]
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       this.svclogin.login(body).then((response) =>{
         this.user = response; 
         this.logged = true;
-        this.idDoctor = this.loginFrmTemplate.get('user').value;
+        this.idDoctor = this.user.messageMedico.medicoId;
         this.router.navigate(['patients/:idDoctor' , {idDoctor : this.user.messageMedico.medicoId, 
           token: this.user.token, 
           nombre: this.user.messageMedico.nombre }]);

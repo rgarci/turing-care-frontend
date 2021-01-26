@@ -34,6 +34,8 @@ export class PatientListComponent implements OnInit{
   ngOnInit(): void {
 
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+    console.log(this.idDoctor);
+    
     this.buscar = '';
     this.doctorGender = true;
     this.token = this.route.snapshot.paramMap.get('token')
