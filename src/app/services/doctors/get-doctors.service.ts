@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {DoctorItf} from '../../interfaces/doctors/doctor-itf';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Doctor } from 'src/app/interfaces/doctors/doctor';
 
 
 @Injectable({
@@ -18,15 +19,17 @@ export class GetDoctorsService {
     this.http = http;
   }
 
-  getDoctorById = (id: string): Promise<DoctorItf> => {
-    let promise = new Promise<DoctorItf> ( (resolve, reject) => {
+  getDoctorById = (id: string, token : string): Promise<Doctor> => {
+    let promise = new Promise<Doctor> ( (resolve, reject) => {
       if (this.cachedValues[id]){
         resolve(this.cachedValues[id]);
       }else {
-        this.http.get('https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=hospitales-y-centros-de-salud&q=Dra.&rows=1' )
+        this.http.get('api/medico/'+id, {
+          headers: {'Authorization':token}
+        })
           .toPromise()
           .then((response) => {
-            resolve(response as DoctorItf);
+            resolve(response as Doctor);
           }, (error) => {
             reject(error);
           });

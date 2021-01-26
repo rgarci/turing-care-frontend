@@ -30,4 +30,10 @@ export class HeaderComponent implements OnInit {
       nombre: this.nombre }]);
   }
 
+  seePerfil(){
+    this.router.navigate(['perfil/'+this.idDoctor , {idDoctor : this.idDoctor, 
+      token: this.token, 
+      nombre: this.nombre }]);
+  }
+
 }
