@@ -1,0 +1,16 @@
+
+.addForm, mat-dialog-actions{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+textarea {
+    width: 100%;
+}
+.tarea{
+    width: 100%;
+}
+.itext{
+    width: 30%;
+}
