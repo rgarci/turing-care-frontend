@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     if (this.loginFrmTemplate.get('user').value && this.loginFrmTemplate.get('password').value) {
       this.logged = true;
       this.idDoctor = this.loginFrmTemplate.get('user').value;
-      this.router.navigate(['patients/:idDoctor' , {idDoctor : this.idDoctor}]);
+      this.router.navigate(['patients', {idDoctor : this.idDoctor}]);
     }
   }
 

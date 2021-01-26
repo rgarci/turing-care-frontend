@@ -27,7 +27,7 @@ export class PatientFormComponent implements OnInit {
   }
 
   save(){
-    const patient : Patient = {
+    const patient = {
       "gender": this.frmReactivo.get('gender').value,
       "name": {
       "title": this.frmReactivo.get('firstName').value,

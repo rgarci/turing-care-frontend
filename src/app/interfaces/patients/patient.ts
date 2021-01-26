@@ -1,27 +1,16 @@
 export interface Patient {
-    
-    "gender": string,
-    "name": {
-    "title": string,
-    "first": string,
-    "last": string
-    },
-    "registered": {
-        "date": string,
-        "age": number
-        },
-    "phone" : string,
-    "id": {
-        "name": string,
-        "value": string
-    },
-    "login": {
-        "uuid": string,
-        "username": string,
-        "password": string,
-        "salt": string,
-        "md5": string,
-        "sha1": string,
-        "sha256": string
-    }
+
+  paciente_id: number;
+  doctor_id: number;
+  nombre: string;
+  apellido_paterno: string;
+  apellido_materno: string;
+  email: string;
+  telefono: string;
+  fecha_nacimiento: Date;
+  sexo: string;
+  alergias: string;
+  operaciones_previas: string;
+  enfermedades_cronicas: string;
+  tratamientos_vigentes: string;
 }

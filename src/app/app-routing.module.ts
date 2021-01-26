@@ -11,7 +11,7 @@ import {DoctorListComponent} from './components/doctors/doctor-list/doctor-list.
 const routes: Routes = [
   {path: "",  redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
-  { path: 'patients/:idDoctor', component: PatientListComponent },
+  { path: 'patients', component: PatientListComponent },
   { path: 'patient-details', component: PatientDetailsComponent },
   { path: 'noticias/:idDoctor', component: NewsListComponent },
   { path: 'perfil/:idDoctor', component: DoctorProfileComponent},

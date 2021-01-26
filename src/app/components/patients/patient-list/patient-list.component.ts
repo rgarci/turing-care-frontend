@@ -21,12 +21,12 @@ export class PatientListComponent implements OnInit{
   doctorName : string;
   greeting : string;
   doctorGender : boolean;
-  patients : PatientItf;
+  patients : Patient[];
   idDoctor : string;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
-    private router : Router, public dialog: MatDialog) { }
+              private router : Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -40,9 +40,11 @@ export class PatientListComponent implements OnInit{
       this.greeting = "Bienvenido Doctor ".concat(this.doctorName);
     }
 
-    this.getPatientsSvc.getPatients("123").then((response) =>{
+
+    this.getPatientsSvc.getPatients(this.idDoctor).then((response) =>{
       this.patients = response;
-      this.dataSource = new MatTableDataSource(this.patients.results);
+      console.log(this.patients);
+      this.dataSource = new MatTableDataSource(this.patients);
       this.dataSource.paginator = this.paginator;
     }, (error) => {
       alert("Error: " + error.statusText);
