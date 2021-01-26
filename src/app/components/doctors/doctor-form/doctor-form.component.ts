@@ -58,7 +58,7 @@ export class DoctorFormComponent implements OnInit {
         }
 
         this.loginSvc.registerDoctor(body, user.token);
-
+        alert("El usuario" + bodyUser.username + " se ha registrado correctamente");
     }, (error) => {
       alert("Error: " + error.statusText +"No se pudo registrar correctamente")
     })

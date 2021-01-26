@@ -67,6 +67,27 @@ export class LoginService {
       });
       return promise;
   };
+
+  exit = (token: string) =>{
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: token
+      })
+    };
+    
+      let promise = new Promise((resolve,reject) =>{
+        this.http.get('api/exit', httpOptions)
+        .toPromise()
+        .then((response) => {
+          console.log(response);
+          console.log(token);
+
+          resolve(response)
+        }, (error) => {
+          reject(error)
+        })
+      });
+  }
   
 
 }

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           token: this.user.token, 
           nombre: this.user.messageMedico.nombre }]);
       }, (error) => {
-        alert("Error: " + error.statusText)
+        alert("Usuario o contraseña incorrectos")
       });
      
     }
