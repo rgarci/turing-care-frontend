@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
-        if (err instanceof ErrorEvent) {
+       if (err.error instanceof ErrorEvent) {
           // A client-side or network error occurred. Handle it accordingly.
           console.error('An error occurred:', err.error.message);
         } else if (err.status === 401) {
@@ -29,8 +29,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.error(`Backend returned code ${err.status}, ` +
             `body was: ${err.error}`);
         }
+       console.log("Error interceptado" + err);
         // Return an observable with a user-facing error message.
-        const error = err.error.message || err.statusText;
+        const error = err.message || err.statusText;
         return throwError(error);
       }));
   }

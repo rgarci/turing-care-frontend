@@ -4,6 +4,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
 import {AuthService} from '../../services/auth/auth.service';
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
@@ -35,27 +36,22 @@ export class LoginComponent implements OnInit {
     if (this.loginFrmTemplate.invalid) {
       return;
     }
-//TODO: authSrv
-    //Emits only the first value returned on the login observable.
-    let us = this.authService.login(this.loginFrmTemplate.get('user').value,
-      this.loginFrmTemplate.get('password').value);
-
-    this.router.navigate(['patients', {idDoctor : us.id}]);
-      // .pipe(first())
-      // .subscribe(
-      //   data => {
-      //     this.router.navigate([this.returnUrl]);
-      //   },
-      //   error => {
-      //     alert(error);
-      //     this.loading = false;
-      //   });
-
-    // if (this.loginFrmTemplate.get('user').value && this.loginFrmTemplate.get('password').value) {
-    //   this.logged = true;
-    //   this.idDoctor = this.loginFrmTemplate.get('user').value;
-    //   this.router.navigate(['patients', {idDoctor : this.idDoctor}]);
-    // }
+    //Emits only the first value returned on the login observable.As a suscriber to act only after a
+    //change.
+    this.loading = true;
+    this.authService.login(this.loginFrmTemplate.get('user').value, this.loginFrmTemplate.get('password').value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(this.authService.currentUserValue);
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          //TODO: handle error
+          alert(error);
+          console.log("Error en login "+ error);
+          this.loading =false;
+        });
   }
 
   hidepassword(e) {
