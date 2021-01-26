@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>AGREGAR REGISTRO</h2>
+<mat-dialog-content class="mat-typography">
+
+    <form class="addForm" [formGroup]="frmReactivo">
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Sintomas</mat-label>
+            <textarea matInput formControlName="symptoms"></textarea>
+        </mat-form-field>
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Medicación recetada</mat-label>
+            <textarea matInput formControlName="medications"></textarea>
+        </mat-form-field>
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput formControlName="observations"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Tipo de tratamiento</mat-label>
+            <textarea matInput formControlName="type_of_treatment"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="tarea" appearance="fill">
+            <mat-label>Seguimiento de tratamiento</mat-label>
+            <textarea matInput formControlName="treatment_monitoring"></textarea>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cerrar</button>
+    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid">Guardar</button>
+</mat-dialog-actions>

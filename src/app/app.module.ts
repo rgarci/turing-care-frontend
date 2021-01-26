@@ -39,10 +39,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NewsListComponent } from './components/news/news-list/news-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-form.component';
+
 import { DoctorListComponent } from './components/doctors/doctor-list/doctor-list.component';
 import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {AuthService} from "./services/auth/auth.service";
+
+import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +65,11 @@ import {AuthService} from "./services/auth/auth.service";
     NewsListComponent,
     PageNotFoundComponent,
     DoctorFormComponent,
+
     DoctorListComponent
+
+    RegisterFormComponent
+
     ],
   imports: [
     BrowserModule,
