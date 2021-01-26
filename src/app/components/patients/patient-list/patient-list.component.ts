@@ -71,7 +71,7 @@ export class PatientListComponent implements OnInit{
   }
 
   viewPatient(patientId : string){
-    this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor, token :this.token}])
+    this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor, token :this.token, nombre: this.doctorName}])
   }
 
 }

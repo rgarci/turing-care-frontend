@@ -13,11 +13,15 @@ export class NewsListComponent implements OnInit {
 
   news : NewsList;
   idDoctor : string;
+  doctorName: string;
+  token: string;
 
   constructor(private getNewsSvc : GetNewsService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+    this.doctorName = this.route.snapshot.paramMap.get('nombre');
+    this.token = this.route.snapshot.paramMap.get('token')
     this.getNewsSvc.getNews().then((response) =>{
       this.news = response;
       console.log("resultados %O", response)

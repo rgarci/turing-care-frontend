@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { RegistroPost } from 'src/app/interfaces/registers/registroPost';
 import { Registros } from 'src/app/interfaces/registers/registros';
@@ -28,12 +29,14 @@ export class RegisterFormComponent implements OnInit {
   idPaciente:number;
   token:string;
   idDoctor: number
+  doctorName: string;
   constructor(private getRegister : GetRegistersService, private fb: FormBuilder, 
-    public dialogRef: MatDialogRef<RegisterFormComponent>,
+    public dialogRef: MatDialogRef<RegisterFormComponent>, private router : Router,
     @Inject(MAT_DIALOG_DATA) public data) {
       this.idPaciente = data.idPatient;
       this.token = data.token;
       this.idDoctor = data.idDoctor;
+      this.doctorName = data.nombre;
     }
 
   ngOnInit(): void {
@@ -68,8 +71,15 @@ export class RegisterFormComponent implements OnInit {
     }
     
     this.getRegister.createRegistro(register, this.token);
-
+    this.dialogRef.afterClosed().subscribe(result  => {
+      console.log('Dialog result:  %O', result);
+      this.router.navigate(['patient-details' , {idPatient: this.idPaciente, nombre: this.doctorName, idDoctor : this.idDoctor, token :this.token}]);
+      this.router.navigate(['patients/'+this.idDoctor , {idDoctor :this.idDoctor, 
+        token: this.token, nombre: this.doctorName }]);
+      this.ngOnInit();
+    });
     this.dialogRef.close();
+    
   }
 
 }

@@ -16,6 +16,7 @@ export class PatientDetailsComponent implements OnInit {
   idPatient : string;
   idDoctor : string;
   token: string;
+  doctorName : string;
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, private router : Router,
     public dialog:MatDialog) { }
@@ -25,6 +26,7 @@ export class PatientDetailsComponent implements OnInit {
     this.idPatient = this.route.snapshot.paramMap.get('idPatient');
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.token = this.route.snapshot.paramMap.get('token');
+    this.doctorName = this.route.snapshot.paramMap.get('nombre');
     console.log("My input: " + this.idDoctor);
     console.log("patient: " + this.idPatient);
 
@@ -38,12 +40,13 @@ export class PatientDetailsComponent implements OnInit {
   openCreateFormRegister(){
     const dialogRef = this.dialog.open(RegisterFormComponent, {
       width:'100%',
-      data: {idPatient: this.idPatient, token: this.token, idDoctor: this.idDoctor}
+      data: {idPatient: this.idPatient, token: this.token, idDoctor: this.idDoctor, nombre: this.doctorName}
     });
 
     dialogRef.afterClosed().subscribe(result  => {
       console.log('Dialog result:  %O', result);
+      this.ngOnInit();
     });
-
+    
   }
 }

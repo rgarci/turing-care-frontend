@@ -44,5 +44,16 @@ export class RegistersTableComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  deleteRegister(idRegistro){
+    this.getRegistersSvc.deleteRegister(idRegistro, this.token).then((response) =>{
+      console.log(response);
+    }, (error) => {
+      alert("Se ha borrado " + error.statusText)
+      this.ngOnInit();
+    });
+    this.ngOnInit();
+
+  }
  
 }

@@ -10,9 +10,24 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   @Input("idDoctor") idDoctor : string;
+  @Input("token") token : string;
+  @Input("doctorName") nombre : string;
   constructor(private  route: ActivatedRoute,
               private router: Router) { }
 
    ngOnInit(): void {
   }
+
+  seePatient(){
+    this.router.navigate(['patients/'+this.idDoctor , {idDoctor : this.idDoctor, 
+      token: this.token, 
+      nombre: this.nombre }]);
+  }
+
+  seeNews(){
+    this.router.navigate(['noticias/'+this.idDoctor , {idDoctor : this.idDoctor, 
+      token: this.token, 
+      nombre: this.nombre }]);
+  }
+
 }

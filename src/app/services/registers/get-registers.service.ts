@@ -49,7 +49,21 @@ export class GetRegistersService {
     return promise;
   }
 
-  
+  deleteRegister = (idRegister : string, token : string) : Promise<Registros> => {
+    var endpoint = 'api/registroMedico/' + idRegister;
+    let promise = new Promise<Registros>((resolve, reject) =>{
+      this.http.delete(endpoint,{
+        headers: {'Authorization':token}
+      })
+      .toPromise()
+      .then((response) => {
+        resolve(response as Registros)
+      }, (error) => {
+        reject(error)
+      })
+    })
+    return promise;
+  }
 
   createRegistro = (registro : RegistroPost, token) : Promise<Registros> => {
     const httpOptions = {

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         this.user = response; 
         this.logged = true;
         this.idDoctor = this.user.messageMedico.medicoId;
-        this.router.navigate(['patients/:idDoctor' , {idDoctor : this.user.messageMedico.medicoId, 
+        this.router.navigate(['patients/'+this.idDoctor , {idDoctor : this.user.messageMedico.medicoId, 
           token: this.user.token, 
           nombre: this.user.messageMedico.nombre }]);
       }, (error) => {
