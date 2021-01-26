@@ -8,22 +8,14 @@
       <input matInput formControlName="firstName">
     </mat-form-field></td>
     <td><mat-form-field class="full-width">
-      <mat-label>Apellidos</mat-label>
-      <input matInput formControlName="lastNames">
+      <mat-label>Apellido paterno</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field></td>
+    <td><mat-form-field class="full-width">
+      <mat-label>Apellido materno</mat-label>
+      <input matInput formControlName="secondlastName">
     </mat-form-field></td>
   </tr></table>
-  <p>
-    <mat-form-field class="full-width">
-      <mat-label>Clínica</mat-label>
-      <input matInput formControlName="clinic">
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Dirección clínica</mat-label>
-      <textarea matInput placeholder="Ex. 100 Main St"
-                formControlName="clinic_direction">1600 Amphitheatre Pkwy</textarea>
-    </mat-form-field>
-  </p>
 
   <table class="full-width" cellspacing="0"><tr>
     <td><mat-form-field class="full-width">
@@ -35,15 +27,35 @@
       <input matInput formControlName="curp">
     </mat-form-field></td>
   </tr></table>
-
   <mat-form-field class="full-width">
     <mat-label>Areas médicas</mat-label>
     <input matInput placeholder="Pediatría, Dentista" formControlName="medicalAreas">
   </mat-form-field>
+  <table class="full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="full-width">
+      <mat-label>email</mat-label>
+      <input type="email" matInput formControlName="email">
+    </mat-form-field></td>
+    <td><mat-form-field class="full-width">
+      <mat-label>telefono</mat-label>
+      <input type="number" matInput formControlName="phone">
+    </mat-form-field></td>
+  </tr></table>
+  
+  <table class="full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="full-width">
+      <mat-label>username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field></td>
+    <td><mat-form-field class="full-width">
+      <mat-label>contraseña</mat-label>
+      <input type="password" matInput formControlName="password">
+    </mat-form-field></td>
+  </tr></table>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button mat-dialog-close class="principal-button" (click)="register()">Registrar</button>
+  <button mat-button mat-dialog-close class="principal-button" (click)="register()" [disabled] = "!registerFormTemplate.valid">Registrar</button>
 </mat-dialog-actions>
 
 

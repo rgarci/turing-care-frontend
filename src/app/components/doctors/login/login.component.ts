@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
 
   register(){
     const dialogRef = this.dialogForm.open(DoctorFormComponent, {
-      width: '500px',
+      width: '1000px',
       height: '500px'
     });
 
