@@ -14,7 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { LoginComponent } from './components/login/login.component';
 import { PatientListComponent } from './components/patients/patient-list/patient-list.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -44,6 +44,8 @@ import { DoctorListComponent } from './components/doctors/doctor-list/doctor-lis
 import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {AuthGuard} from "./_helpers/auth.guard";
 import {AuthService} from "./services/auth/auth.service";
+import {httpInterceptorProviders} from './_helpers/http-interceptors';
+import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.interceptor";
 
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 
@@ -65,9 +67,7 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     NewsListComponent,
     PageNotFoundComponent,
     DoctorFormComponent,
-
-    DoctorListComponent
-
+    DoctorListComponent,
     RegisterFormComponent
 
     ],
@@ -78,7 +78,6 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     FormsModule,
     MatToolbarModule,
     MatButtonModule,
-    HttpClientModule,
     MatTableModule,
     MatIconModule,
     MatTabsModule,
@@ -94,10 +93,13 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    HttpClientModule,
   ],
   providers: [ DatePipe,
-  AuthGuard, AuthService],
+  AuthGuard, AuthService,
+    httpInterceptorProviders,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

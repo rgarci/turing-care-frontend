@@ -4,59 +4,45 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {DoctorItf} from "../../interfaces/doctors/doctor-itf";
+import {catchError, first, map} from "rxjs/operators";
+import {ErrorInterceptor} from "../../_helpers/http-interceptors/error-interceptor.interceptor";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private userSubject: BehaviorSubject<User>;
+  private currentUserSubject: BehaviorSubject<User>;
   //to be notified when a user logs in, logs out or updates their profile.
-  public user: Observable<User>;
+  public currentUser: Observable<User>;
 
-  constructor( private router: Router, private http: HttpClient  ) {
+  constructor( private router: Router, private http: HttpClient ) {
     //uncomment to local storage
-    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-    this.user = this.userSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get userValue(): User {
-    return this.userSubject.value;
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
   }
 
-  isLoggedIn(): boolean{
-    //TODO: verify the condition to logged in
-    if (this.userValue.id===1) {
-      // authorised so return true
-      return true;
-    }
+  login = (username: string, password: string): Observable<User> => {
+    let url = 'http://localhost:3000/usuarios/autenticar';
+    return this.http.post(url ,{ usuario: username, psswd: password})
+       .pipe(
+         map(user => {
+         // store user details and jwt token in local storage to keep user logged in between page refreshes
+         localStorage.setItem('currentUser', JSON.stringify( user));
+         this.currentUserSubject.next(user as User);
+         console.log(this.currentUserValue);
+         return user as User;
+       }));
   }
 
- //TODO: add endpoint to loginconnection
-  login = (username: string, password: string): User => {
-    // let promise = new Promise<User> ( (resolve, reject) => {
-    //     this.http.get('urlDemo' )
-    //       .toPromise()
-    //       .then((response) => {
-    //         resolve(response as User);
-    //       }, (error) => {
-    //         reject(error);
-    //       });
-    // }
-    let us = new User();
-    us.id=6;
-    us.username = "wawau";
-    this.userSubject.next(us);
-    console.log(username+ password);
-    return us as User;
-    // );
-    // return promise;
-  }
-
-  logout() {
+  logout = () => {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
 }
