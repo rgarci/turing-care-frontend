@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
-import {AuthService} from '../../services/auth/auth.service';
+import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   private returnUrl: string;
 
   constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog,
-              private authService: AuthService,
+              private authService: AuthenticationService,
               private route: ActivatedRoute) { }
   ngOnInit(): void {
 

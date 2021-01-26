@@ -10,7 +10,7 @@ import {ErrorInterceptor} from "../../_helpers/http-interceptors/error-intercept
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<User>;
   //to be notified when a user logs in, logs out or updates their profile.

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { RegisterFormComponent } from '../../registers/register-form/register-form.component';
+import {Patient} from '../../../interfaces/patients/patient';
 
 @Component({
   selector: 'app-patient-details',
@@ -11,7 +12,7 @@ import { RegisterFormComponent } from '../../registers/register-form/register-fo
   styleUrls: ['./patient-details.component.css']
 })
 export class PatientDetailsComponent implements OnInit {
-  patients : PatientItf;
+  patient : Patient;
   idPatient : string;
   idDoctor : string;
 
@@ -26,9 +27,9 @@ export class PatientDetailsComponent implements OnInit {
     console.log("patient: " + this.idPatient);
 
     this.getPatientsSvc.getPatient(this.idPatient).then((response) =>{
-      this.patients = response;
+      this.patient = response;
     }, (error) => {
-      alert("Error: " + error.statusText)
+      alert("Error: " + error.statusText);
     })
   }
 

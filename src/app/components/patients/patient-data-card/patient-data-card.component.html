@@ -1,20 +1,20 @@
 <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-    
+
         <strong>Fecha de nacimiento</strong>
-        <p>{{birthDate}}</p>
+        <p>{{patients.fecha_nacimiento | date: "d/M/yyyy" }}</p>
         <strong>Sexo</strong>
-        <p>{{gender}}</p>
+        <p>{{patients.sexo}}</p>
         <strong>Alergias</strong>
-        <p>{{alergies}}</p>
+        <p>{{patients.alergias}}</p>
         <strong>Operaciones previas</strong>
-        <p>{{previousSurgery}}</p>
+        <p>{{patients.operaciones_previas}}</p>
 
         <strong>Enfermedades crónicas</strong>
-        <p>{{cronicIllness}}</p>
+        <p>{{patients.enfermedades_cronicas}}</p>
         <strong>Tratamientos vigentes</strong>
-        <p>{{treatments}}</p>
+        <p>{{patients.tratamientos_vigentes}}</p>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button >EDITAR</button>

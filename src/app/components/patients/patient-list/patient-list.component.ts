@@ -21,6 +21,8 @@ export class PatientListComponent implements OnInit{
   doctorName : string;
   greeting : string;
   doctorGender : boolean;
+
+  //TODO: PATIENTITF-Change
   patients : Patient[];
   idDoctor : string;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
@@ -41,7 +43,7 @@ export class PatientListComponent implements OnInit{
     }
 
 
-    this.getPatientsSvc.getPatients(this.idDoctor).then((response) =>{
+    this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
       console.log(this.patients);
       this.dataSource = new MatTableDataSource(this.patients);

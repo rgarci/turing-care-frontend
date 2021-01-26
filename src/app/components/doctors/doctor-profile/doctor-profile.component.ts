@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DoctorItf} from '../../../interfaces/doctors/doctor-itf';
 import {GetDoctorsService} from '../../../services/doctors/get-doctors.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Doctor} from "../../../interfaces/doctors/doctor";
 
 @Component({
   selector: 'app-doctor-profile',
@@ -10,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class DoctorProfileComponent implements OnInit {
 
-  doctor: DoctorItf;
+  doctor: Doctor;
   idDoctor: string;
   // parametro de busqueda de la ruta : doctor/{id}/profile
   idBusqueda: string;
@@ -22,27 +23,15 @@ export class DoctorProfileComponent implements OnInit {
 
   ngOnInit(): void {
    this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
-   this.idBusqueda = '1881057453';
-   this.getDoctor();
+   this.getDoctor(this.idDoctor);
   }
 
-  getDoctor = () => {
-       this.getDoctorService.getDoctorById(this.idBusqueda)
+  getDoctor = (id: string) => {
+       this.getDoctorService.getDoctorById(id)
       .then((response) => {
         this.doctor = response;
-        this.separateFields();
       }, (error) => {
         alert('Error: ' + error.statusText + this.idBusqueda);
       });
   }
-
-  separateFields = () => {
-    let cadena = this.doctor.records[0].fields.titular;
-    this.doctor.records[0].fields.nombreDoctor =
-      cadena.split("Dirección:")[0].replace("Director:","");
-    this.doctor.records[0].fields.direccion =
-      cadena.split("Dirección:")[1].replace("Dirección:","");
-    this.doctor.records[0].fields.curp = 'AERW134MTXS3009';
-  }
-
 }
