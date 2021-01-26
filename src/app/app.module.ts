@@ -67,9 +67,7 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     NewsListComponent,
     PageNotFoundComponent,
     DoctorFormComponent,
-
-    DoctorListComponent
-
+    DoctorListComponent,
     RegisterFormComponent
 
     ],
