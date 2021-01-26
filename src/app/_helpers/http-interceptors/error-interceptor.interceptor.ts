@@ -29,7 +29,8 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.error(`Backend returned code ${err.status}, ` +
             `body was: ${err.error}`);
         }
-       console.log("Error interceptado" + err);
+       console.log("Error interceptado");
+       console.log(err);
         // Return an observable with a user-facing error message.
         const error = err.message || err.statusText;
         return throwError(error);

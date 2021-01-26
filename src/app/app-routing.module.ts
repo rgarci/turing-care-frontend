@@ -12,7 +12,9 @@ import {AuthGuard} from "./_helpers/auth.guard";
 const routes: Routes = [
   {path: "",  redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
-  { path: 'patients', component: PatientListComponent , canActivate: [AuthGuard]},
+  { path: 'patients', component: PatientListComponent
+    // ,canActivate: [AuthGuard]
+  },
   { path: 'patient-details', component: PatientDetailsComponent },
   { path: 'noticias/:idDoctor', component: NewsListComponent },
   { path: 'perfil/:idDoctor', component: DoctorProfileComponent},
