@@ -25,6 +25,7 @@ export class PatientListComponent implements OnInit{
   doctorGender : boolean;
   patients : PacienteList;
   idDoctor : string;
+  token : string;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
@@ -35,14 +36,15 @@ export class PatientListComponent implements OnInit{
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.buscar = '';
     this.doctorGender = true;
-    this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
+    this.token = this.route.snapshot.paramMap.get('token')
+    this.doctorName = this.route.snapshot.paramMap.get('nombre');
     if(this.doctorGender){
-      this.greeting = "Bienvenida Doctora ".concat(this.doctorName);
+      this.greeting = "Bienvenida ".concat(this.doctorName);
     }else{
-      this.greeting = "Bienvenido Doctor ".concat(this.doctorName);
+      this.greeting = "Bienvenido ".concat(this.doctorName);
     }
 
-    this.getPatientsSvc.getPatients("123").then((response) =>{
+    this.getPatientsSvc.getPatients(this.idDoctor, this.token).then((response) =>{
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients.pacientes);
       this.dataSource.paginator = this.paginator;
@@ -58,7 +60,7 @@ export class PatientListComponent implements OnInit{
 
   openCreateForm() {
     const dialogRef = this.dialog.open(PatientFormComponent,  {
-      width:'100%'
+      width:'100%', data : {token: this.token, idDoctor : this.idDoctor}
     });
 
     dialogRef.afterClosed().subscribe(result  => {
@@ -67,7 +69,7 @@ export class PatientListComponent implements OnInit{
   }
 
   viewPatient(patientId : string){
-    this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
+    this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor, token :this.token}])
   }
 
 }

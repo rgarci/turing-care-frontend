@@ -8,7 +8,7 @@
                 <mat-card-subtitle>Teléfono: {{patients.telefono}}, Fecha de nacimiento: {{patients.fechaNacimiento}}</mat-card-subtitle>
             </div>
             <div class="card-button-register">
-                <button mat-raised-button color="primary" (click)=openCreateFormRegister()>Añadir Registro <mat-icon>add</mat-icon></button>
+                <button mat-raised-button color="primary" (click)=openCreateFormRegister(id)>Añadir Registro <mat-icon>add</mat-icon></button>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
             <app-patient-data-card [parentData]="patients" [patients]="patients"></app-patient-data-card>
         </mat-tab>
         <mat-tab label="Historial">
-            <app-registers-table></app-registers-table>
+            <app-registers-table [idPatient]="idPatient" [token]="token"></app-registers-table>
         </mat-tab>
     </mat-tab-group>
 </div>

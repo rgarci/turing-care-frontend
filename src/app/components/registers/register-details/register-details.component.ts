@@ -12,18 +12,20 @@ import { Registros } from 'src/app/interfaces/registers/registros';
   styleUrls: ['./register-details.component.css']
 })
 export class RegisterDetailsComponent  implements OnInit  {
-  idRegister:string
+  idRegister:string;
+  token:string;
   dataSource:Registros;
 
   constructor(
     private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router,
     public dialogRef: MatDialogRef<RegisterDetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
-      this.idRegister = data;
+    @Inject(MAT_DIALOG_DATA) public data) {
+      this.idRegister = data.idRegister;
+      this.token = data.token;
     }
 
   ngOnInit(): void {
-    this.getRegistersSvc.getRegistersById(this.idRegister).then((response) =>{
+    this.getRegistersSvc.getRegistersById(this.idRegister, this.token).then((response) =>{
       this.dataSource = response;
     }, (error) => {
       alert("Error: " + error.statusText)

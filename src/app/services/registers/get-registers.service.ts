@@ -15,12 +15,12 @@ export class GetRegistersService {
     this.http = http;
   }
 
-  getRegisters = () : Promise<RegistrosList> => {
+  getRegisters = (id : number, token : string) : Promise<RegistrosList> => {
     let promise = new Promise<RegistrosList>((resolve, reject) =>{
 
 
-      this.http.get('/api/historial_medico/1',{
-        headers: {'Authorization':'d7e76283-caec-458e-b567-2db98319a06e'}
+      this.http.get('/api/historial_medico/'+id,{
+        headers: {'Authorization' : token}
       })
       .toPromise()
       .then((response) => {
@@ -33,11 +33,11 @@ export class GetRegistersService {
     return promise;
   }
 
-  getRegistersById = (idRegister : string) : Promise<Registros> => {
+  getRegistersById = (idRegister : string, token : string) : Promise<Registros> => {
     var endpoint = 'api/historial_medico/id/' + idRegister;
     let promise = new Promise<Registros>((resolve, reject) =>{
       this.http.get(endpoint,{
-        headers: {'Authorization':'d7e76283-caec-458e-b567-2db98319a06e'}
+        headers: {'Authorization':token}
       })
       .toPromise()
       .then((response) => {
@@ -51,11 +51,11 @@ export class GetRegistersService {
 
   
 
-  createRegistro = (registro : RegistroPost) : Promise<Registros> => {
+  createRegistro = (registro : RegistroPost, token) : Promise<Registros> => {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        Authorization: 'd7e76283-caec-458e-b567-2db98319a06e'
+        Authorization: token
       })
     };
     let promise = new Promise<Registros>((resolve,reject) =>{

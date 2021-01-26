@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { PacienteList } from 'src/app/interfaces/patients/pacienteList';
@@ -13,10 +13,11 @@ export class GetPatientsService {
     this.http = http;
   }
 
-  getPatients = (idDoctor : string) : Promise<PacienteList> => {
+  getPatients = (idDoctor : string, token : string) : Promise<PacienteList> => {
+    console.log(token)
     let promise = new Promise<PacienteList>((resolve, reject) =>{
-      this.http.get('api/pacientes/medico/1', {
-        headers: {'Authorization':'d7e76283-caec-458e-b567-2db98319a06e'}
+      this.http.get('api/pacientes/medico/'+idDoctor, {
+        headers: {'Authorization':token}
       })
       .toPromise()
       .then((response) => {
@@ -28,10 +29,10 @@ export class GetPatientsService {
     return promise;
   }
 
-  getPatient = (idPatient : string) : Promise<Paciente> => {
+  getPatient = (idPatient : string, token : string) : Promise<Paciente> => {
     let promise = new Promise<Paciente>((resolve, reject) =>{
       this.http.get('api/paciente/'+idPatient,{
-        headers: {'Authorization':'d7e76283-caec-458e-b567-2db98319a06e'}
+        headers: {'Authorization':token}
       })
       .toPromise()
       .then((response) => {
@@ -43,11 +44,15 @@ export class GetPatientsService {
     return promise;
   }
 
-  createPaciente = (paciente : Paciente) : Promise<Paciente> => {
-    let promise = new Promise<Paciente>((resolve,reject) =>{
-      this.http.post('api/', paciente, {
-        headers: {'Authorization':'d7e76283-caec-458e-b567-2db98319a06e'}
+  createPaciente = (paciente : Paciente, token : string) : Promise<Paciente> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        Authorization: token
       })
+    };
+    let promise = new Promise<Paciente>((resolve,reject) =>{
+      this.http.post('api/paciente', paciente, httpOptions)
       .toPromise()
       .then((response) => {
         resolve(response as Paciente)

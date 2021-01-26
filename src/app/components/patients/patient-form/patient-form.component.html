@@ -28,10 +28,20 @@
         <mat-form-field appearance="fill">
             <mat-label>Género</mat-label>
             <mat-select formControlName="gender">
-                <mat-option value="option">Mujer</mat-option>
-                <mat-option value="option">Hombre</mat-option>
-                <mat-option value="option">Otro</mat-option>
+                <mat-option value="Mujer">Mujer</mat-option>
+                <mat-option value="Hombre">Hombre</mat-option>
+                <mat-option value="Otro">Otro</mat-option>
             </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="itext" appearance="legacy">
+            <mat-label>Email:</mat-label>
+            <input matInput type="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="itext" appearance="legacy">
+            <mat-label>Telefono:</mat-label>
+            <input matInput type="number" formControlName="phone">
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">

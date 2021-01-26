@@ -15,6 +15,7 @@ export class PatientDetailsComponent implements OnInit {
   patients : Paciente;
   idPatient : string;
   idDoctor : string;
+  token: string;
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, private router : Router,
     public dialog:MatDialog) { }
@@ -23,10 +24,11 @@ export class PatientDetailsComponent implements OnInit {
 
     this.idPatient = this.route.snapshot.paramMap.get('idPatient');
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+    this.token = this.route.snapshot.paramMap.get('token');
     console.log("My input: " + this.idDoctor);
     console.log("patient: " + this.idPatient);
 
-    this.getPatientsSvc.getPatient(this.idPatient).then((response) =>{
+    this.getPatientsSvc.getPatient(this.idPatient, this.token).then((response) =>{
       this.patients = response;
     }, (error) => {
       alert("Error: " + error.statusText)
@@ -35,7 +37,8 @@ export class PatientDetailsComponent implements OnInit {
 
   openCreateFormRegister(){
     const dialogRef = this.dialog.open(RegisterFormComponent, {
-      width:'100%'
+      width:'100%',
+      data: {idPatient: this.idPatient, token: this.token, idDoctor: this.idDoctor}
     });
 
     dialogRef.afterClosed().subscribe(result  => {

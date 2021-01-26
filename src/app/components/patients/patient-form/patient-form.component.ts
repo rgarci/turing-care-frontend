@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { Patient } from 'src/app/interfaces/patients/patient';
+import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -16,43 +18,59 @@ export class PatientFormComponent implements OnInit {
     secondLastName: ['', Validators.required],
     birthdate: ['', Validators.required],
     gender: ['', Validators.required],
+    email:['', Validators.required],
+    phone: ['', Validators.required],
     alergies: [''],
     previousSurgery: [''],
     cronicIllness: [''],
     treatments: ['']
   });
-  constructor(private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>) { }
+  token: string;
+  idDoctor: number;
+  constructor(private svcPatient : GetPatientsService, private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data) { 
+      this.token = data.token;
+      this.idDoctor = data.idDoctor
+    }
 
   ngOnInit(): void {
   }
 
   save(){
-    const patient : Patient = {
-      "gender": this.frmReactivo.get('gender').value,
-      "name": {
-      "title": this.frmReactivo.get('firstName').value,
-      "first": this.frmReactivo.get('lastName').value,
-      "last": this.frmReactivo.get('secondLastName').value
-      },
-      "registered": {
-          "date": this.frmReactivo.get('birthdate').value,
-          "age": 22
-          },
-      "phone" : 'string',
-      "id": {
-          "name": 'string',
-          "value": 'string'
-      },
-      "login": {
-          "uuid": this.frmReactivo.get('alergies').value,
-          "username": this.frmReactivo.get('previousSurgery').value,
-          "password": this.frmReactivo.get('cronicIllness').value,
-          "salt": this.frmReactivo.get('treatments').value,
-          "md5": 'string',
-          "sha1": 'string',
-          "sha256": 'string'
-      }
+
+    var fecha = new Date(this.frmReactivo.get('birthdate').value);
+
+    var day = fecha.getDate();
+    var month = fecha.getMonth()+1;
+    var year = fecha.getFullYear();
+
+     var fechaCast  = month + '/' + day + '/' + year;
+
+     console.log(fechaCast);
+     console.log(this.token);
+     
+
+     console.log(this.frmReactivo.get('gender').value);
+
+    const patient : Paciente = {
+      "pacienteId": null,
+      "clinicaId": 1,
+      "medicoId": this.idDoctor,
+      "nombre": this.frmReactivo.get('firstName').value,
+      "apellidoPaterno": this.frmReactivo.get('lastName').value,
+      "apellidoMaterno": this.frmReactivo.get('secondLastName').value,
+      "fechaNacimiento": fechaCast,
+      "email": this.frmReactivo.get('email').value,
+      "sexo": this.frmReactivo.get('gender').value,
+      "telefono": this.frmReactivo.get('phone').value,
+      "alergias": this.frmReactivo.get('alergies').value,
+      "operacionesPrevias": this.frmReactivo.get('previousSurgery').value,
+      "enfermedadesCronicas": this.frmReactivo.get('cronicIllness').value,
+      "tratamientosVigentes": this.frmReactivo.get('treatments').value
+    
     }
+
+    this.svcPatient.createPaciente(patient, this.token);
     this.dialogRef.close(patient);
   }
 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Paciente } from 'src/app/interfaces/patients/paciente';
 import { RegistroPost } from 'src/app/interfaces/registers/registroPost';
 import { Registros } from 'src/app/interfaces/registers/registros';
@@ -25,13 +25,24 @@ export class RegisterFormComponent implements OnInit {
 
   })
 
-  constructor(private getRegister : GetRegistersService, private fb: FormBuilder, public dialogRef: MatDialogRef<RegisterFormComponent>) { }
+  idPaciente:number;
+  token:string;
+  idDoctor: number
+  constructor(private getRegister : GetRegistersService, private fb: FormBuilder, 
+    public dialogRef: MatDialogRef<RegisterFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data) {
+      this.idPaciente = data.idPatient;
+      this.token = data.token;
+      this.idDoctor = data.idDoctor;
+    }
 
   ngOnInit(): void {
   }
 
   save(){
 
+    console.log(this.idPaciente);
+    
     var fecha = new Date(this.frmReactivo.get('date').value);
 
     console.log(fecha);
@@ -52,11 +63,11 @@ export class RegisterFormComponent implements OnInit {
       "seguimientoTratamiento":this.frmReactivo.get('treatment_monitoring').value,
       "medicamentoRecetado":this.frmReactivo.get('medications').value,
       "fechaCita": fechaCast,
-      "idMedico":1,
-      "idPaciente":1
+      "idMedico":this.idDoctor,
+      "idPaciente":this.idPaciente
     }
     
-    this.getRegister.createRegistro(register);
+    this.getRegister.createRegistro(register, this.token);
 
     this.dialogRef.close();
   }

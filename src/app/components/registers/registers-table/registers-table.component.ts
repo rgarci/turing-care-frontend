@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { RegisterDetailsComponent } from '../register-details/register-details.component';
 import { RegisterListItf } from "src/app/interfaces/registers/register-list-itf";
@@ -18,11 +18,15 @@ export class RegistersTableComponent implements OnInit {
   dataSource:RegistrosList;
   name: string;
 
+  @Input("idPatient") idPciente : number;
+  @Input("token") token : string;
+
   constructor(public dialog: MatDialog, 
     private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router) {}
 
+
   ngOnInit(): void {
-    this.getRegistersSvc.getRegisters().then((response) =>{
+    this.getRegistersSvc.getRegisters(this.idPciente, this.token).then((response) =>{
       console.log(response);
       this.dataSource= response;
     }, (error) => {
@@ -30,10 +34,10 @@ export class RegistersTableComponent implements OnInit {
     })
   }
 
-  openDialog(id) {
+  openDialog(idRegister) {
     const dialogRef = this.dialog.open(RegisterDetailsComponent,  {
       width:'100%',
-      data: id
+      data: {idRegister: idRegister, token:this.token}
     });
 
     dialogRef.afterClosed().subscribe(result => {
