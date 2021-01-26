@@ -12,7 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { LoginComponent } from './components/doctors/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { PatientListComponent } from './components/patients/patient-list/patient-list.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
@@ -41,6 +41,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-form.component';
 import { DoctorListComponent } from './components/doctors/doctor-list/doctor-list.component';
 import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {AuthGuard} from "./_helpers/auth.guard";
+import {AuthService} from "./services/auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-togg
     MatFormFieldModule,
     MatSlideToggleModule
   ],
-  providers: [ DatePipe],
+  providers: [ DatePipe,
+  AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
