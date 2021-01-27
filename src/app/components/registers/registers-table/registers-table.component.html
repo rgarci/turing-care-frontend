@@ -18,7 +18,7 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha_registro | date: "d/M/yyyy"}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_cita | date: "d/M/yyyy"}} </td>
     </ng-container>
 
 
@@ -27,7 +27,7 @@
         <td mat-cell *matCellDef="let element"class="button-row">
             <div class="flex-container">
                 <div class="button-container">
-                    <button mat-icon-button >
+                    <button mat-icon-button (click)="updateRegister(element.registro_id)">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </div>

@@ -35,33 +35,27 @@ export class PatientFormComponent implements OnInit {
     this.title = data.title;
     //pordefault. se cambia cuando se actualiza o se crea un paciente.
     this.idPaciente = null;
-    if (data.patient){
-      this.frmReactivo.controls.firstName.setValue(data.patient.nombre);
-      this.frmReactivo.controls.lastName.setValue(data.patient.nombre);
-      // this.frmReactivo.setValue({
-      //   firstName: data.patient.nombre,
-      //   lastName: data.patient.apellido_paterno
-      //   // lastName: ,
-      //   // secondLastName: ['', Validators.required],
-      //   // birthdate: ['', Validators.required],
-      //   // gender: ['', Validators.required],
-      //   // email:['', [Validators.required, Validators.email]],
-      //   // phone: ['', Validators.required],
-      //   // alergies: [''],
-      //   // previousSurgery: [''],
-      //   // cronicIllness: [''],
-      //   // treatments: ['']
-      // });
+    if (data.paciente){
+      this.frmReactivo.controls.firstName.setValue(data.paciente.nombre);
+      this.frmReactivo.controls.lastName.setValue(data.paciente.apellido_paterno);
+      this.frmReactivo.controls.secondLastName.setValue(data.paciente.apellido_materno);
+      this.frmReactivo.controls.gender.setValue(data.paciente.sexo);
+      this.frmReactivo.controls.birthdate.setValue(data.paciente.fecha_nacimiento);
+      this.frmReactivo.controls.email.setValue(data.paciente.email);
+      this.frmReactivo.controls.phone.setValue(data.paciente.telefono);
+      this.frmReactivo.controls.alergies.setValue(data.paciente.alergias);
+      this.frmReactivo.controls.previousSurgery.setValue(data.paciente.operaciones_previas);
+      this.frmReactivo.controls.cronicIllness.setValue(data.paciente.enfermedades_cronicas);
+      this.frmReactivo.controls.treatments.setValue(data.paciente.tratamientos_vigentes);
     }
     console.log(data);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   save(){
     if(this.data.paciente) {
-      this.idPaciente = this.data.idPatient;
+      this.idPaciente = this.data.paciente.paciente_id;
     }
     var fecha = new Date(this.frmReactivo.get('birthdate').value);
 
