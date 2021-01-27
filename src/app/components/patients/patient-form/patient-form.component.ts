@@ -18,7 +18,7 @@ export class PatientFormComponent implements OnInit {
     secondLastName: ['', Validators.required],
     birthdate: ['', Validators.required],
     gender: ['', Validators.required],
-    email:['', Validators.required],
+    email:['', [Validators.required, Validators.email]],
     phone: ['', Validators.required],
     alergies: [''],
     previousSurgery: [''],
@@ -27,12 +27,14 @@ export class PatientFormComponent implements OnInit {
   });
   token: string;
   idDoctor: number;
+  title: string;
+
   constructor(private svcPatient : GetPatientsService, private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
-    // this.token = data.token;
-    // this.idDoctor = data.idDoctor;
-    this.token = '12344';
-    this.idDoctor = 1;
+    this.token = data.token;
+    this.idDoctor = data.idDoctor;
+    this.title = data.title;
+    console.log(data);
   }
 
   ngOnInit(): void {
@@ -56,11 +58,12 @@ export class PatientFormComponent implements OnInit {
       "operaciones_previas": this.frmReactivo.get('previousSurgery').value,
       "enfermedades_cronicas": this.frmReactivo.get('cronicIllness').value,
       "tratamientos_vigentes": this.frmReactivo.get('treatments').value
-
     }
 
-    this.svcPatient.createPatient(patient).then(r => alert('Creado!'));
-    this.dialogRef.close(patient);
+    this.svcPatient.createPatient(patient).then(r =>
+      {
+       this.dialogRef.close(r);
+      });
   }
 
 }

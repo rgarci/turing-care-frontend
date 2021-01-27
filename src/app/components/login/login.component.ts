@@ -5,6 +5,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
+import {User} from "../../classes/user";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -32,6 +34,17 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/patients';
   }
 
+  mockLogin() {
+    if (this.loginFrmTemplate.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.authService.login(this.loginFrmTemplate.get('user').value, this.loginFrmTemplate.get('password').value)
+    this.router.navigate(['/patients',
+      {idDoctor: this.authService.currentUserValue.idDoctor}]);
+  }
   login() {
     if (this.loginFrmTemplate.invalid) {
       return;

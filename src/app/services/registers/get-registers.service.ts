@@ -28,7 +28,7 @@ export class GetRegistersService {
   }
 
   getRegistersById = (idRegister : string) : Promise<RegisterItf> => {
-    var endpoint = 'http://localhost:3000/registro/' + idRegister +'/';
+    var endpoint = 'http://localhost:3000/registro/' + idRegister;
     let promise = new Promise<RegisterItf>((resolve, reject) =>{
       this.http.get(endpoint,{
         headers: {'X-API-TOKEN':'g3n6yYltCrz44dGo7qMwoZK4FlufEBp9'}
