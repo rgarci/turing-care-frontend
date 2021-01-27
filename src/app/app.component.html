@@ -1,4 +1,10 @@
 <base href="/">
 <!--<app-doctor-list></app-doctor-list>-->
+<app-header *ngIf="currentUser; else normalHeader" [idDoctor]="currentUser.idDoctor"></app-header>
+
+<ng-template #normalHeader>
+  <app-header [idDoctor]="null"></app-header>
+</ng-template>
 
 <router-outlet></router-outlet>
+<app-footer></app-footer>

@@ -6,20 +6,21 @@
     </figure>
     <span>SARM</span>
     <ul class="nav-options">
-        <li class="nav-option"><a href="patients/{{idDoctor}}">Mis pacientes</a></li>
+      <li class="nav-option" *ngIf="this.idDoctor"><a href="patients;idDoctor={{idDoctor}}">Mis pacientes</a></li>
         <li class="nav-option"><a href="noticias/{{idDoctor}}">Noticias</a></li>
     </ul>
     <span class="example-spacer"></span>
 
-  <button *ngIf="idDoctor" mat-fab class="account-icon" [mat-menu-trigger-for]="profileMenu" aria-label="My profile">
+<!--  *ngIf="this.currentUser"-->
+  <button *ngIf="this.idDoctor" mat-fab class="account-icon" [mat-menu-trigger-for]="profileMenu" aria-label="My profile">
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #profileMenu = "matMenu">
     <button mat-menu-item>
       <a mat-menu-item href="perfil/{{idDoctor}}">Ver perfil</a>
     </button>
-    <button mat-menu-item>
-      <a mat-menu-item href="login/">Cerrar sesión</a>
+    <button mat-menu-item (click)="logout()">
+      Cerrar sesión
     </button>
   </mat-menu>
 </mat-toolbar>

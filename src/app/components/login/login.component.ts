@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(this.authService.currentUserValue);
           this.router.navigate(['/patients',
-            {idDoctor: this.authService.currentUserValue.id}]);
+            {idDoctor: this.authService.currentUserValue.idDoctor}]);
         },
         error => {
           //TODO: handle error

@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: "",  redirectTo: 'login', pathMatch: "full"},
   { path: 'login', component: LoginComponent },
   { path: 'patients', component: PatientListComponent
-    // ,canActivate: [AuthGuard]
+    // , canActivate: [AuthGuard]
   },
   { path: 'patient-details', component: PatientDetailsComponent },
   { path: 'noticias/:idDoctor', component: NewsListComponent },

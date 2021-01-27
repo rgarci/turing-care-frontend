@@ -7,6 +7,7 @@ import { Patient } from 'src/app/interfaces/patients/patient';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
+import {AuthenticationService} from "../../../services/auth/authentication.service";
 
 @Component({
   selector: 'app-patient-list',
@@ -28,21 +29,16 @@ export class PatientListComponent implements OnInit{
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
-              private router : Router, public dialog: MatDialog) { }
+              private router : Router, public dialog: MatDialog,
+              private authSrv: AuthenticationService) { }
 
   ngOnInit(): void {
 
+    let username =  this.authSrv.currentUserValue.username;
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.buscar = '';
-    this.doctorGender = true;
     this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
-    if(this.doctorGender){
-      this.greeting = "Bienvenida Doctora ".concat(this.doctorName);
-    }else{
-      this.greeting = "Bienvenido Doctor ".concat(this.doctorName);
-    }
-
-
+    this.greeting = "Bienvenido/a al sistema: " + username;
     this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
       console.log(this.patients);
