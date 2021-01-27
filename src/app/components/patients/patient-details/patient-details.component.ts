@@ -35,12 +35,24 @@ export class PatientDetailsComponent implements OnInit {
 
   openCreateFormRegister(){
     const dialogRef = this.dialog.open(RegisterFormComponent, {
-      width:'100%'
+      width:'100%',
+      data: {
+        title: 'Añadir registro',
+        idDoctor : this.idDoctor,
+        idPatient : this.idPatient
+      }
     });
 
     dialogRef.afterClosed().subscribe(result  => {
       console.log('Dialog result:  %O', result);
+      if (result) {
+        this.refresh(result.paciente_id);
+      }
     });
 
+  }
+
+  private refresh(idPatient: string) {
+    window.location.reload();
   }
 }
