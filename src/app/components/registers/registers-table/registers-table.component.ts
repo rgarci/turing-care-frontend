@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { RegisterDetailsComponent } from '../register-details/register-details.component';
 import { RegisterListItf } from "src/app/interfaces/registers/register-list-itf";
 import { GetRegistersService } from 'src/app/services/registers/get-registers.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Patient} from "../../../interfaces/patients/patient";
+import {RegisterItf} from "../../../interfaces/registers/register-itf";
 
 
 
@@ -13,16 +15,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./registers-table.component.css']
 })
 export class RegistersTableComponent implements OnInit {
+
+  @Input() parentData;
+
   displayedColumns: string[] = ['position', 'asunto', 'fecha', 'acciones'];
-  dataSource:RegisterListItf;
+  dataSource: RegisterItf[];
   name: string;
 
-  constructor(public dialog: MatDialog, 
+  constructor(public dialog: MatDialog,
     private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router) {}
 
   ngOnInit(): void {
-    this.getRegistersSvc.getRegisters().then((response) =>{
+    this.getRegistersSvc.getRegisters(this.parentData.paciente_id).then((response) =>{
       this.dataSource = response;
+      console.log(this.dataSource);
     }, (error) => {
       alert("Error: " + error.statusText)
     })
@@ -38,5 +44,5 @@ export class RegistersTableComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
- 
+
 }

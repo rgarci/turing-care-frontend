@@ -1,34 +1,18 @@
-export interface RegisterItf {
-            
-        "id": number,
-        "label": string,
-        "_pk": string,
-        "date_time": string,
-        "id_user_isis": number,
-        "observations": string,
-        "diagnostic_type": {
-            "id": string,
-            "label": string
-        },
-        "patient": {
-            "id": number,
-            "label": string
-        },
-        "doctor": {
-            "id": number,
-            "label": string
-        },
-        "company": {
-            "id": number,
-            "label": string
-        },
-        "branch": {
-            "id": number,
-            "label": string
-        },
-        "diagnostic_classification": {
-            "id": number,
-            "label": string
-        }
-           
+/**
+ * Interfaz para el paso de mensajes de registro médico
+ */
+export interface RegisterItf{
+  registro_id: number;
+  doctor_id: number;
+  paciente_id: number;
+  asunto: string;
+  descripcion: string;
+  fecha_registro: Date;
+  fecha_actualizacion: Date;
+  fecha_cita: Date;
+  medicamento_recetado : string;
+  observaciones: string;
+  seguimiento_tratamiento: string;
+  sintomas: string;
+  tipo_tratamiento: string;
 }

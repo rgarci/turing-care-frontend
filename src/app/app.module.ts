@@ -43,11 +43,12 @@ import { DoctorFormComponent } from './components/doctors/doctor-form/doctor-for
 import { DoctorListComponent } from './components/doctors/doctor-list/doctor-list.component';
 import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {AuthGuard} from "./_helpers/auth.guard";
-import {AuthService} from "./services/auth/auth.service";
+import {AuthenticationService} from "./services/auth/authentication.service";
 import {httpInterceptorProviders} from './_helpers/http-interceptors';
 import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.interceptor";
 
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
+import { DateToAgePipe } from './pipes/date-to-age.pipe';
 
 
 @NgModule({
@@ -68,8 +69,8 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     PageNotFoundComponent,
     DoctorFormComponent,
     DoctorListComponent,
-    RegisterFormComponent
-
+    RegisterFormComponent,
+    DateToAgePipe
     ],
   imports: [
     BrowserModule,
@@ -97,7 +98,7 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
     HttpClientModule,
   ],
   providers: [ DatePipe,
-  AuthGuard, AuthService,
+  AuthGuard, AuthenticationService,
     httpInterceptorProviders,
   ],
   bootstrap: [AppComponent]

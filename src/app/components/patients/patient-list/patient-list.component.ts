@@ -7,6 +7,7 @@ import { Patient } from 'src/app/interfaces/patients/patient';
 import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
+import {AuthenticationService} from "../../../services/auth/authentication.service";
 
 @Component({
   selector: 'app-patient-list',
@@ -21,27 +22,27 @@ export class PatientListComponent implements OnInit{
   doctorName : string;
   greeting : string;
   doctorGender : boolean;
+
+  //TODO: PATIENTITF-Change
   patients : Patient[];
   idDoctor : string;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
-              private router : Router, public dialog: MatDialog) { }
+              private router : Router, public dialog: MatDialog,
+              private authSrv: AuthenticationService) { }
 
   ngOnInit(): void {
+    let username ="";
+    if(this.authSrv.currentUserValue){
+      username= this.authSrv.currentUserValue.username;
+    }
 
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.buscar = '';
-    this.doctorGender = true;
     this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
-    if(this.doctorGender){
-      this.greeting = "Bienvenida Doctora ".concat(this.doctorName);
-    }else{
-      this.greeting = "Bienvenido Doctor ".concat(this.doctorName);
-    }
-
-
-    this.getPatientsSvc.getPatients(this.idDoctor).then((response) =>{
+    this.greeting = "Bienvenido/a al sistema: " + username;
+    this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
       console.log(this.patients);
       this.dataSource = new MatTableDataSource(this.patients);
@@ -58,14 +59,27 @@ export class PatientListComponent implements OnInit{
 
   openCreateForm() {
     const dialogRef = this.dialog.open(PatientFormComponent,  {
-      width:'100%'
+      width:'100%',
+      data: {
+        token: '1233',
+        idDoctor: this.idDoctor,
+        title: 'Agregar paciente'
+      }
     });
 
-    dialogRef.afterClosed().subscribe(result  => {
+    dialogRef.afterClosed().subscribe((result)  => {
       console.log('Dialog result:  %O', result);
+      if (result) {
+        this.patients.push(result);
+        this.refresh();
+      }
     });
   }
 
+  refresh(){
+    this.dataSource = new MatTableDataSource(this.patients);
+    this.dataSource.paginator = this.paginator;
+  }
   viewPatient(patientId : string){
     this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
   }

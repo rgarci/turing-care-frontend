@@ -1,5 +1,4 @@
-
-<h2 mat-dialog-title>AGREGAR PACIENTE</h2>
+<h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content class="mat-typography">
 
     <form class="addForm" [formGroup]="frmReactivo">
@@ -10,12 +9,14 @@
 
         <mat-form-field class="itext" appearance="legacy">
             <mat-label>Apellido paterno:</mat-label>
-            <input matInput type="text" formControlName="lastName">
+            <input matInput type="text" formControlName="lastName"
+                   value="{{data.title}}">
         </mat-form-field>
 
         <mat-form-field class="itext" appearance="legacy">
             <mat-label>Apellido materno:</mat-label>
-            <input matInput type="text" formControlName="secondLastName">
+            <input matInput type="text" formControlName="secondLastName"
+                   value="{{data.apellido_materno}}">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -28,30 +29,55 @@
         <mat-form-field appearance="fill">
             <mat-label>Género</mat-label>
             <mat-select formControlName="gender">
-                <mat-option value="option">Mujer</mat-option>
-                <mat-option value="option">Hombre</mat-option>
-                <mat-option value="option">Otro</mat-option>
+                <mat-option value="femenino">Mujer</mat-option>
+                <mat-option value="masculino">Hombre</mat-option>
+                <mat-option value="otro">Otro</mat-option>
             </mat-select>
         </mat-form-field>
 
+
+        <mat-form-field class= "itext" appearance="fill">
+          <mat-label>Teléfono</mat-label>
+          <input matInput #input maxlength="10" placeholder="Ex. 9991092133"
+                 formControlName="phone"
+                 value="{{data.telefono}}">
+          <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+
+      <mat-form-field class="itext" appearance="fill">
+         <mat-label>Correo</mat-label>
+        <input matInput placeholder="pat@example.com" formControlName="email"
+               value="{{data.email}}">
+      </mat-form-field>
+
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Alergias</mat-label>
-            <textarea matInput formControlName="alergies"></textarea>
+            <textarea matInput formControlName="alergies">
+              {{data.alergias}}
+            </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Operaciones previas</mat-label>
-            <textarea matInput formControlName="previousSurgery"></textarea>
+            <textarea matInput formControlName="previousSurgery">
+              {{data.operaciones_previas}}
+            </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Enfermedades crónicas</mat-label>
-            <textarea matInput formControlName="cronicIllness"></textarea>
+            <textarea matInput formControlName="cronicIllness">
+              {{data.enfermedades_cronicas}}
+            </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Tratamientos vigentes</mat-label>
-            <textarea matInput formControlName="treatments"></textarea>
+            <textarea matInput formControlName="treatments">
+              {{data.tratamientos_vigentes}}
+            </textarea>
         </mat-form-field>
     </form>
 </mat-dialog-content>

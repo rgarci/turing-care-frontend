@@ -1,4 +1,3 @@
-<app-header></app-header>
 <mat-grid-list cols="2" rowHeight="fit" >
   <mat-grid-tile>
     <div class = "registerTile">
@@ -16,7 +15,8 @@
       <div class="login-name">
         <p class="title"> Ingresa a tu cuenta</p>
       </div>
-      <form [formGroup]="loginFrmTemplate" (ngSubmit)="login()" id="loginForm">
+<!--      TODO:change to: (ngSubmit) = "login()"-->
+      <form [formGroup]="loginFrmTemplate" (ngSubmit)="mockLogin()" id="loginForm">
         <mat-form-field appearance="outline" hideRequiredMarker="true">
           <mat-label> Usuario </mat-label>
           <input matInput type="text" name="username" formControlName="user" >
@@ -47,4 +47,3 @@
   </mat-grid-tile>
 
 </mat-grid-list>
-<app-footer></app-footer>

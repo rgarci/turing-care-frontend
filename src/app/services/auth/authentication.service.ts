@@ -10,7 +10,7 @@ import {ErrorInterceptor} from "../../_helpers/http-interceptors/error-intercept
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticationService {
 
   private currentUserSubject: BehaviorSubject<User>;
   //to be notified when a user logs in, logs out or updates their profile.
@@ -26,17 +26,31 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+
   login = (username: string, password: string): Observable<User> => {
     let url = 'http://localhost:3000/usuarios/autenticar';
-    return this.http.post(url ,{ usuario: username, psswd: password})
-       .pipe(
-         map(user => {
-         // store user details and jwt token in local storage to keep user logged in between page refreshes
-         localStorage.setItem('currentUser', JSON.stringify( user));
-         this.currentUserSubject.next(user as User);
-         console.log(this.currentUserValue);
-         return user as User;
-       }));
+    let tkn = '12339292';
+    let user = new User();
+    user.token = tkn;
+    user.username=username;
+    user.password=password;
+    user.idDoctor = password;
+
+    localStorage.setItem('currentUser', JSON.stringify( user));
+    this.currentUserSubject.next(user as User);
+    console.log(this.currentUserValue);
+    return user as unknown as Observable<User>;
+
+    // return this.http.post(url ,{ username: username, password: password, idDoctor : password
+    // ,token: tkn})
+    //    .pipe(
+    //      map(user => {
+    //      // store user details and jwt token in local storage to keep user logged in between page refreshes
+    //      localStorage.setItem('currentUser', JSON.stringify( user));
+    //      this.currentUserSubject.next(user as User);
+    //      console.log(this.currentUserValue);
+    //      return user as User;
+    //    }));
   }
 
   logout = () => {

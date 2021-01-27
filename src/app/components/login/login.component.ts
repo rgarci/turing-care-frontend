@@ -3,8 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
-import {AuthService} from '../../services/auth/auth.service';
+import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
+import {User} from "../../classes/user";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
   private returnUrl: string;
 
   constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog,
-              private authService: AuthService,
+              private authService: AuthenticationService,
               private route: ActivatedRoute) { }
   ngOnInit(): void {
 
@@ -32,6 +34,17 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/patients';
   }
 
+  mockLogin() {
+    if (this.loginFrmTemplate.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.authService.login(this.loginFrmTemplate.get('user').value, this.loginFrmTemplate.get('password').value)
+    this.router.navigate(['/patients',
+      {idDoctor: this.authService.currentUserValue.idDoctor}]);
+  }
   login() {
     if (this.loginFrmTemplate.invalid) {
       return;
@@ -45,7 +58,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(this.authService.currentUserValue);
           this.router.navigate(['/patients',
-            {idDoctor: this.authService.currentUserValue.id}]);
+            {idDoctor: this.authService.currentUserValue.idDoctor}]);
         },
         error => {
           //TODO: handle error

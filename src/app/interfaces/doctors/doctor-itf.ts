@@ -1,10 +1,8 @@
 import {Doctor} from "./doctor";
 
-export interface DoctorItf {
-  "nhits": number,
-  "parameters": {
-    "rows": number,
-    "format": string
-  },
-  "records": Array <Doctor>;
+/**
+* Interfaz para el paso de mensajes de doctor
+*/
+export interface DoctorItf{
+  "resultados" : Array<Doctor>
 }

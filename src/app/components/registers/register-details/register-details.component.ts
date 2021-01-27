@@ -11,8 +11,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
   styleUrls: ['./register-details.component.css']
 })
 export class RegisterDetailsComponent  implements OnInit  {
-  idRegister:string
-  dataSource:RegisterItf;
+  idRegister: string
+  dataSource: RegisterItf;
 
   constructor(
     private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router,

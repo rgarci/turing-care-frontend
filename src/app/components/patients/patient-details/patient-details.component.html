@@ -1,11 +1,11 @@
-<app-header [idDoctor]="idDoctor"></app-header>
-
-<div *ngIf="patients;else loading" class="aline-patient-detail">
+<div *ngIf="patient;else loading" class="aline-patient-detail">
     <mat-card-header>
         <div class="card-head">
             <div class="card-name">
-               <mat-card-title>{{patients.results[0].name.first}} {{patients.results[0].name.last}}</mat-card-title>
-                <mat-card-subtitle>Teléfono: {{patients.results[0].phone}}, Edad: {{patients.results[0].registered.age}}</mat-card-subtitle>
+               <mat-card-title>{{patient.nombre}}
+                 {{patient.apellido_paterno}} {{patient.apellido_materno}}</mat-card-title>
+                <mat-card-subtitle>Teléfono: {{patient.telefono}},
+                  Edad: {{patient.fecha_nacimiento | age}}</mat-card-subtitle>
             </div>
             <div class="card-button-register">
                 <button mat-raised-button color="primary" (click)=openCreateFormRegister()>Añadir Registro <mat-icon>add</mat-icon></button>
@@ -16,14 +16,13 @@
 
     <mat-tab-group>
         <mat-tab label="Datos">
-            <app-patient-data-card [parentData]="patients" [patients]="patients"></app-patient-data-card>
+            <app-patient-data-card [parentData]="patient" [patients]="patient"></app-patient-data-card>
         </mat-tab>
         <mat-tab label="Historial">
-            <app-registers-table></app-registers-table>
+            <app-registers-table [parentData] = "patient"></app-registers-table>
         </mat-tab>
     </mat-tab-group>
 </div>
 <ng-template #loading>Loading...</ng-template>
 
-<app-footer></app-footer>
 

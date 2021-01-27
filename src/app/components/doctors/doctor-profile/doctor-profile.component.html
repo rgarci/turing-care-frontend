@@ -1,19 +1,18 @@
-<app-header [idDoctor]="idDoctor"></app-header>
 <mat-grid-list *ngIf="doctor;else loading" cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
-     <img class = profileImage src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+     <img class = profileImage src="{{doctor.url_foto}}" alt="Photo of a Shiba Inu">
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">
     <div class="information-tile">
       <div class="information-header">
-        <h1>{{doctor.records[0].fields.nombreDoctor}}</h1>
-        <h2>{{doctor.records[0].fields.nombre}}</h2>
+        <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
+        <h2>Clinica: {{doctor.clinica_id}}</h2>
       </div>
-      <h2 class = "direction" >{{doctor.records[0].fields.direccion}}</h2>
+      <h2 class = "direction" >{{doctor.telefono}} {{doctor.email}}</h2>
       <div class="information-footer">
-        <h2>Cédula profesional: {{doctor.records[0].recordid}}</h2>
-        <h2>CURP: {{doctor.records[0].fields.curp}}</h2>
+        <h2>Cédula profesional: {{doctor.url_cedula}}</h2>
+        <h2>CURP: {{doctor.curp}}</h2>
       </div>
     </div>
     <button mat-raised-button class="flex-start">Editar</button>
@@ -22,12 +21,11 @@
   <mat-grid-tile colspan="3">
     <div class= "all-tile">
       <mat-tab-group>
-        <mat-tab label="Áreas Medicas"> Ortopedia, Pediatria </mat-tab>
-        <mat-tab label="Otros"> Good Boy </mat-tab>
+        <mat-tab label="Áreas Medicas"> {{doctor.especialidad}} </mat-tab>
+        <mat-tab label="Otros"> Status: {{doctor.status}} </mat-tab>
       </mat-tab-group>
     </div>
   </mat-grid-tile>
 
 </mat-grid-list>
 <ng-template #loading>Loading...</ng-template>
-<app-footer></app-footer>

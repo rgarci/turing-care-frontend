@@ -20,7 +20,7 @@ export class DoctorListComponent implements OnInit {
   dataSource: MatTableDataSource<Doctor>;
   doctorName: string;
   greeting: string;
-  doctors: DoctorItf;
+  doctors: Doctor[];
   idDoctor: string;
   isChecked = true;
 
@@ -31,20 +31,9 @@ export class DoctorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.greeting = 'Hola,admin';
-    this.getDoctorsSvc.getDoctors(30).then((response) => {
+    this.getDoctorsSvc.getDoctors().then((response) => {
       this.doctors = response;
-      this.doctors.records.forEach(function(doctor){
-        const cadena = doctor.fields.titular;
-        doctor.fields.nombreDoctor =
-          cadena.split('Dirección:')[0].replace('Director:', '');
-        doctor.fields.direccion =
-          cadena.split('Dirección:')[1].replace('Dirección:', '');
-        doctor.fields.curp = 'AERW134MTXS3009';
-        doctor.fields.cedula = 'AERW134MTXS3009';
-        doctor.fields.status = false;
-      });
-
-      this.dataSource = new MatTableDataSource(this.doctors.records);
+      this.dataSource = new MatTableDataSource(this.doctors);
       this.dataSource.paginator = this.paginator;
     }, (error) => {
       alert('Error: ' + error.statusText);
@@ -67,15 +56,6 @@ export class DoctorListComponent implements OnInit {
   }
 
   viewDoctor(DoctorId: string){
-    this.router.navigate(['doctores/' + DoctorId]);
-  }
-
-  separateDoctorFields = (doctor: Doctor) => {
-    const cadena = doctor.fields.titular;
-    doctor.fields.nombreDoctor =
-      cadena.split('Dirección:')[0].replace('Director:', '');
-    doctor.fields.direccion =
-      cadena.split('Dirección:')[1].replace('Dirección:', '');
-    doctor.fields.curp = 'AERW134MTXS3009';
+    this.router.navigate(['doctor?id=' + DoctorId]);
   }
 }
