@@ -9,14 +9,12 @@
 
         <mat-form-field class="itext" appearance="legacy">
             <mat-label>Apellido paterno:</mat-label>
-            <input matInput type="text" formControlName="lastName"
-                   value="{{data.title}}">
+            <input matInput type="text" formControlName="lastName">
         </mat-form-field>
 
         <mat-form-field class="itext" appearance="legacy">
             <mat-label>Apellido materno:</mat-label>
-            <input matInput type="text" formControlName="secondLastName"
-                   value="{{data.apellido_materno}}">
+            <input matInput type="text" formControlName="secondLastName">
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -39,8 +37,7 @@
         <mat-form-field class= "itext" appearance="fill">
           <mat-label>Teléfono</mat-label>
           <input matInput #input maxlength="10" placeholder="Ex. 9991092133"
-                 formControlName="phone"
-                 value="{{data.telefono}}">
+                 formControlName="phone">
           <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
           <mat-icon matSuffix>phone</mat-icon>
         </mat-form-field>
@@ -48,35 +45,30 @@
 
       <mat-form-field class="itext" appearance="fill">
          <mat-label>Correo</mat-label>
-        <input matInput placeholder="pat@example.com" formControlName="email"
-               value="{{data.email}}">
+        <input matInput placeholder="pat@example.com" formControlName="email">
       </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Alergias</mat-label>
             <textarea matInput formControlName="alergies">
-              {{data.alergias}}
             </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Operaciones previas</mat-label>
             <textarea matInput formControlName="previousSurgery">
-              {{data.operaciones_previas}}
             </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Enfermedades crónicas</mat-label>
             <textarea matInput formControlName="cronicIllness">
-              {{data.enfermedades_cronicas}}
             </textarea>
         </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Tratamientos vigentes</mat-label>
             <textarea matInput formControlName="treatments">
-              {{data.tratamientos_vigentes}}
             </textarea>
         </mat-form-field>
     </form>

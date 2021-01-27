@@ -28,17 +28,21 @@ export class PatientDataCardComponent implements OnInit{
       width:'100%',
       data: {
         title: 'Editar paciente',
-        nombre: this.patients.nombre,
-        apellido_paterno: this.patients.apellido_paterno,
-        apellido_materno: this.patients.apellido_materno,
-        email: this.patients.email,
-        telefono: this.patients.telefono,
-        fecha_nacimiento: this.patients.fecha_nacimiento,
-        sexo: this.patients.sexo,
-        alergias: this.patients.alergias,
-        operaciones_previas: this.patients.operaciones_previas,
-        enfermedades_cronicas: this.patients.enfermedades_cronicas,
-        tratamientos_vigentes: this.patients.tratamientos_vigentes,
+        idDoctor: this.patients.doctor_id,
+        paciente: {
+          idPaciente: this.patients.paciente_id,
+          nombre: this.patients.nombre,
+          apellido_paterno: this.patients.apellido_paterno,
+          apellido_materno: this.patients.apellido_materno,
+          email: this.patients.email,
+          telefono: this.patients.telefono,
+          fecha_nacimiento: this.patients.fecha_nacimiento,
+          sexo: this.patients.sexo,
+          alergias: this.patients.alergias,
+          operaciones_previas: this.patients.operaciones_previas,
+          enfermedades_cronicas: this.patients.enfermedades_cronicas,
+          tratamientos_vigentes: this.patients.tratamientos_vigentes,
+        }
       }
     });
 

@@ -25,15 +25,34 @@ export class PatientFormComponent implements OnInit {
     cronicIllness: [''],
     treatments: ['']
   });
-  token: string;
   idDoctor: number;
+  idPaciente:number;
   title: string;
 
   constructor(private svcPatient : GetPatientsService, private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
-    this.token = data.token;
     this.idDoctor = data.idDoctor;
     this.title = data.title;
+    //pordefault. se cambia cuando se actualiza o se crea un paciente.
+    this.idPaciente = null;
+    if (data.patient){
+      this.frmReactivo.controls.firstName.setValue(data.patient.nombre);
+      this.frmReactivo.controls.lastName.setValue(data.patient.nombre);
+      // this.frmReactivo.setValue({
+      //   firstName: data.patient.nombre,
+      //   lastName: data.patient.apellido_paterno
+      //   // lastName: ,
+      //   // secondLastName: ['', Validators.required],
+      //   // birthdate: ['', Validators.required],
+      //   // gender: ['', Validators.required],
+      //   // email:['', [Validators.required, Validators.email]],
+      //   // phone: ['', Validators.required],
+      //   // alergies: [''],
+      //   // previousSurgery: [''],
+      //   // cronicIllness: [''],
+      //   // treatments: ['']
+      // });
+    }
     console.log(data);
   }
 
@@ -41,11 +60,13 @@ export class PatientFormComponent implements OnInit {
   }
 
   save(){
-
+    if(this.data.paciente) {
+      this.idPaciente = this.data.idPatient;
+    }
     var fecha = new Date(this.frmReactivo.get('birthdate').value);
 
      const patient : Patient = {
-      "paciente_id": null,
+      "paciente_id": this.idPaciente,
       "doctor_id": this.idDoctor,
       "nombre": this.frmReactivo.get('firstName').value,
       "apellido_paterno": this.frmReactivo.get('lastName').value,
@@ -60,10 +81,18 @@ export class PatientFormComponent implements OnInit {
       "tratamientos_vigentes": this.frmReactivo.get('treatments').value
     }
 
-    this.svcPatient.createPatient(patient).then(r =>
+    if (this.data.paciente) { //se actualiza
+      this.svcPatient.updatePatient(patient).then(r =>
       {
-       this.dialogRef.close(r);
+        this.dialogRef.close(r);
       });
+    } else {
+      this.svcPatient.createPatient(patient).then(r =>
+      {
+        this.dialogRef.close(r);
+      });
+    }//se crea
+
   }
 
 }

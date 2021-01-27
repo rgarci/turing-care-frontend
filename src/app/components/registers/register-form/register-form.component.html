@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>AGREGAR REGISTRO</h2>
+<h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content class="mat-typography">
 
     <form class="addForm" [formGroup]="frmReactivo">
@@ -8,6 +8,15 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+      <mat-form-field class="tarea" appearance="fill">
+        <mat-label>Asunto</mat-label>
+        <textarea matInput formControlName="topic"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="tarea" appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
             <mat-label>Sintomas</mat-label>

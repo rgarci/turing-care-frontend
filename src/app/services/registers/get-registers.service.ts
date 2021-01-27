@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterListItf } from 'src/app/interfaces/registers/register-list-itf';
 import { RegisterItf } from 'src/app/interfaces/registers/register-itf';
+import {Patient} from "../../interfaces/patients/patient";
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,25 @@ export class GetRegistersService {
         reject(error)
       })
     })
+    return promise;
+  }
+
+
+  createRegister= (registro : RegisterItf) : Promise<RegisterItf> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let promise = new Promise<RegisterItf>((resolve,reject) =>{
+      this.http.post('http://localhost:3000/registro', registro, httpOptions)
+        .toPromise()
+        .then((response) => {
+          resolve(response as RegisterItf);
+        }, (error) => {
+          reject(error);
+        });
+    });
     return promise;
   }
 

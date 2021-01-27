@@ -61,7 +61,6 @@ export class PatientListComponent implements OnInit{
     const dialogRef = this.dialog.open(PatientFormComponent,  {
       width:'100%',
       data: {
-        token: '1233',
         idDoctor: this.idDoctor,
         title: 'Agregar paciente'
       }
