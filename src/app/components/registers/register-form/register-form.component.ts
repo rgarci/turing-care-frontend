@@ -27,6 +27,7 @@ export class RegisterFormComponent implements OnInit {
   idDoctor: number;
   title: string;
   idPatient: number;
+  idRegister : number;
 
   constructor(private fb: FormBuilder, private srvRegistro : GetRegistersService, public dialogRef: MatDialogRef<RegisterFormComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
@@ -34,6 +35,21 @@ export class RegisterFormComponent implements OnInit {
     this.idDoctor = data.idDoctor;
     this.title = data.title;
     this.idPatient = data.idPatient;
+    this.idRegister = null;
+    if (data.registro){
+      this.frmReactivo.controls.date.setValue(data.registro.fecha_cita);
+      this.frmReactivo.controls.symptoms.setValue(data.registro.sintomas);
+
+      this.frmReactivo.controls.description.setValue(data.registro.descripcion);
+      this.frmReactivo.controls.topic.setValue(data.registro.asunto);
+
+      this.frmReactivo.controls.medications.setValue(data.registro.medicamento_recetado);
+
+      this.frmReactivo.controls.observations.setValue(data.registro.observaciones);
+
+      this.frmReactivo.controls.type_of_treatment.setValue(data.registro.tipo_tratamiento);
+      this.frmReactivo.controls.treatment_monitoring.setValue(data.registro.seguimiento_tratamiento);
+    }
     console.log(data);
 
   }
@@ -42,9 +58,12 @@ export class RegisterFormComponent implements OnInit {
   }
 
   save(){
+    if (this.data.registro){
+      this.idRegister = this.data.registro.idRegister;
+    }
     var fecha = new Date(this.frmReactivo.get('date').value);
     const registro : RegisterItf = {
-      registro_id: null,
+      registro_id: this.idRegister,
       doctor_id: this.idDoctor,
       paciente_id: this.idPatient,
       asunto: this.frmReactivo.get('topic').value,
@@ -59,10 +78,18 @@ export class RegisterFormComponent implements OnInit {
       tipo_tratamiento: this.frmReactivo.get('type_of_treatment').value
     };
 
-    this.srvRegistro.createRegister(registro).then(r =>
-    {
-      this.dialogRef.close(r);
-    });
+    if (this.data.registro){
+      this.srvRegistro.updateRegister(registro).then(r =>
+      {
+        this.dialogRef.close(r);
+      });
+    }else {
+      this.srvRegistro.createRegister(registro).then(r =>
+      {
+        this.dialogRef.close(r);
+      });
+    }
+
   }
 
 }

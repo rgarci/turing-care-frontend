@@ -62,7 +62,7 @@ export class GetPatientsService {
     return promise;
   }
 
-  updatePatient = (paciente : Patient) : Promise<Patient> => {
+  updatePatient = (paciente : Patient): Promise<Patient> => {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'

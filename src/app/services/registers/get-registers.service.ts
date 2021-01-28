@@ -63,4 +63,21 @@ export class GetRegistersService {
     return promise;
   }
 
+  updateRegister= (registro : RegisterItf) : Promise<RegisterItf> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let promise = new Promise<RegisterItf>((resolve,reject) =>{
+      this.http.put('http://localhost:3000/registro', registro, httpOptions)
+        .toPromise()
+        .then((response) => {
+          resolve(response as RegisterItf);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
 }

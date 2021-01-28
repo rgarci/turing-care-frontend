@@ -30,7 +30,7 @@ export class PatientDataCardComponent implements OnInit{
         title: 'Editar paciente',
         idDoctor: this.patients.doctor_id,
         paciente: {
-          idPaciente: this.patients.paciente_id,
+          paciente_id: this.patients.paciente_id,
           nombre: this.patients.nombre,
           apellido_paterno: this.patients.apellido_paterno,
           apellido_materno: this.patients.apellido_materno,
