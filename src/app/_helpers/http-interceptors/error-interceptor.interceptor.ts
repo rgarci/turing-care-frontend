@@ -5,14 +5,14 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {AuthenticationService} from '../../services/auth/authentication.service';
-import {catchError} from 'rxjs/operators';
+import {catchError, filter, switchMap, take} from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthenticationService) {}
+ constructor(private authenticationService: AuthenticationService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
@@ -20,9 +20,13 @@ export class ErrorInterceptor implements HttpInterceptor {
           // A client-side or network error occurred. Handle it accordingly.
           console.error('An error occurred:', err.error.message);
         } else if (err.status === 401) {
-          // auto logout if 401 response returned from api
-          this.authenticationService.logout();
-          location.reload();
+            console.log("Error 401 recibido de la siquiente request");
+            console.log(request);
+            return  next.handle(request);
+          // //auto logout if 401 response returned from no valid token or refreshed token.
+          // this.authenticationService.logout();
+          // console.log('loggin out');
+         // location.reload();
         } else {
           // The backend returned an unsuccessful response code.
           // The response body may contain clues as to what went wrong.
@@ -30,11 +34,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             `body was: ${err.error}`);
         }
        console.log("Error interceptado");
-       console.log(err);
-        // Return an observable with a user-facing error message.
-        const error = err.message || err.statusText;
-        return throwError(error);
-      }));
+      console.log(err);
+      // Return an observable with a user-facing error message.
+      const error = err.message || err.statusText;
+      return throwError(error);
+    }));
   }
+
+
+
+
 }
 

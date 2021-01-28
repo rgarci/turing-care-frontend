@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Patient } from 'src/app/interfaces/patients/patient';
-import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
@@ -21,11 +20,8 @@ export class PatientListComponent implements OnInit{
   dataSource : MatTableDataSource<Patient>;
   doctorName : string;
   greeting : string;
-  doctorGender : boolean;
-
-  //TODO: PATIENTITF-Change
   patients : Patient[];
-  idDoctor : string;
+  idDoctor : number;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
@@ -33,22 +29,22 @@ export class PatientListComponent implements OnInit{
               private authSrv: AuthenticationService) { }
 
   ngOnInit(): void {
-    let username ="";
-    if(this.authSrv.currentUserValue){
-      username= this.authSrv.currentUserValue.username;
-    }
+    if (this.authSrv.currentUserValue) {
+      let srvDoc = this.authSrv.currentUserValue.doctor;
+      this.idDoctor = srvDoc.doctor_id;
 
-    this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+      this.doctorName = srvDoc.nombre + ' ' + srvDoc.apellido_paterno + ' ' + srvDoc.apellido_materno;
+    }
     this.buscar = '';
-    this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
-    this.greeting = "Bienvenido/a al sistema: " + username;
+
+    this.greeting = "Bienvenido/a, " + this.doctorName;
     this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
       console.log(this.patients);
       this.dataSource = new MatTableDataSource(this.patients);
       this.dataSource.paginator = this.paginator;
     }, (error) => {
-      alert("Error: " + error.statusText);
+      //alert("Error: " + error.statusText);
     });
   }
 

@@ -9,24 +9,17 @@
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
         <h2>Clinica: {{doctor.clinica_id}}</h2>
       </div>
+      <div>
+         <div class="flex">
+           <mat-icon aria-hidden="false" aria-label="phone">phone</mat-icon>
+           <p>{{doctor.telefono}}</p>
+         </div>
+        <div class="flex">
+          <mat-icon aria-hidden="false" aria-label="email">email</mat-icon>
+          <p>{{doctor.email}} </p>
+        </div>
+      </div>
 
-      <mat-list>
-        <mat-list-item>
-          <mat-icon mat-list-icon>phone</mat-icon>
-          <div mat-line>{{doctor.telefono}}</div>
-        </mat-list-item>
-        <mat-list-item>
-        <mat-icon mat-list-icon>email</mat-icon>
-        <div mat-line>{{doctor.email}}</div>
-        </mat-list-item>
-      </mat-list>
-
-<!--      <h2 class = "direction" >-->
-<!--        <mat-icon aria-hidden="false" aria-label="phone">phone</mat-icon>-->
-<!--        {{doctor.telefono}}-->
-<!--        <mat-icon aria-hidden="false" aria-label=" email">email</mat-icon>-->
-<!--        {{doctor.email}}-->
-<!--      </h2>-->
       <div class="information-footer">
         <h2>Cédula profesional: {{doctor.url_cedula}}</h2>
         <h2>CURP: {{doctor.curp}}</h2>
@@ -39,7 +32,7 @@
     <div class= "all-tile">
       <mat-tab-group>
         <mat-tab label="Áreas Medicas"> {{doctor.especialidad}} </mat-tab>
-        <mat-tab label="Otros"> Status: {{doctor.status}} </mat-tab>
+        <mat-tab label="Otros"> Status: {{doctor.status | status}} </mat-tab>
       </mat-tab-group>
     </div>
   </mat-grid-tile>

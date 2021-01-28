@@ -14,8 +14,7 @@ export class GetPatientsService {
     this.http = http;
   }
 
-  //TODO: PatientITF - Change promise tipe to match backend response as patient[];
-  getPatients = (idDoctor : string) : Promise<Patient[]> => {
+  getPatients = (idDoctor: number) : Promise<Patient[]> => {
     let promise = new Promise<Patient[]>((resolve, reject) =>{
       let route = 'http://localhost:3000/doctor/' + idDoctor + '/pacientes';
       console.log(route);

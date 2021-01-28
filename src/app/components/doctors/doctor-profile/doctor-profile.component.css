@@ -1,17 +1,31 @@
 mat-grid-tile{
   background: white;
 }
+
+.mat-icon {
+  margin-right: 10px;;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
 .profileImage {
   align-self: flex-start;
   width: 70%;
   padding-top: 8vh;
 }
+
 .information-tile {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: 70%;
+  border: 2px solid;
+  border-color: #9ddedf;
+  border-radius: 4px;
+  padding: 10px;
+  margin-right: 15px;
 }
 
 .information-header {
@@ -24,13 +38,13 @@ mat-grid-tile{
 }
 
 .information-footer {
-  padding-top: 30px;
+  padding-top: 15px;
 }
 h1 {
   font-weight: bold;
 }
 
-h2 {
+h2 , p{
   margin: 0;
 }
 .direction {

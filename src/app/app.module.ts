@@ -50,6 +50,7 @@ import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.i
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
 import {MatListModule} from "@angular/material/list";
+import { StatusPipe } from './pipes/status.pipe';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import {MatListModule} from "@angular/material/list";
     DoctorFormComponent,
     DoctorListComponent,
     RegisterFormComponent,
-    DateToAgePipe
+    DateToAgePipe,
+    StatusPipe
     ],
   imports: [
     BrowserModule,

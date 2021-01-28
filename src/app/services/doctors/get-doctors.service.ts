@@ -11,7 +11,7 @@ import {Doctor} from '../../interfaces/doctors/doctor';
 export class GetDoctorsService {
 
   cachedValues: Array<{
-    [id: string]: DoctorItf
+    [id: number]: Doctor
   }> = [];
 
 
@@ -19,10 +19,10 @@ export class GetDoctorsService {
     this.http = http;
   }
 
-  getDoctorById = (id: string): Promise<Doctor> => {
+  getDoctorById = (id: number): Promise<Doctor> => {
     let promise = new Promise<Doctor> ( (resolve, reject) => {
       if (this.cachedValues[id]){
-        resolve(this.cachedValues[id]);
+        resolve(this.cachedValues[id] as unknown as Doctor);
       }else {
         this.http.get('http://localhost:3000/doctor?id=' + id )
           .toPromise()
