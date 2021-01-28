@@ -49,6 +49,7 @@ import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.i
 
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
+import {MatListModule} from "@angular/material/list";
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { DateToAgePipe } from './pipes/date-to-age.pipe';
     MatFormFieldModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatListModule
   ],
   providers: [ DatePipe,
   AuthGuard, AuthenticationService,

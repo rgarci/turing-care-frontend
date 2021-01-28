@@ -18,7 +18,6 @@
         <!-- Weight Column -->
         <ng-container matColumnDef="age">
             <th mat-header-cell *matHeaderCellDef> Edad </th>
-<!--          TODO: crear pipe para poner la edad-->
             <td mat-cell *matCellDef="let element"> {{element.fecha_nacimiento | age }} </td>
         </ng-container>
 

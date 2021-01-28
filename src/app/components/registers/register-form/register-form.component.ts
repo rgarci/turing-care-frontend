@@ -78,7 +78,7 @@ export class RegisterFormComponent implements OnInit {
       tipo_tratamiento: this.frmReactivo.get('type_of_treatment').value
     };
 
-    if (this.data.registro.idRegister){
+    if (this.data.registro){
       this.srvRegistro.updateRegister(registro).then(r =>
       {
         this.dialogRef.close(r);

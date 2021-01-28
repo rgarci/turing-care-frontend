@@ -9,7 +9,24 @@
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
         <h2>Clinica: {{doctor.clinica_id}}</h2>
       </div>
-      <h2 class = "direction" >{{doctor.telefono}} {{doctor.email}}</h2>
+
+      <mat-list>
+        <mat-list-item>
+          <mat-icon mat-list-icon>phone</mat-icon>
+          <div mat-line>{{doctor.telefono}}</div>
+        </mat-list-item>
+        <mat-list-item>
+        <mat-icon mat-list-icon>email</mat-icon>
+        <div mat-line>{{doctor.email}}</div>
+        </mat-list-item>
+      </mat-list>
+
+<!--      <h2 class = "direction" >-->
+<!--        <mat-icon aria-hidden="false" aria-label="phone">phone</mat-icon>-->
+<!--        {{doctor.telefono}}-->
+<!--        <mat-icon aria-hidden="false" aria-label=" email">email</mat-icon>-->
+<!--        {{doctor.email}}-->
+<!--      </h2>-->
       <div class="information-footer">
         <h2>Cédula profesional: {{doctor.url_cedula}}</h2>
         <h2>CURP: {{doctor.curp}}</h2>

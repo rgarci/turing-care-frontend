@@ -24,7 +24,7 @@ export class GetDoctorsService {
       if (this.cachedValues[id]){
         resolve(this.cachedValues[id]);
       }else {
-        this.http.get('http://localhost:3000/doctor/?id=' + id )
+        this.http.get('http://localhost:3000/doctor?id=' + id )
           .toPromise()
           .then((response) => {
             resolve(response as Doctor);
