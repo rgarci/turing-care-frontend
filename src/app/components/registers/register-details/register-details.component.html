@@ -1,6 +1,6 @@
 <h2 mat-dialog-title *ngIf="dataSource">{{dataSource.asunto}}</h2>
 <mat-dialog-content *ngIf="dataSource" class="mat-typography">
-
+<div id="MyDIv">
   <h3>Fecha</h3>
   <p>{{dataSource.fecha_cita | date: 'd/M/yyyy'}}</p>
 
@@ -18,8 +18,10 @@
   <p>{{dataSource.tipo_tratamiento}}</p>
   <h4>Seguimiento de tratamiento</h4>
   <p>{{dataSource.seguimiento_tratamiento}}</p>
+</div>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <button mat-raised-button color="primary"  (click)="exportAsPDF('MyDIv');">Descargar</button>
   <button mat-button mat-dialog-close>Cerrar</button>
 </mat-dialog-actions>

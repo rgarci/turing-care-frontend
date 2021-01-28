@@ -3,7 +3,8 @@ import { GetRegistersService } from 'src/app/services/registers/get-registers.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { RegisterItf } from "src/app/interfaces/registers/register-itf";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-
+import jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-register-details',
@@ -29,4 +30,16 @@ export class RegisterDetailsComponent  implements OnInit  {
     })
 
   }
+
+  exportAsPDF(divId)
+    {
+        let data = document.getElementById('divId');  
+        html2canvas(data).then(canvas => {
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jspdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
+        // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
+        pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
+        pdf.output("blob");  
+      }); 
+    }
 }
