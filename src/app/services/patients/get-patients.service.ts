@@ -17,7 +17,6 @@ export class GetPatientsService {
   getPatients = (idDoctor: number) : Promise<Patient[]> => {
     let promise = new Promise<Patient[]>((resolve, reject) =>{
       let route = 'http://localhost:3000/doctor/' + idDoctor + '/pacientes';
-      console.log(route);
       this.http.get(route)
       .toPromise()
       .then((response) => {
@@ -31,7 +30,6 @@ export class GetPatientsService {
 
   getPatient = (idPatient : string) : Promise<Patient> => {
     let promise = new Promise<Patient>((resolve, reject) =>{
-      console.log(this.url + idPatient);
       this.http.get(this.url + idPatient)
       .toPromise()
       .then((response) => {

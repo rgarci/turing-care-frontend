@@ -23,8 +23,6 @@ export class DoctorProfileComponent implements OnInit {
 
   ngOnInit(): void {
    this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
-
-   console.log(typeof this.idDoctor);
    this.getDoctor(this.idDoctor);
   }
 

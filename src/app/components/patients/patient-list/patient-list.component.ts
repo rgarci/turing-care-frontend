@@ -40,7 +40,6 @@ export class PatientListComponent implements OnInit{
     this.greeting = "Bienvenido/a, " + this.doctorName;
     this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
-      console.log(this.patients);
       this.dataSource = new MatTableDataSource(this.patients);
       this.dataSource.paginator = this.paginator;
     }, (error) => {

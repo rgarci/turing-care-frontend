@@ -33,7 +33,6 @@ export class AuthenticationService {
          // store user details and jwt token in local storage to keep user logged in between page refreshes
          localStorage.setItem('currentUser', JSON.stringify( user));
          this.currentUserSubject.next(user as User);
-         console.log(this.currentUserValue);
          return user as User;
        }),
          shareReplay(1));
@@ -56,13 +55,9 @@ export class AuthenticationService {
       username: this.currentUserValue.username
     }).pipe(tap((response) => {
        const updateUser = this.currentUserValue;
-       console.log("user antes");
-       console.log(updateUser);
        updateUser.token = response.token;
        localStorage.setItem('currentUser', JSON.stringify(updateUser));
        this.currentUserSubject.next(updateUser as User);
-       console.log('USUARIO CON TOKEN REFRESCADO');
-       console.log(this.currentUserValue);
     }));
   }
 

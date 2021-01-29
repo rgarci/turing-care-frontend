@@ -25,11 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser && currentUser.token) {
       // Clone the request and set the new header in one step.
-      console.log('jwt interceptado');
       const authReq = this.addToken(request, currentUser.token);
-      console.log('Token añadido, mandando request:');
-      console.log(authReq);
-
       return next.handle(authReq).pipe(catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
@@ -43,9 +39,6 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>, token: string) {
-    console.log('ADDING TOKEN: ');
-    console.log(token);
-    console.log(request);
     return request.clone({
       setHeaders: {
         'Authorization': `${token}`
@@ -54,7 +47,6 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
   private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    console.log('REFRESHING?' +  this.isRefreshing);
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -63,8 +55,6 @@ export class JwtInterceptor implements HttpInterceptor {
       return this.authenticationService.refreshToken().pipe(
         switchMap((refresResponse) => {
           this.isRefreshing = false;
-          console.log('Token refrescado, mandando de nuevo la solicitud;');
-          console.log(refresResponse.token);
           this.refreshTokenSubject.next(refresResponse.token);
           return next.handle(this.addToken(request, refresResponse.token));
         }));
@@ -75,8 +65,7 @@ export class JwtInterceptor implements HttpInterceptor {
         filter(refresResponse => refresResponse != null),
         take(1),
         switchMap(token => {
-
-          return next.handle(this.addToken(request, token));
+          return next.handle(this.addToken(request, token.token));
         }));
     }
   }

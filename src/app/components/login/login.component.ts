@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(this.authService.currentUserValue);
           this.router.navigate(['/patients',
             {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
         },
