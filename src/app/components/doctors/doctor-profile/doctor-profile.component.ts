@@ -12,9 +12,9 @@ import {Doctor} from "../../../interfaces/doctors/doctor";
 export class DoctorProfileComponent implements OnInit {
 
   doctor: Doctor;
-  idDoctor: string;
+  idDoctor: number;
   // parametro de busqueda de la ruta : doctor/{id}/profile
-  idBusqueda: string;
+  idBusqueda: number;
 
 
   constructor(private getDoctorService: GetDoctorsService,
@@ -22,11 +22,11 @@ export class DoctorProfileComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-   this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+   this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
    this.getDoctor(this.idDoctor);
   }
 
-  getDoctor = (id: string) => {
+  getDoctor = (id: number) => {
        this.getDoctorService.getDoctorById(id)
       .then((response) => {
         this.doctor = response;

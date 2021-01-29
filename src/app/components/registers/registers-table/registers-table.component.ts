@@ -31,7 +31,6 @@ export class RegistersTableComponent implements OnInit {
   ngOnInit(): void {
     this.getRegistersSvc.getRegisters(this.parentData.paciente_id).then((response) =>{
       this.dataSource = response;
-      console.log(this.dataSource);
     }, (error) => {
       alert("Error: " + error.statusText)
     })
@@ -77,7 +76,7 @@ export class RegistersTableComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result  => {
         console.log('Dialog result:  %O', result);
         if (result) {
-          window.location.reload();
+            window.location.reload();
         }
       });
 

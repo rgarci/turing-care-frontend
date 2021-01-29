@@ -12,7 +12,11 @@ button {
   font-size: x-large;
   width: 50%;
 }
-
+.error-alert {
+  align-self: center;
+  padding: 5px;
+  color:red;
+}
 .registerTile, .login-Tile{
   display: inherit;
   flex-direction: column;

@@ -48,7 +48,9 @@ export class PatientDataCardComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe((result)  => {
       console.log('Dialog result:  %O', result);
-      if(result) {this.patients = result};
+      if(result) {
+        window.location.reload();
+      };
     });
   }
 }
