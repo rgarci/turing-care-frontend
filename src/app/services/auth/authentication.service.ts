@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {DoctorItf} from "../../interfaces/doctors/doctor-itf";
 import {catchError, first, map} from "rxjs/operators";
 import {ErrorInterceptor} from "../../_helpers/http-interceptors/error-interceptor.interceptor";
+import { Doctor } from 'src/app/interfaces/doctors/doctor';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,20 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  getDoctorById = (id: string): Promise<Doctor> => {
+    let promise = new Promise<Doctor> ( (resolve, reject) => {
+      
+        this.http.get('http://localhost:3000/info/doctor/' + id )
+          .toPromise()
+          .then((response) => {
+            resolve(response as Doctor);
+          }, (error) => {
+            reject(error);
+          });
+      
+    });
+    return promise;
+  }
 
   login = (username: string, password: string): Observable<User> => {
     let url = 'http://localhost:3000/usuarios/autenticar';
