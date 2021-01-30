@@ -52,6 +52,7 @@ import { DateToAgePipe } from './pipes/date-to-age.pipe';
 import {MatListModule} from "@angular/material/list";
 import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
 import { StatusPipe } from './pipes/status.pipe';
+import { AddressPipe } from './pipes/address.pipe';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { StatusPipe } from './pipes/status.pipe';
     DoctorListComponent,
     RegisterFormComponent,
     DateToAgePipe,
-    StatusPipe
+    StatusPipe,
+    AddressPipe
     ],
   imports: [
     BrowserModule,
@@ -105,7 +107,7 @@ import { StatusPipe } from './pipes/status.pipe';
   ],
   providers: [ DatePipe,
   AuthGuard, AuthenticationService,
-    httpInterceptorProviders,
+    httpInterceptorProviders, AddressPipe
   ],
   bootstrap: [AppComponent]
 })

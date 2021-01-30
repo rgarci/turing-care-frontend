@@ -1,8 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Doctor} from '../../../interfaces/doctors/doctor';
 import {GetDoctorsService} from '../../../services/doctors/get-doctors.service';
+import {Clinic} from '../../../interfaces/clinics/clinic';
+import {GetClinicService} from '../../../services/clinics/get-clinic.service';
 
 @Component({
   selector: 'app-doctor-form',
@@ -32,22 +34,33 @@ export class DoctorFormComponent implements OnInit {
   idUser: number;
   selectedFile: File;
   base64file: string;
-
+  clinicas: Clinic[];
+  selectedClinic: Clinic;
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<DoctorFormComponent>, @Inject(MAT_DIALOG_DATA) public data,
-              private srvDoctor: GetDoctorsService) {
+              private srvDoctor: GetDoctorsService, private clinicaSrv: GetClinicService, ) {
     this.idUser = null;
-    if (data.doctor){
+    this.clinicas = null;
+    this.selectedClinic = null;
+    if (data.doctor){ // on update
       this.idDoctor = data.doctor.doctor_id;
       this.frmReactivo.controls.firstName.setValue(data.doctor.nombre);
       this.frmReactivo.controls.lastName.setValue(data.doctor.apellido_paterno);
       this.frmReactivo.controls.secondLastName.setValue(data.doctor.apellido_materno);
+
       this.frmReactivo.controls.clinic.setValue(data.doctor.nombre_clinica);
       this.frmReactivo.controls.clinic_direction.setValue(data.doctor.direccion_clinica);
+      this.frmReactivo.controls.clinic.disable();
+      this.frmReactivo.controls.clinic_direction.disable();
+
       this.frmReactivo.controls.email.setValue(data.doctor.email);
       this.frmReactivo.controls.phone.setValue(data.doctor.telefono);
       this.frmReactivo.controls.curp.setValue(data.doctor.curp);
       this.frmReactivo.controls.medicalAreas.setValue(data.doctor.especialidad);
       this.frmReactivo.controls.cedula.setValue(data.doctor.cedula);
+    }
+    if (data.create){
+      this.frmReactivo.controls.clinic_direction.disable();
+      this.getClinicas();
     }
   }
 
@@ -56,7 +69,7 @@ export class DoctorFormComponent implements OnInit {
 
   register() {
 
-    if(this.data.send_email){
+    if (this.data.send_email){
       const doctor = {
         nombre: this.frmReactivo.get('firstName').value,
         apellido_paterno: this.frmReactivo.get('lastName').value,
@@ -70,7 +83,7 @@ export class DoctorFormComponent implements OnInit {
       };
       console.log(doctor);
       this.dialogRef.close(doctor);
-      //TODO: send email to doctar;
+      // TODO: send email to doctar;
     } else {
       let idClinica = null;
       let status = null;
@@ -82,8 +95,8 @@ export class DoctorFormComponent implements OnInit {
       if (this.data.doctor){
         idClinica = this.data.doctor.idClinica;
         status = this.data.doctor.status;
-      } else { // on create
-        idClinica = this.getClinica(this.frmReactivo.get('clinic').value);
+      } else if (this.data.create){ // on create
+        idClinica = this.selectedClinic.clinica_id;
       }
 
       const doctor: Doctor = {
@@ -119,22 +132,25 @@ export class DoctorFormComponent implements OnInit {
   selectFile(event) {
     this.selectedFile = event.target.files.item(0);
     console.log(this.selectedFile);
-    this.file2Base64(this.selectedFile).then((response)=> {
+    this.file2Base64(this.selectedFile).then((response) => {
       this.base64file = response;
     });
   }
 
-  file2Base64 = (file:File):Promise<string> => {
-    return new Promise<string> ((resolve,reject)=> {
+  file2Base64 = (file: File): Promise<string> => {
+    return new Promise<string> ((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result.toString());
       reader.onerror = error => reject(error);
     });
   }
-  getClinica(nombre: string): number{
-
-    // TODO: BUSCAR el id de la clinica y ponerlo;
-    return 1;
+  getClinicas = () => {
+    this.clinicaSrv.getClinicList()
+      .then((response) => {
+        this.clinicas = response;
+      }, (error) => {
+        console.log('Error: ' + error.statusText );
+      });
   }
 }
