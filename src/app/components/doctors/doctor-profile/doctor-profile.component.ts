@@ -67,7 +67,10 @@ export class DoctorProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.doctor = result;
+      if( result) {
+        this.doctor = result;
+      }
+
     });
   }
 
