@@ -20,6 +20,9 @@ export class DoctorProfileComponent implements OnInit {
   cedula: string;
   url_foto: string;
 
+  title = 'turingcare';
+  elementType = 'canvas';
+  value;
 
   constructor(private getDoctorService: GetDoctorsService,
               private  route: ActivatedRoute,
@@ -28,6 +31,15 @@ export class DoctorProfileComponent implements OnInit {
   ngOnInit(): void {
    this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
    this.getDoctor(this.idDoctor);
+   this.getDoctorService.getInfoDoctorById(this.idDoctor).then((response) => {
+      this.value = JSON.stringify(response);
+      console.log(response);
+      console.log(this.value);
+      
+      
+    }, (error) => {
+      alert('Error: ' + error.statusText);
+    });
   }
 
   getDoctor = (id: number) => {

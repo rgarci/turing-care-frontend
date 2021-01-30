@@ -4,7 +4,9 @@
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">
-    <div class="information-tile">
+    <div class="info">
+      <div class="information-tile">
+
       <div class="information-header">
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
         <h2>Clinica: {{nombreClinica}}</h2>
@@ -24,6 +26,15 @@
       <div class="information-footer">
         <h2>Cédula profesional: {{cedula}}</h2>
         <h2>CURP: {{doctor.curp}}</h2>
+      </div>
+
+      </div>
+      <div class="flex-start-qr" >
+        <ngx-qrcode 
+        [elementType]="elementType" 
+        [value]="value"
+        errorCorrectionLevel="L">
+      </ngx-qrcode>
       </div>
     </div>
     <button mat-raised-button class="flex-start" (click)="editDoctor(doctor.doctor_id)">Editar</button>

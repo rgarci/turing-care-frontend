@@ -50,6 +50,7 @@ import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.i
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
 import {MatListModule} from "@angular/material/list";
+import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
 import { StatusPipe } from './pipes/status.pipe';
 
 
@@ -77,6 +78,7 @@ import { StatusPipe } from './pipes/status.pipe';
     ],
   imports: [
     BrowserModule,
+    NgxQRCodeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

@@ -16,16 +16,21 @@ mat-grid-tile{
 }
 
 .information-tile {
-  width: 100%;
-  display: flex;
+  width: 50%;
+  margin: auto;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.info{
+  width: 70%;
   height: 70%;
+  padding: 10px;
+  margin-right: 15px;
+  display: flex;
   border: 2px solid;
   border-color: #9ddedf;
   border-radius: 4px;
-  padding: 10px;
-  margin-right: 15px;
 }
 
 .information-header {
@@ -55,11 +60,18 @@ h2 , p{
 .information-footer> h2 {
   font-size: medium;
 }
+.flex-start-qr {
+  width: 40%;
+  margin: auto;
+  align-self: flex-start;
+}
+
 .flex-start {
   margin-right: 10%;
   align-self: flex-start;
   margin-top: 5%;
 }
+
 button {
   background: #3BBCBE ;
   color: #f0f8ff;
