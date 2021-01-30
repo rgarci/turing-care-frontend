@@ -36,7 +36,7 @@
 
         <mat-form-field class= "itext" appearance="fill">
           <mat-label>Teléfono</mat-label>
-          <input matInput #input maxlength="10" placeholder="Ex. 9991092133"
+          <input matInput type="tel" #input maxlength="10" placeholder="Ex. 9991092133"
                  formControlName="phone">
           <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
           <mat-icon matSuffix>phone</mat-icon>
@@ -45,7 +45,7 @@
 
       <mat-form-field class="itext" appearance="fill">
          <mat-label>Correo</mat-label>
-        <input matInput placeholder="pat@example.com" formControlName="email">
+        <input type="email" matInput placeholder="pat@example.com" formControlName="email">
       </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">

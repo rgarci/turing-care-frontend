@@ -5,8 +5,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
-import {User} from "../../classes/user";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +26,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog,
               private authService: AuthenticationService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+    // redirect to home if already logged in
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/patients',
+        {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
+    }
+  }
   ngOnInit(): void {
 
     // get return url from route parameters or default to '/'
@@ -63,8 +67,11 @@ export class LoginComponent implements OnInit {
 
   register(){
     const dialogRef = this.dialogForm.open(DoctorFormComponent, {
-      width: '500px',
-      height: '500px'
+     data: {
+        title: 'Bienvenido a TuringCare',
+        subtitle: 'Llena estos datos y solicita tu registro',
+        send_email: 'wendy@gmail.com'
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
