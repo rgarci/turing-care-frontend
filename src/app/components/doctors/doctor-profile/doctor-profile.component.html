@@ -1,6 +1,6 @@
 <mat-grid-list *ngIf="doctor;else loading" cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
-     <img class = profileImage src="{{doctor.url_foto}}" alt="Photo of a Shiba Inu">
+     <img class = profileImage src="{{url_foto}}" alt="{{doctor.url_foto}}">
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">
@@ -9,7 +9,8 @@
 
       <div class="information-header">
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
-        <h2>Clinica: {{doctor.clinica_id}}</h2>
+        <h2>Clinica: {{nombreClinica}}</h2>
+        <p>{{direccionClinica}}</p>
       </div>
       <div>
          <div class="flex">
@@ -23,7 +24,7 @@
       </div>
 
       <div class="information-footer">
-        <h2>Cédula profesional: {{doctor.url_cedula}}</h2>
+        <h2>Cédula profesional: {{cedula}}</h2>
         <h2>CURP: {{doctor.curp}}</h2>
       </div>
 
@@ -36,7 +37,7 @@
       </ngx-qrcode>
       </div>
     </div>
-    <button mat-raised-button class="flex-start">Editar</button>
+    <button mat-raised-button class="flex-start" (click)="editDoctor(doctor.doctor_id)">Editar</button>
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">

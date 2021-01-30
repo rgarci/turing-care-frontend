@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { RegisterFormComponent } from '../../registers/register-form/register-form.component';
 import {Patient} from '../../../interfaces/patients/patient';
@@ -26,7 +25,8 @@ export class PatientDetailsComponent implements OnInit {
     this.getPatientsSvc.getPatient(this.idPatient).then((response) =>{
       this.patient = response;
     }, (error) => {
-      alert("Error: " + error.statusText);
+      this.router.navigate(['/patients',
+        {idDoctor: this.idDoctor}]);
     })
   }
 

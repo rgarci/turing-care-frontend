@@ -3,11 +3,11 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse
+  HttpInterceptor, HttpErrorResponse,
 } from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {AuthenticationService} from '../services/auth/authentication.service';
-import {filter, switchMap, take} from "rxjs/operators";
+import {filter, switchMap, take} from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
