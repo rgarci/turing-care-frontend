@@ -1,17 +1,47 @@
 
-<h1 mat-dialog-title>Bienvenido a TuringCare</h1>
-<mat-dialog-content class="register-form" [formGroup]="registerFormTemplate">Llena estos datos y solicita tu registro
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-dialog-content class="register-form" [formGroup]="frmReactivo">
+  {{data.subtitle}}
   <p></p>
   <table class="full-width" cellspacing="0"><tr>
     <td><mat-form-field class="full-width">
       <mat-label>Nombre(s)</mat-label>
       <input matInput formControlName="firstName">
     </mat-form-field></td>
+
     <td><mat-form-field class="full-width">
-      <mat-label>Apellidos</mat-label>
-      <input matInput formControlName="lastNames">
+      <mat-label>Apellido paterno</mat-label>
+      <input matInput formControlName="lastName">
     </mat-form-field></td>
-  </tr></table>
+
+    <td><mat-form-field class="full-width">
+      <mat-label>Apellido materno</mat-label>
+      <input matInput formControlName="secondLastName">
+    </mat-form-field></td>
+
+  </tr>
+
+   <tr>
+     <td>
+       <mat-form-field class= "full-width" appearance="fill">
+         <mat-label>Teléfono</mat-label>
+         <input matInput type="tel" #input maxlength="10" placeholder="Ex. 9991092133"
+                formControlName="phone">
+         <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+         <mat-icon matSuffix>phone</mat-icon>
+       </mat-form-field>
+     </td>
+
+      <td>
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Correo</mat-label>
+          <input type="email" matInput placeholder="pat@example.com" formControlName="email">
+        </mat-form-field>
+      </td>
+
+   </tr>
+  </table>
+
   <p>
     <mat-form-field class="full-width">
       <mat-label>Clínica</mat-label>
@@ -40,10 +70,27 @@
     <mat-label>Areas médicas</mat-label>
     <input matInput placeholder="Pediatría, Dentista" formControlName="medicalAreas">
   </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label *ngIf="selectedFile; else newFile">{{selectedFile.name}}</mat-label>
+    <ng-template #newFile>
+      <mat-label>Choose file</mat-label>
+    </ng-template>
+    <input matInput formControlName="photoName">
+    <mat-hint >Only jpg,svg,png,jpeg</mat-hint>
+    <button mat-icon-button matSuffix (click)="fileInput.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <input hidden (change)="selectFile($event)" #fileInput type="file" id="file"
+           formControlName="photo"  accept=".jpg,.svg,.png,.jpeg">
+  </mat-form-field>
+
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button mat-dialog-close class="principal-button" (click)="register()">Registrar</button>
+  <button mat-button mat-dialog-close class="principal-button"
+          (click)="register()" [disabled] = "!frmReactivo.valid">Registrar</button>
 </mat-dialog-actions>
 
 
