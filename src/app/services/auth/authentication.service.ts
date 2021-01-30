@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import {DoctorItf} from "../../interfaces/doctors/doctor-itf";
+import {ErrorInterceptor} from "../../_helpers/http-interceptors/error-interceptor.interceptor";
+import { Doctor } from 'src/app/interfaces/doctors/doctor';
+import {catchError, first, map, shareReplay, tap} from 'rxjs/operators';
 import {User} from '../../classes/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import { map, shareReplay, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,7 @@ export class AuthenticationService {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
+
 
 
   login = (username: string, password: string): Observable<User> => {
