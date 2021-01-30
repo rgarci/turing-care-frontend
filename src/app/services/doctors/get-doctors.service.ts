@@ -37,7 +37,6 @@ export class GetDoctorsService {
 
   getInfoDoctorById = (id): Promise<Doctor> => {
     let promise = new Promise<Doctor> ( (resolve, reject) => {
-      
         this.http.get('http://localhost:3000/info/doctor/' + id )
           .toPromise()
           .then((response) => {
@@ -45,7 +44,6 @@ export class GetDoctorsService {
           }, (error) => {
             reject(error);
           });
-      
     });
     return promise;
   }

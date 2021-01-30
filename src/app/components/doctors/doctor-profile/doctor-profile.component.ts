@@ -5,6 +5,9 @@ import {Doctor} from '../../../interfaces/doctors/doctor';
 import {DoctorFormComponent} from '../doctor-form/doctor-form.component';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
+import {GetClinicService} from '../../../services/clinics/get-clinic.service';
+import {Clinic} from '../../../interfaces/clinics/clinic';
+import {AddressPipe} from '../../../pipes/address.pipe';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -14,9 +17,8 @@ import {AuthenticationService} from '../../../services/auth/authentication.servi
 export class DoctorProfileComponent implements OnInit {
 
   doctor: Doctor;
+  clinica: Clinic;
   idDoctor: number;
-  nombreClinica: string;
-  direccionClinica: string;
   cedula: string;
   url_foto: string;
 
@@ -26,7 +28,9 @@ export class DoctorProfileComponent implements OnInit {
 
   constructor(private getDoctorService: GetDoctorsService,
               private  route: ActivatedRoute,
-              private router: Router, public dialogForm: MatDialog, private authSrv: AuthenticationService) { }
+              private router: Router, public dialogForm: MatDialog, private authSrv: AuthenticationService,
+              private clinicaSrv: GetClinicService,
+              private addressPipe: AddressPipe) { }
 
   ngOnInit(): void {
    this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
@@ -35,8 +39,6 @@ export class DoctorProfileComponent implements OnInit {
       this.value = JSON.stringify(response);
       console.log(response);
       console.log(this.value);
-      
-      
     }, (error) => {
       alert('Error: ' + error.statusText);
     });
@@ -46,8 +48,7 @@ export class DoctorProfileComponent implements OnInit {
        this.getDoctorService.getDoctorById(id)
       .then((response) => {
         this.doctor = response;
-        // this.getClinica(this.doctor.clinica_id);
-
+        this.getClinica(this.doctor.clinica_id);
         // this.url_foto= 'http://localhost:3000/'+ this.doctor.url_foto+'.txt';
         // this.cedula = 'http://localhost:3000/'+ this.doctor.url_cedula+'.txt';
       }, (error) => {
@@ -65,8 +66,8 @@ export class DoctorProfileComponent implements OnInit {
           nombre: this.doctor.nombre,
           apellido_paterno: this.doctor.apellido_paterno,
           apellido_materno: this.doctor.apellido_materno,
-          nombre_clinica: this.nombreClinica,
-          direccion_clinica: this.direccionClinica,
+          nombre_clinica: this.clinica.nombre,
+          direccion_clinica: this.addressPipe.transform(this.clinica),
           idClinica : this.doctor.clinica_id,
           status: this.doctor.status,
           email: this.doctor.email,
@@ -79,21 +80,20 @@ export class DoctorProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if( result) {
+      if ( result) {
         this.doctor = result;
+        // window.location.reload();
       }
 
     });
   }
 
-  // getClinica(id: number): number{
-  //   this.getClinicaService.getClinicaById(id)
-  //     .then((response) => {
-  //       this.nombreClinica = response.nombre;
-  //       this.direccionClinica = response.direecion;
-  //     }, (error) => {
-  //       console.log('Error: ' + error.statusText + this.id);
-  //     });
-  //   return 1;
-  // }
+  getClinica = (id: number) => {
+    this.clinicaSrv.getClinicById(id)
+      .then((response) => {
+        this.clinica = response;
+      }, (error) => {
+        console.log('Error: ' + error.statusText + id);
+      });
+  }
 }

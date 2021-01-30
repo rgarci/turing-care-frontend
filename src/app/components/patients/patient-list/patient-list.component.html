@@ -1,5 +1,5 @@
 <div class="myContainer">
-    <h2>{{greeting}}</h2>
+    <h2 *ngIf="doctorName">{{greeting}}</h2>
     <form action="">
         <mat-form-field appearance="legacy">
             <input matInput placeholder="Buscar" #input (keyup)="getPatient($event)">

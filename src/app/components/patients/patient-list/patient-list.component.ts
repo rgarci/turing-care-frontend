@@ -7,6 +7,7 @@ import { Patient } from 'src/app/interfaces/patients/patient';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
+import {GetDoctorsService} from "../../../services/doctors/get-doctors.service";
 
 @Component({
   selector: 'app-patient-list',
@@ -26,22 +27,25 @@ export class PatientListComponent implements OnInit{
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
               private router : Router, public dialog: MatDialog,
-              private authSrv: AuthenticationService) { }
+              private authSrv: AuthenticationService,private docSrv: GetDoctorsService) { }
 
   ngOnInit(): void {
     if (this.authSrv.currentUserValue) {
-      let srvDoc = this.authSrv.currentUserValue.doctor;
-      this.idDoctor = srvDoc.doctor_id;
-
-      this.doctorName = srvDoc.nombre + ' ' + srvDoc.apellido_paterno + ' ' + srvDoc.apellido_materno;
+      this.idDoctor = this.authSrv.currentUserValue.doctor.doctor_id;
     }
     this.buscar = '';
 
-    this.greeting = "Bienvenido/a, " + this.doctorName;
     this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
       this.dataSource = new MatTableDataSource(this.patients);
       this.dataSource.paginator = this.paginator;
+
+      this.docSrv.getDoctorById(this.idDoctor).then((response)=> {
+        this.doctorName = response.nombre + ' ' + response.apellido_paterno + ' ' + response.apellido_materno;
+        this.greeting = "Bienvenido/a, " + this.doctorName;
+      }, (error) => {
+        error.log('loading doctor information failed');
+      });
     }, (error) => {
       //alert("Error: " + error.statusText);
     });

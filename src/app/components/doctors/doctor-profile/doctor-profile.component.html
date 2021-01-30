@@ -1,4 +1,4 @@
-<mat-grid-list *ngIf="doctor;else loading" cols="4">
+<mat-grid-list *ngIf="doctor && clinica;else loading" cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
      <img class = profileImage src="{{url_foto}}" alt="{{doctor.url_foto}}">
   </mat-grid-tile>
@@ -9,8 +9,8 @@
 
       <div class="information-header">
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
-        <h2>Clinica: {{nombreClinica}}</h2>
-        <p>{{direccionClinica}}</p>
+        <h2>Clinica: {{clinica.nombre}}</h2>
+        <p>{{clinica | address }}</p>
       </div>
       <div>
          <div class="flex">
@@ -30,8 +30,8 @@
 
       </div>
       <div class="flex-start-qr" >
-        <ngx-qrcode 
-        [elementType]="elementType" 
+        <ngx-qrcode
+        [elementType]="elementType"
         [value]="value"
         errorCorrectionLevel="L">
       </ngx-qrcode>

@@ -43,13 +43,27 @@
   </table>
 
   <p>
-    <mat-form-field class="full-width">
-      <mat-label>Clínica</mat-label>
-      <input matInput formControlName="clinic">
+    <mat-form-field *ngIf="clinicas ;else oneClinic" appearance="fill" class="full-width">
+      <mat-label>Clinica</mat-label>
+      <mat-select formControlName="clinic" [(value)]="selectedClinic">
+        <mat-option *ngFor="let clinica of clinicas" [value]="clinica">
+          {{clinica.nombre}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
+    <ng-template #oneClinic>
+      <mat-form-field class="full-width">
+        <mat-label>Clínica</mat-label>
+        <input matInput formControlName="clinic">
+      </mat-form-field>
+    </ng-template>
+
     <mat-form-field class="full-width">
-      <mat-label>Dirección clínica</mat-label>
+      <mat-label *ngIf="selectedClinic; else newClinic" >{{selectedClinic | address}}</mat-label>
+      <ng-template #newClinic>
+        <mat-label>Dirección clínica</mat-label>
+      </ng-template>
       <textarea matInput placeholder="Ex. 100 Main St"
                 formControlName="clinic_direction">1600 Amphitheatre Pkwy</textarea>
     </mat-form-field>
