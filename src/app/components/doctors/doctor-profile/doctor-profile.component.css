@@ -1,17 +1,36 @@
 mat-grid-tile{
   background: white;
 }
+
+.mat-icon {
+  margin-right: 10px;;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
 .profileImage {
   align-self: flex-start;
   width: 70%;
   padding-top: 8vh;
 }
+
 .information-tile {
-  width: 100%;
-  display: flex;
+  width: 50%;
+  margin: auto;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.info{
+  width: 70%;
   height: 70%;
+  padding: 10px;
+  margin-right: 15px;
+  display: flex;
+  border: 2px solid;
+  border-color: #9ddedf;
+  border-radius: 4px;
 }
 
 .information-header {
@@ -24,13 +43,13 @@ mat-grid-tile{
 }
 
 .information-footer {
-  padding-top: 30px;
+  padding-top: 15px;
 }
 h1 {
   font-weight: bold;
 }
 
-h2 {
+h2 , p{
   margin: 0;
 }
 .direction {
@@ -41,11 +60,18 @@ h2 {
 .information-footer> h2 {
   font-size: medium;
 }
+.flex-start-qr {
+  width: 40%;
+  margin: auto;
+  align-self: flex-start;
+}
+
 .flex-start {
   margin-right: 10%;
   align-self: flex-start;
   margin-top: 5%;
 }
+
 button {
   background: #3BBCBE ;
   color: #f0f8ff;

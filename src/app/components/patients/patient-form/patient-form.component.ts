@@ -48,7 +48,6 @@ export class PatientFormComponent implements OnInit {
       this.frmReactivo.controls.cronicIllness.setValue(data.paciente.enfermedades_cronicas);
       this.frmReactivo.controls.treatments.setValue(data.paciente.tratamientos_vigentes);
     }
-    console.log(data);
   }
 
   ngOnInit(): void {}

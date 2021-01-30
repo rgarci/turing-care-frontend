@@ -23,9 +23,6 @@ export class PatientDetailsComponent implements OnInit {
 
     this.idPatient = this.route.snapshot.paramMap.get('idPatient');
     this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
-    console.log("My input: " + this.idDoctor);
-    console.log("patient: " + this.idPatient);
-
     this.getPatientsSvc.getPatient(this.idPatient).then((response) =>{
       this.patient = response;
     }, (error) => {

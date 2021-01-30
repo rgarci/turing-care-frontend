@@ -12,21 +12,33 @@ import {Doctor} from "../../../interfaces/doctors/doctor";
 export class DoctorProfileComponent implements OnInit {
 
   doctor: Doctor;
-  idDoctor: string;
+  idDoctor: number;
   // parametro de busqueda de la ruta : doctor/{id}/profile
-  idBusqueda: string;
+  idBusqueda: number;
 
+  title = 'turingcare';
+  elementType = 'canvas';
+  value;
 
   constructor(private getDoctorService: GetDoctorsService,
               private  route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
-   this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
+   this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
    this.getDoctor(this.idDoctor);
+   this.getDoctorService.getInfoDoctorById(this.idDoctor).then((response) => {
+      this.value = JSON.stringify(response);
+      console.log(response);
+      console.log(this.value);
+      
+      
+    }, (error) => {
+      alert('Error: ' + error.statusText);
+    });
   }
 
-  getDoctor = (id: string) => {
+  getDoctor = (id: number) => {
        this.getDoctorService.getDoctorById(id)
       .then((response) => {
         this.doctor = response;

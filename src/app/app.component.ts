@@ -21,11 +21,7 @@ export class AppComponent {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
    
     
-    this.authenticationService.getDoctorById("2").then((response) => {
-      this.value = JSON.stringify(response);
-    }, (error) => {
-      alert('Error: ' + error.statusText);
-    });
+    
   }
 
   logout() {

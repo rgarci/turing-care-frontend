@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   hidepswd = true;
   logged = false;
-  idDoctor: string;
+  idDoctor: number;
+  errorLog = false;
   loginFrmTemplate = this.fb.group({
     user: ['', Validators.required],
     password: ['', Validators.required]
@@ -34,17 +35,6 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/patients';
   }
 
-  mockLogin() {
-    if (this.loginFrmTemplate.invalid) {
-      return;
-    }
-
-    this.loading = true;
-
-    this.authService.login(this.loginFrmTemplate.get('user').value, this.loginFrmTemplate.get('password').value)
-    this.router.navigate(['/patients',
-      {idDoctor: this.authService.currentUserValue.idDoctor}]);
-  }
   login() {
     if (this.loginFrmTemplate.invalid) {
       return;
@@ -56,13 +46,11 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(this.authService.currentUserValue);
           this.router.navigate(['/patients',
-            {idDoctor: this.authService.currentUserValue.idDoctor}]);
+            {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
         },
         error => {
-          //TODO: handle error
-          alert(error);
+          this.errorLog = true;
           console.log("Error en login "+ error);
           this.loading =false;
         });
@@ -80,9 +68,7 @@ export class LoginComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`); // Pizza!
-
-      // alert('¡REGISTRO ENVIADO!');
+      console.log(`Dialog result: ${result}`);
     });
 
   }

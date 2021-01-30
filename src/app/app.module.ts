@@ -51,6 +51,7 @@ import { RegisterFormComponent } from './components/registers/register-form/regi
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
 import {MatListModule} from "@angular/material/list";
 import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
+import { StatusPipe } from './pipes/status.pipe';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
     DoctorFormComponent,
     DoctorListComponent,
     RegisterFormComponent,
-    DateToAgePipe
+    DateToAgePipe,
+    StatusPipe
     ],
   imports: [
     BrowserModule,

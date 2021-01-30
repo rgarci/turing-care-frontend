@@ -15,8 +15,7 @@
       <div class="login-name">
         <p class="title"> Ingresa a tu cuenta</p>
       </div>
-<!--      TODO:change to: (ngSubmit) = "login()"-->
-      <form [formGroup]="loginFrmTemplate" (ngSubmit)="mockLogin()" id="loginForm">
+      <form [formGroup]="loginFrmTemplate" (ngSubmit)="login()" id="loginForm">
         <mat-form-field appearance="outline" hideRequiredMarker="true">
           <mat-label> Usuario </mat-label>
           <input matInput type="text" name="username" formControlName="user" >
@@ -40,6 +39,9 @@
             password is <strong>required</strong>
           </mat-error>
         </mat-form-field>
+        <div *ngIf="errorLog" class="error-alert">
+          <span>Credenciales inválidas </span>
+        </div>
         <br>
         <button mat-raised-button type=submit class="action-btn"> Entrar</button>
       </form>

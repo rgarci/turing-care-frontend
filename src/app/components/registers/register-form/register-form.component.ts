@@ -50,8 +50,6 @@ export class RegisterFormComponent implements OnInit {
       this.frmReactivo.controls.type_of_treatment.setValue(data.registro.tipo_tratamiento);
       this.frmReactivo.controls.treatment_monitoring.setValue(data.registro.seguimiento_tratamiento);
     }
-    console.log(data);
-
   }
 
   ngOnInit(): void {
