@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import {Patient} from "../../../interfaces/patients/patient";
 import {PatientFormComponent} from "../patient-form/patient-form.component";
-import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
+import {QuestionDialogComponent} from "../../dialogs/question-dialog/question-dialog.component";
+import {GetPatientsService} from "../../../services/patients/get-patients.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-patient-data-card',
@@ -14,8 +16,10 @@ export class PatientDataCardComponent implements OnInit{
 
   @Input() parentData;
   @Input("patients") patients: Patient;
+  loading = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private patientSrv: GetPatientsService,
+              private  alertBars: AlertBars,private router: Router) {
   }
   ngOnInit(): void {
   }
@@ -51,6 +55,31 @@ export class PatientDataCardComponent implements OnInit{
       if(result) {
         window.location.reload();
       };
+    });
+  }
+
+  deletePatient(id: number) {
+    const dialogRef = this.dialog.open(QuestionDialogComponent,{
+      data : 'paciente'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.loading= true;
+        this.patientSrv.deletePatient(id).then(r =>
+        {
+          this.loading= false;
+          let alrt = this.alertBars.openSuccessSnackBar('Paciente eliminado');
+          alrt.afterDismissed().subscribe(info => {
+            this.router.navigate(['/patients',
+              {idDoctor: this.patients.doctor_id}]);
+          });
+        }, (error) => {
+          this.loading = false;
+          let alrt = this.alertBars.openErrorSnackBar('Error eliminando');
+        });
+        this.alertBars.openSendingSnackBar('Eliminando...');
+      }
+
     });
   }
 }

@@ -45,8 +45,6 @@ import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-togg
 import {AuthGuard} from "./_helpers/auth.guard";
 import {AuthenticationService} from "./services/auth/authentication.service";
 import {httpInterceptorProviders} from './_helpers/http-interceptors';
-import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.interceptor";
-
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
 import {MatListModule} from "@angular/material/list";
@@ -55,6 +53,7 @@ import { StatusPipe } from './pipes/status.pipe';
 import { AddressPipe } from './pipes/address.pipe';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {AlertBars} from "./_helpers/alert-bars";
+import { QuestionDialogComponent } from './components/dialogs/question-dialog/question-dialog.component';
 
 
 @NgModule({
@@ -78,7 +77,8 @@ import {AlertBars} from "./_helpers/alert-bars";
     RegisterFormComponent,
     DateToAgePipe,
     StatusPipe,
-    AddressPipe
+    AddressPipe,
+    QuestionDialogComponent
     ],
   imports: [
     BrowserModule,
