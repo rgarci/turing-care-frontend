@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import {Patient} from "../../interfaces/patients/patient";
 
 @Injectable({
@@ -76,4 +75,19 @@ export class GetPatientsService {
     });
     return promise;
   }
+
+  deletePatient = (idPatient: number) : Promise<any> => {
+    var endpoint = this.url + idPatient;
+    let promise = new Promise<any>((resolve, reject) =>{
+      this.http.delete(endpoint)
+        .toPromise()
+        .then((response) => {
+          resolve(response);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
+
 }

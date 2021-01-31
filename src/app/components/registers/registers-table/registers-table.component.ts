@@ -1,14 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import { RegisterDetailsComponent } from '../register-details/register-details.component';
-import { RegisterListItf } from "src/app/interfaces/registers/register-list-itf";
 import { GetRegistersService } from 'src/app/services/registers/get-registers.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Patient} from "../../../interfaces/patients/patient";
 import {RegisterItf} from "../../../interfaces/registers/register-itf";
 import {RegisterFormComponent} from "../register-form/register-form.component";
-import {Validators} from "@angular/forms";
-import {MatTableDataSource} from "@angular/material/table";
+import {QuestionDialogComponent} from "../../dialogs/question-dialog/question-dialog.component";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 
 
@@ -24,9 +22,11 @@ export class RegistersTableComponent implements OnInit {
   displayedColumns: string[] = ['position', 'asunto', 'fecha', 'acciones'];
   dataSource: RegisterItf[];
   name: string;
+   loading = false;
 
   constructor(public dialog: MatDialog,
-    private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router) {}
+    private getRegistersSvc : GetRegistersService, private route : ActivatedRoute, private router : Router,
+              private  alertBars: AlertBars) {}
 
   ngOnInit(): void {
     this.getRegistersSvc.getRegisters(this.parentData.paciente_id).then((response) =>{
@@ -83,6 +83,30 @@ export class RegistersTableComponent implements OnInit {
     }, (error) => {
       console.log(error);
       return;
+    });
+  }
+
+  deleteRegister(registro_id: number) {
+    const dialogRef = this.dialog.open(QuestionDialogComponent,{
+      data : 'registro'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.loading= true;
+        this.getRegistersSvc.deleteRegister(registro_id).then(r =>
+        {
+          this.loading= false;
+          let alrt = this.alertBars.openSuccessSnackBar('Registro eliminado');
+          alrt.afterDismissed().subscribe(info => {
+            window.location.reload();
+          });
+        }, (error) => {
+          this.loading= false;
+          let alrt = this.alertBars.openErrorSnackBar('Error eliminando');
+        });
+        this.alertBars.openSendingSnackBar('Eliminando...');
+      }
+
     });
   }
 }
