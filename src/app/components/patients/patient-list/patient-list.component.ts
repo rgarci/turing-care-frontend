@@ -8,6 +8,7 @@ import { GetPatientsService } from 'src/app/services/patients/get-patients.servi
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
 import {GetDoctorsService} from "../../../services/doctors/get-doctors.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-patient-list',
@@ -27,7 +28,8 @@ export class PatientListComponent implements OnInit{
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
               private router : Router, public dialog: MatDialog,
-              private authSrv: AuthenticationService,private docSrv: GetDoctorsService) { }
+              private authSrv: AuthenticationService,private docSrv: GetDoctorsService,
+              private alertBars: AlertBars) { }
 
   ngOnInit(): void {
     if (this.authSrv.currentUserValue) {
@@ -47,7 +49,8 @@ export class PatientListComponent implements OnInit{
         error.log('loading doctor information failed');
       });
     }, (error) => {
-      //alert("Error: " + error.statusText);
+      this.alertBars.openErrorSnackBar('Error cargando pacientes');
+      console.log("Error: " + error.statusText);
     });
   }
 
@@ -64,20 +67,8 @@ export class PatientListComponent implements OnInit{
         title: 'Agregar paciente'
       }
     });
-
-    dialogRef.afterClosed().subscribe((result)  => {
-      console.log('Dialog result:  %O', result);
-      if (result) {
-        this.patients.push(result);
-        this.refresh();
-      }
-    });
   }
 
-  refresh(){
-    this.dataSource = new MatTableDataSource(this.patients);
-    this.dataSource.paginator = this.paginator;
-  }
   viewPatient(patientId : string){
     this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
   }

@@ -5,6 +5,7 @@ import {Doctor} from '../../../interfaces/doctors/doctor';
 import {GetDoctorsService} from '../../../services/doctors/get-doctors.service';
 import {Clinic} from '../../../interfaces/clinics/clinic';
 import {GetClinicService} from '../../../services/clinics/get-clinic.service';
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-doctor-form',
@@ -30,6 +31,7 @@ export class DoctorFormComponent implements OnInit {
     photo: ['']
   });
 
+  loading = false;
   idDoctor: number;
   idUser: number;
   selectedFile: File;
@@ -37,7 +39,8 @@ export class DoctorFormComponent implements OnInit {
   clinicas: Clinic[];
   selectedClinic: Clinic;
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<DoctorFormComponent>, @Inject(MAT_DIALOG_DATA) public data,
-              private srvDoctor: GetDoctorsService, private clinicaSrv: GetClinicService, ) {
+              private srvDoctor: GetDoctorsService, private clinicaSrv: GetClinicService,
+              private alertBars: AlertBars) {
     this.idUser = null;
     this.clinicas = null;
     this.selectedClinic = null;
@@ -68,7 +71,6 @@ export class DoctorFormComponent implements OnInit {
   }
 
   register() {
-
     if (this.data.send_email){
       const doctor = {
         nombre: this.frmReactivo.get('firstName').value,
@@ -80,10 +82,26 @@ export class DoctorFormComponent implements OnInit {
         especialidad: this.frmReactivo.get('medicalAreas').value,
         email: this.frmReactivo.get('email').value,
         telefono: this.frmReactivo.get('phone').value,
+        clinica: this.frmReactivo.get('clinic').value,
+        direccion_clinica: this.frmReactivo.get('clinic_direction').value
       };
       console.log(doctor);
+      this.srvDoctor.sendEmail(doctor)
+        .then((response) => {
+
+          let alertRef = this.alertBars.openSendingSnackBar('Corrreo Enviado','Ver');
+          alertRef.onAction().subscribe(() => {
+            let actionUrl = response.messageUrl;
+              window.open(actionUrl);
+            alertRef.dismiss();
+          });
+
+        }, (error) => {
+          console.log('Error: ' + error.statusText );
+          this.alertBars.openErrorSnackBar('Error enviando');
+        });
       this.dialogRef.close(doctor);
-      // TODO: send email to doctar;
+
     } else {
       let idClinica = null;
       let status = null;
@@ -118,14 +136,37 @@ export class DoctorFormComponent implements OnInit {
       if (this.data.doctor) { // se actualiza
         this.srvDoctor.updateDoctor(doctor).then(r =>
         {
-          this.dialogRef.close(r);
+          this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openSuccessSnackBar('Doctor actualizado');
+          alrt.afterDismissed().subscribe(info => {
+            window.location.reload();
+          });
+        }, (error) => {
+          this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openErrorSnackBar();
         });
       }else {
         this.srvDoctor.createDoctor(doctor).then(r =>
         {
-          this.dialogRef.close(r);
+
+          this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openSuccessSnackBar('Doctor creado');
+          alrt.afterDismissed().subscribe(info => {
+            window.location.reload();
+          });
+        }, (error) => {
+
+          this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openErrorSnackBar();
         });
       }// se crea
+      this.dialogRef.disableClose = true;
+
+      this.loading = true;
     }
   }
 

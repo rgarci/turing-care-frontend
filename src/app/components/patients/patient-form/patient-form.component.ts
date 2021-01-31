@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { Patient } from 'src/app/interfaces/patients/patient';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
 import {GetPatientsService} from "../../../services/patients/get-patients.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-patient-form',
@@ -28,9 +29,11 @@ export class PatientFormComponent implements OnInit {
   idDoctor: number;
   idPaciente:number;
   title: string;
+  loading= false;
 
   constructor(private svcPatient : GetPatientsService, private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              @Inject(MAT_DIALOG_DATA) public data,
+              private alertBars : AlertBars) {
     this.idDoctor = data.idDoctor;
     this.title = data.title;
     //pordefault. se cambia cuando se actualiza o se crea un paciente.
@@ -77,15 +80,39 @@ export class PatientFormComponent implements OnInit {
     if (this.data.paciente) { //se actualiza
       this.svcPatient.updatePatient(patient).then(r =>
       {
-        this.dialogRef.close(r);
-      });
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openSuccessSnackBar('Paciente actualizado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+
+        this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openErrorSnackBar();
+        });
     } else {
       this.svcPatient.createPatient(patient).then(r =>
       {
-        this.dialogRef.close(r);
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openSuccessSnackBar('Paciente creado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      },  (error) => {
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
       });
     }//se crea
 
+    this.loading= true;
+    this.dialogRef.disableClose = true;
   }
 
 }

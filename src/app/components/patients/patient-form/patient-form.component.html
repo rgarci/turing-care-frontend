@@ -75,5 +75,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cerrar</button>
-    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid">Guardar</button>
+    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid || loading">Guardar</button>
 </mat-dialog-actions>

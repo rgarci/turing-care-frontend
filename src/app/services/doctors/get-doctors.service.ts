@@ -97,4 +97,18 @@ export class GetDoctorsService {
     });
     return promise;
   }
+
+  sendEmail= (content):Promise<any> => {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post('http://localhost:3000/sendmail/', content)
+        .toPromise()
+        .then((response) => {
+          console.log(response);
+          resolve(response);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
 }

@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {register} from "ts-node";
 import {RegisterItf} from "../../../interfaces/registers/register-itf";
 import {GetRegistersService} from "../../../services/registers/get-registers.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-register-form',
@@ -28,9 +29,10 @@ export class RegisterFormComponent implements OnInit {
   title: string;
   idPatient: number;
   idRegister : number;
+  loading= false;
 
   constructor(private fb: FormBuilder, private srvRegistro : GetRegistersService, public dialogRef: MatDialogRef<RegisterFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              @Inject(MAT_DIALOG_DATA) public data, private alertBars : AlertBars) {
     this.token = data.token;
     this.idDoctor = data.idDoctor;
     this.title = data.title;
@@ -79,15 +81,36 @@ export class RegisterFormComponent implements OnInit {
     if (this.data.registro){
       this.srvRegistro.updateRegister(registro).then(r =>
       {
-        this.dialogRef.close(r);
+        this.dialogRef.close();
+        this.loading= false;
+        let alrt = this.alertBars.openSuccessSnackBar('Registro actualizado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
       });
     }else {
       this.srvRegistro.createRegister(registro).then(r =>
       {
-        this.dialogRef.close(r);
+        this.dialogRef.close();
+        this.loading= false;
+        let alrt = this.alertBars.openSuccessSnackBar('Registro creado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
       });
     }
 
+    this.dialogRef.disableClose = true;
+    this.loading= true;
   }
 
 }

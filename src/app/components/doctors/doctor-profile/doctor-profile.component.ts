@@ -8,6 +8,7 @@ import {AuthenticationService} from '../../../services/auth/authentication.servi
 import {GetClinicService} from '../../../services/clinics/get-clinic.service';
 import {Clinic} from '../../../interfaces/clinics/clinic';
 import {AddressPipe} from '../../../pipes/address.pipe';
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-doctor-profile',
@@ -30,7 +31,8 @@ export class DoctorProfileComponent implements OnInit {
               private  route: ActivatedRoute,
               private router: Router, public dialogForm: MatDialog, private authSrv: AuthenticationService,
               private clinicaSrv: GetClinicService,
-              private addressPipe: AddressPipe) { }
+              private addressPipe: AddressPipe,
+              private  alertBars: AlertBars) { }
 
   ngOnInit(): void {
    this.idDoctor = +this.route.snapshot.paramMap.get('idDoctor');
@@ -40,7 +42,7 @@ export class DoctorProfileComponent implements OnInit {
       console.log(response);
       console.log(this.value);
     }, (error) => {
-      alert('Error: ' + error.statusText);
+      console.log('Error cargando doctor: ' + error.statusText);
     });
   }
 
@@ -49,10 +51,9 @@ export class DoctorProfileComponent implements OnInit {
       .then((response) => {
         this.doctor = response;
         this.getClinica(this.doctor.clinica_id);
-        // this.url_foto= 'http://localhost:3000/'+ this.doctor.url_foto+'.txt';
-        // this.cedula = 'http://localhost:3000/'+ this.doctor.url_cedula+'.txt';
       }, (error) => {
-        alert('Error: ' + error.statusText + this.idDoctor);
+        this.alertBars.openErrorSnackBar("Error cargando doctor");
+        console.log('Error en obtener doctor: ' + error.statusText + this.idDoctor);
       });
   }
 
@@ -77,14 +78,6 @@ export class DoctorProfileComponent implements OnInit {
           cedula: this.cedula
         }
       }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if ( result) {
-        this.doctor = result;
-        // window.location.reload();
-      }
-
     });
   }
 
