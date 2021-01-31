@@ -53,6 +53,8 @@ import {MatListModule} from "@angular/material/list";
 import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
 import { StatusPipe } from './pipes/status.pipe';
 import { AddressPipe } from './pipes/address.pipe';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {AlertBars} from "./_helpers/alert-bars";
 
 
 @NgModule({
@@ -103,11 +105,12 @@ import { AddressPipe } from './pipes/address.pipe';
     MatFormFieldModule,
     MatSlideToggleModule,
     HttpClientModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [ DatePipe,
   AuthGuard, AuthenticationService,
-    httpInterceptorProviders, AddressPipe
+    httpInterceptorProviders, AddressPipe, AlertBars
   ],
   bootstrap: [AppComponent]
 })

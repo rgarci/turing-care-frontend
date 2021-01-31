@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { RegisterFormComponent } from '../../registers/register-form/register-form.component';
 import {Patient} from '../../../interfaces/patients/patient';
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-patient-details',
@@ -16,7 +17,7 @@ export class PatientDetailsComponent implements OnInit {
   idDoctor : string;
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute, private router : Router,
-    public dialog:MatDialog) { }
+    public dialog:MatDialog, private alertBars : AlertBars) { }
 
   ngOnInit(): void {
 
@@ -25,8 +26,7 @@ export class PatientDetailsComponent implements OnInit {
     this.getPatientsSvc.getPatient(this.idPatient).then((response) =>{
       this.patient = response;
     }, (error) => {
-      this.router.navigate(['/patients',
-        {idDoctor: this.idDoctor}]);
+      this.alertBars.openErrorSnackBar();
     })
   }
 
@@ -39,17 +39,5 @@ export class PatientDetailsComponent implements OnInit {
         idPatient : this.idPatient
       }
     });
-
-    dialogRef.afterClosed().subscribe(result  => {
-      console.log('Dialog result:  %O', result);
-      if (result) {
-        this.refresh(result.paciente_id);
-      }
-    });
-
-  }
-
-  private refresh(idPatient: string) {
-    window.location.reload();
   }
 }

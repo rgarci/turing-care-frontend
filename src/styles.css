@@ -2,3 +2,19 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.success-mat{
+  color: white;
+  background-color: rgb(46, 172, 35);
+}
+
+.error-mat{
+  color: white;
+  background-color: rgb(219, 23, 23);
+}
+.loading-mat{
+  color: white;
+  background-color: gray;
+}
+.mat-simple-snackbar-action  {
+  color: white;
+}

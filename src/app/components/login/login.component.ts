@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
+import {AlertBars} from "../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog,
               private authService: AuthenticationService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private alertBars: AlertBars) {
     // redirect to home if already logged in
     if (this.authService.currentUserValue) {
       this.router.navigate(['/patients',
@@ -70,13 +72,15 @@ export class LoginComponent implements OnInit {
      data: {
         title: 'Bienvenido a TuringCare',
         subtitle: 'Llena estos datos y solicita tu registro',
-        send_email: 'wendy@gmail.com'
+        send_email: true
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      // Simple message with an action.
+      if ( result) {
+        this.alertBars.openSendingSnackBar();
+      }
     });
-
   }
 }
