@@ -16,12 +16,15 @@ export class HeaderComponent implements OnInit {
 
   constructor(private  route: ActivatedRoute,
               private router: Router, private authenticationService: AuthenticationService) {
-
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
    ngOnInit(): void {
   }
 
+  getUserRole(){
+    return this.authenticationService.getRole();
+  }
   logout() {
     this.authenticationService.logout();
   }

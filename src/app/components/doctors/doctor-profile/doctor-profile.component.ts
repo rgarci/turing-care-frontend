@@ -39,7 +39,6 @@ export class DoctorProfileComponent implements OnInit {
    this.getDoctor(this.idDoctor);
    this.getDoctorService.getInfoDoctorById(this.idDoctor).then((response) => {
       this.value = JSON.stringify(response);
-      console.log(response);
       console.log(this.value);
     }, (error) => {
       console.log('Error cargando doctor: ' + error.statusText);
@@ -62,6 +61,7 @@ export class DoctorProfileComponent implements OnInit {
       data: {
         title: 'Editar doctor',
         idUser: this.authSrv.currentUserValue.user_id,
+        saveAction:'Guardar',
         doctor: {
           doctor_id,
           nombre: this.doctor.nombre,

@@ -52,8 +52,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/patients',
-            {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
+          if(this.authService.getRole() === 'admin'){
+            this.router.navigate(['/doctores']);
+          }else {
+            this.router.navigate(['/patients',
+              {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
+          }
         },
         error => {
           this.errorLog = true;
@@ -72,7 +76,8 @@ export class LoginComponent implements OnInit {
      data: {
         title: 'Bienvenido a TuringCare',
         subtitle: 'Llena estos datos y solicita tu registro',
-        send_email: true
+        send_email: true,
+        saveAction : 'Registrar',
       }
     });
 
