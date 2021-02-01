@@ -6,7 +6,7 @@
         </mat-form-field>
     </form>
     <button mat-raised-button color="primary" (click)=openCreateForm()>Añadir <mat-icon>add</mat-icon></button>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  id="registersTable">
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -44,4 +44,6 @@
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
     </table>
     <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    <button mat-raised-button color="primary"  (click)="exportexcel();">Descargar</button>
+
 </div>

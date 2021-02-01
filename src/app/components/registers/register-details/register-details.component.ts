@@ -33,13 +33,13 @@ export class RegisterDetailsComponent  implements OnInit  {
 
   exportAsPDF(divId)
     {
-        let data = document.getElementById('divId');  
+        let data = document.getElementById('MyDIv');  
         html2canvas(data).then(canvas => {
         const contentDataURL = canvas.toDataURL('image/png')  
         let pdf = new jspdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
         // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
         pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
-        pdf.output("blob");  
+        pdf.save("registro.pdf");  
       }); 
     }
 }

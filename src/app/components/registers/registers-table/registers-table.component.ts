@@ -8,8 +8,6 @@ import {RegisterFormComponent} from "../register-form/register-form.component";
 import {QuestionDialogComponent} from "../../dialogs/question-dialog/question-dialog.component";
 import {AlertBars} from "../../../_helpers/alert-bars";
 
-
-
 @Component({
   selector: 'app-registers-table',
   templateUrl: './registers-table.component.html',
