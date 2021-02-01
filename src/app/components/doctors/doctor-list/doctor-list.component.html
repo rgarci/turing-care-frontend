@@ -1,0 +1,51 @@
+<div class="myContainer">
+  <h2>{{greeting}}</h2>
+  <form action="">
+    <mat-form-field appearance="legacy">
+      <input matInput placeholder="Buscar" #input (keyup)="getDoctor($event)">
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color="primary" (click)=openCreateForm()>Añadir <mat-icon>add</mat-icon></button>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} {{element.apellido_paterno}}
+        {{element.apellido_materno}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+      <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element" class="button-row">
+        <div class="flex-container">
+          <div class="button-container">
+            <button mat-icon-button (click)="viewDoctor(element.doctor_id)">
+              <mat-icon>remove_red_eye</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element"> {{element.status | status}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+  </table>
+  <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

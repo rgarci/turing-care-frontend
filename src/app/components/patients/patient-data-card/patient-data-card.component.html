@@ -1,0 +1,23 @@
+<mat-card>
+    <div mat-card-image></div>
+    <mat-card-content>
+
+        <strong>Fecha de nacimiento</strong>
+        <p>{{patients.fecha_nacimiento | date: "d/M/yyyy" }}</p>
+        <strong>Sexo</strong>
+        <p>{{patients.sexo}}</p>
+        <strong>Alergias</strong>
+        <p>{{patients.alergias}}</p>
+        <strong>Operaciones previas</strong>
+        <p>{{patients.operaciones_previas}}</p>
+
+        <strong>Enfermedades crónicas</strong>
+        <p>{{patients.enfermedades_cronicas}}</p>
+        <strong>Tratamientos vigentes</strong>
+        <p>{{patients.tratamientos_vigentes}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="editPatient()">EDITAR</button>
+      <button mat-raised-button color="warn" (click) = "deletePatient(patients.paciente_id)">ELIMINAR</button>
+    </mat-card-actions>
+  </mat-card>

@@ -1,0 +1,22 @@
+button {
+  background: #3BBCBE ;
+}
+h1,h2 {
+  font-size: 23px;
+  font-weight: bold;
+}
+.center {
+  padding: 10px;
+  top: 35%;
+  position: absolute;
+  text-align: center;
+  left: 45%;
+}
+.nav a {
+  width: 80px;
+  display: inline-block;
+  text-decoration: none;
+  color: #f0f8ff;
+  font-size: medium;
+  font-weight: bold;
+}

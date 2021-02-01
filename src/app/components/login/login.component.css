@@ -1,0 +1,58 @@
+mat-grid-list {
+  min-height: 80%;
+}
+
+mat-grid-tile {
+  background: white;
+}
+
+button {
+  background: #3BBCBE ;
+  color: #f0f8ff;
+  font-size: x-large;
+  width: 50%;
+}
+.error-alert {
+  align-self: center;
+  padding: 5px;
+  color:red;
+}
+.registerTile, .login-Tile{
+  display: inherit;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.login-Tile {
+  background: aliceblue;
+  height: 75%;
+  width: 75%;
+}
+.action-btn , .login-name{
+  align-self: center;
+}
+
+mat-form-field.mat-form-field {
+  font-size: large;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.title {
+  font-size: x-large;
+}
+.description {
+  font-size: large;
+}
+.form-group {
+margin: auto;
+}
+.hide-button{
+  color: black;
+  background: none;
+}

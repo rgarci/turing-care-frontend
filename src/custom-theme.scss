@@ -1,0 +1,106 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// define a real custom palette (using http://mcg.mbitson.com)
+$md-tc-blue: (
+  50 : #e7f7f7,
+  100 : #c4ebec,
+  200 : #9ddedf,
+  300 : #76d0d2,
+  400 : #58c6c8,
+  500 : #3bbcbe,
+  600 : #35b6b8,
+  700 : #2dadaf,
+  800 : #26a5a7,
+  900 : #199799,
+  A100 : #cffeff,
+  A200 : #9cfdff,
+  A400 : #69fbff,
+  A700 : #50fbff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #F0F8FF,
+    600 : #F0F8FF,
+    700 : #F0F8FF,
+    800 : #F0F8FF,
+    900 : #F0F8FF,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-tc-brown: (
+  50 : #f3e7e3,
+  100 : #e0c4ba,
+  200 : #cc9c8c,
+  300 : #b8745e,
+  400 : #a8573c,
+  500 : #993919,
+  600 : #913316,
+  700 : #862c12,
+  800 : #7c240e,
+  900 : #6b1708,
+  A100 : #ffa79b,
+  A200 : #ff7968,
+  A400 : #ff4c35,
+  A700 : #ff361c,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #ffffff,
+    A700 : #ffffff,
+  )
+);
+
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$turingcare-primary: mat-palette($md-tc-blue);
+$turingcare-accent: mat-palette($md-tc-brown);
+
+// The warn palette is optional (defaults to red).
+$turingcare-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$turingcare-theme: mat-light-theme((
+  color: (
+    primary: $turingcare-primary,
+    accent: $turingcare-accent,
+    warn: $turingcare-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($turingcare-theme);
+

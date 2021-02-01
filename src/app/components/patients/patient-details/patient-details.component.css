@@ -1,0 +1,23 @@
+.aline-patient-detail{
+    margin: 2rem 8rem 8rem 8rem ;
+    min-height: 83vh;
+    align-content: center;
+}
+
+button{
+    background-color:  #3BBCBE;
+    color: #ffffff;
+}
+
+.card-head{
+    display: inline-block; 
+    width: 100%;
+}
+
+.card-name{
+    float: left;
+}
+
+.card-button-register{
+    float: right;
+}

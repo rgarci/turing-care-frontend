@@ -1,0 +1,43 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.logo >a img{
+    width: 3rem;
+    height: 3rem;
+}
+
+mat-toolbar{
+    background-color: #3BBCBE;
+    color: #f0f8ff;
+    height: 10vh;
+}
+
+mat-toolbar > a{
+    padding-left: 24px;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.account-icon{
+  color: white;
+  background: #1F6566;
+}
+
+.nav-options{
+    display: flex;
+    flex-flow: row wrap;
+    list-style: none;
+    justify-content: space-evenly;
+    font-size: var(--small-font);
+    text-transform: uppercase;
+}
+
+.nav-option > a{
+    padding-right: 24px;
+    text-decoration: none;
+    color: var(--white);
+}
+a {
+  text-decoration: none;
+}
