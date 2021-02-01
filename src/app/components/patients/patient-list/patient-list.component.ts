@@ -9,6 +9,7 @@ import { PatientFormComponent } from '../patient-form/patient-form.component';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
 import {GetDoctorsService} from "../../../services/doctors/get-doctors.service";
 import {AlertBars} from "../../../_helpers/alert-bars";
+import * as XLSX from 'xlsx'; 
 
 @Component({
   selector: 'app-patient-list',
@@ -72,5 +73,20 @@ export class PatientListComponent implements OnInit{
   viewPatient(patientId : string){
     this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
   }
+
+  exportexcel(): void 
+    {
+       /* table id is passed over here */   
+       let element = document.getElementById('registersTable'); 
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+       /* save to file */
+       XLSX.writeFile(wb, 'registros.xlsx');
+			
+    }
 
 }
