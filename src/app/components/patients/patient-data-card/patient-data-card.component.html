@@ -18,6 +18,6 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button (click)="editPatient()">EDITAR</button>
-      <button mat-raised-button color="warn">ELIMINAR</button>
+      <button mat-raised-button color="warn" (click) = "deletePatient(patients.paciente_id)">ELIMINAR</button>
     </mat-card-actions>
   </mat-card>

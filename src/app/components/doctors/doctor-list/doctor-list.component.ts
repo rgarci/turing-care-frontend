@@ -7,6 +7,11 @@ import {GetDoctorsService} from '../../../services/doctors/get-doctors.service';
 import {DoctorItf} from '../../../interfaces/doctors/doctor-itf';
 import {Doctor} from '../../../interfaces/doctors/doctor';
 import {DoctorFormComponent} from '../doctor-form/doctor-form.component';
+import {AuthenticationService} from "../../../services/auth/authentication.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
+import {PatientFormComponent} from "../../patients/patient-form/patient-form.component";
+import {Clinic} from "../../../interfaces/clinics/clinic";
+import {GetClinicService} from "../../../services/clinics/get-clinic.service";
 
 @Component({
   selector: 'app-doctor-list',
@@ -23,11 +28,14 @@ export class DoctorListComponent implements OnInit {
   doctors: Doctor[];
   idDoctor: string;
   isChecked = true;
+  clinicas : Clinic[];
+  loading = false;
 
-  columnsToDisplay = ['name' , 'hospital' , 'cedule', 'actions','status'];
+  columnsToDisplay = ['name' , 'phone' , 'email', 'actions', 'status'];
 
   constructor(private getDoctorsSvc: GetDoctorsService, private route: ActivatedRoute,
-              private router: Router, public dialog: MatDialog) { }
+              private router: Router, public dialog: MatDialog,private authSrv: AuthenticationService,private docSrv: GetDoctorsService,
+              private alertBars: AlertBars, private clinicaSrv: GetClinicService) { }
 
   ngOnInit(): void {
     this.greeting = 'Hola,admin';
@@ -36,7 +44,8 @@ export class DoctorListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.doctors);
       this.dataSource.paginator = this.paginator;
     }, (error) => {
-      alert('Error: ' + error.statusText);
+      this.alertBars.openErrorSnackBar('Error cargando doctores');
+      console.log("Error: " + error.statusText);
     });
   }
 
@@ -46,16 +55,19 @@ export class DoctorListComponent implements OnInit {
   }
 
   openCreateForm() {
-    const dialogRef = this.dialog.open(DoctorFormComponent,  {
-      width: '100%'
-    });
 
-    dialogRef.afterClosed().subscribe(result  => {
-      console.log('Dialog result:  %O', result);
+    const dialogRef = this.dialog.open(DoctorFormComponent,  {
+      width:'100%',
+      data: {
+        idUser: this.authSrv.currentUserValue.user_id,
+        title: 'Agregar doctor',
+        create:true,
+        saveAction:'Guardar',
+      }
     });
   }
 
   viewDoctor(DoctorId: string){
-    this.router.navigate(['doctor?id=' + DoctorId]);
+    this.router.navigate(['doctores/' + DoctorId]);
   }
 }

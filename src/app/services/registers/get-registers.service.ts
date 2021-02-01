@@ -1,8 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RegisterListItf } from 'src/app/interfaces/registers/register-list-itf';
 import { RegisterItf } from 'src/app/interfaces/registers/register-itf';
-import {Patient} from "../../interfaces/patients/patient";
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +29,7 @@ export class GetRegistersService {
   getRegistersById = (idRegister : string) : Promise<RegisterItf> => {
     var endpoint = 'http://localhost:3000/registro/' + idRegister;
     let promise = new Promise<RegisterItf>((resolve, reject) =>{
-      this.http.get(endpoint,{
-        headers: {'X-API-TOKEN':'g3n6yYltCrz44dGo7qMwoZK4FlufEBp9'}
-      })
+      this.http.get(endpoint)
       .toPromise()
       .then((response) => {
         resolve(response as RegisterItf)
@@ -63,4 +59,35 @@ export class GetRegistersService {
     return promise;
   }
 
+  updateRegister= (registro : RegisterItf) : Promise<RegisterItf> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let promise = new Promise<RegisterItf>((resolve,reject) =>{
+      this.http.put('http://localhost:3000/registro', registro, httpOptions)
+        .toPromise()
+        .then((response) => {
+          resolve(response as RegisterItf);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
+
+  deleteRegister = (idRegister: number) : Promise<any> => {
+    var endpoint = 'http://localhost:3000/registro/' + idRegister;
+    let promise = new Promise<any>((resolve, reject) =>{
+      this.http.delete(endpoint)
+        .toPromise()
+        .then((response) => {
+          resolve(response);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
 }

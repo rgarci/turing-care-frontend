@@ -45,10 +45,15 @@ import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-togg
 import {AuthGuard} from "./_helpers/auth.guard";
 import {AuthenticationService} from "./services/auth/authentication.service";
 import {httpInterceptorProviders} from './_helpers/http-interceptors';
-import {ErrorInterceptor} from "./_helpers/http-interceptors/error-interceptor.interceptor";
-
 import { RegisterFormComponent } from './components/registers/register-form/register-form.component';
 import { DateToAgePipe } from './pipes/date-to-age.pipe';
+import {MatListModule} from "@angular/material/list";
+import { NgxQRCodeModule } from "@techiediaries/ngx-qrcode";
+import { StatusPipe } from './pipes/status.pipe';
+import { AddressPipe } from './pipes/address.pipe';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {AlertBars} from "./_helpers/alert-bars";
+import { QuestionDialogComponent } from './components/dialogs/question-dialog/question-dialog.component';
 
 
 @NgModule({
@@ -70,10 +75,14 @@ import { DateToAgePipe } from './pipes/date-to-age.pipe';
     DoctorFormComponent,
     DoctorListComponent,
     RegisterFormComponent,
-    DateToAgePipe
+    DateToAgePipe,
+    StatusPipe,
+    AddressPipe,
+    QuestionDialogComponent
     ],
   imports: [
     BrowserModule,
+    NgxQRCodeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -96,10 +105,12 @@ import { DateToAgePipe } from './pipes/date-to-age.pipe';
     MatFormFieldModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [ DatePipe,
   AuthGuard, AuthenticationService,
-    httpInterceptorProviders,
+    httpInterceptorProviders, AddressPipe, AlertBars
   ],
   bootstrap: [AppComponent]
 })

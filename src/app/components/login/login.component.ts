@@ -5,8 +5,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {DoctorFormComponent} from '../doctors/doctor-form/doctor-form.component';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {first} from "rxjs/operators";
-import {User} from "../../classes/user";
-import {Observable} from "rxjs";
+import {AlertBars} from "../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   hidepswd = true;
   logged = false;
-  idDoctor: string;
+  idDoctor: number;
+  errorLog = false;
   loginFrmTemplate = this.fb.group({
     user: ['', Validators.required],
     password: ['', Validators.required]
@@ -27,24 +27,20 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, public dialogForm: MatDialog,
               private authService: AuthenticationService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private alertBars: AlertBars) {
+    // redirect to home if already logged in
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/patients',
+        {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
+    }
+  }
   ngOnInit(): void {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/patients';
   }
 
-  mockLogin() {
-    if (this.loginFrmTemplate.invalid) {
-      return;
-    }
-
-    this.loading = true;
-
-    this.authService.login(this.loginFrmTemplate.get('user').value, this.loginFrmTemplate.get('password').value)
-    this.router.navigate(['/patients',
-      {idDoctor: this.authService.currentUserValue.idDoctor}]);
-  }
   login() {
     if (this.loginFrmTemplate.invalid) {
       return;
@@ -56,13 +52,15 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(this.authService.currentUserValue);
-          this.router.navigate(['/patients',
-            {idDoctor: this.authService.currentUserValue.idDoctor}]);
+          if(this.authService.getRole() === 'admin'){
+            this.router.navigate(['/doctores']);
+          }else {
+            this.router.navigate(['/patients',
+              {idDoctor: this.authService.currentUserValue.doctor.doctor_id}]);
+          }
         },
         error => {
-          //TODO: handle error
-          alert(error);
+          this.errorLog = true;
           console.log("Error en login "+ error);
           this.loading =false;
         });
@@ -75,15 +73,19 @@ export class LoginComponent implements OnInit {
 
   register(){
     const dialogRef = this.dialogForm.open(DoctorFormComponent, {
-      width: '500px',
-      height: '500px'
+     data: {
+        title: 'Bienvenido a TuringCare',
+        subtitle: 'Llena estos datos y solicita tu registro',
+        send_email: true,
+        saveAction : 'Registrar',
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`); // Pizza!
-
-      // alert('¡REGISTRO ENVIADO!');
+      // Simple message with an action.
+      if ( result) {
+        this.alertBars.openSendingSnackBar();
+      }
     });
-
   }
 }

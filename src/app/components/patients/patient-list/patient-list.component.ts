@@ -4,10 +4,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Patient } from 'src/app/interfaces/patients/patient';
-import { PatientItf } from 'src/app/interfaces/patients/patient-itf';
 import { GetPatientsService } from 'src/app/services/patients/get-patients.service';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
+import {GetDoctorsService} from "../../../services/doctors/get-doctors.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-patient-list',
@@ -21,34 +22,35 @@ export class PatientListComponent implements OnInit{
   dataSource : MatTableDataSource<Patient>;
   doctorName : string;
   greeting : string;
-  doctorGender : boolean;
-
-  //TODO: PATIENTITF-Change
   patients : Patient[];
-  idDoctor : string;
+  idDoctor : number;
   columnsToDisplay = ['name' , 'phone' , 'age', 'actions'];
 
   constructor(private getPatientsSvc : GetPatientsService, private route : ActivatedRoute,
               private router : Router, public dialog: MatDialog,
-              private authSrv: AuthenticationService) { }
+              private authSrv: AuthenticationService,private docSrv: GetDoctorsService,
+              private alertBars: AlertBars) { }
 
   ngOnInit(): void {
-    let username ="";
-    if(this.authSrv.currentUserValue){
-      username= this.authSrv.currentUserValue.username;
+    if (this.authSrv.currentUserValue) {
+      this.idDoctor = this.authSrv.currentUserValue.doctor.doctor_id;
     }
-
-    this.idDoctor = this.route.snapshot.paramMap.get('idDoctor');
     this.buscar = '';
-    this.doctorName = this.route.snapshot.paramMap.get('idDoctor');
-    this.greeting = "Bienvenido/a al sistema: " + username;
+
     this.getPatientsSvc.getPatients(this.idDoctor).then((response) => {
       this.patients = response;
-      console.log(this.patients);
       this.dataSource = new MatTableDataSource(this.patients);
       this.dataSource.paginator = this.paginator;
+
+      this.docSrv.getDoctorById(this.idDoctor).then((response)=> {
+        this.doctorName = response.nombre + ' ' + response.apellido_paterno + ' ' + response.apellido_materno;
+        this.greeting = "Bienvenido/a, " + this.doctorName;
+      }, (error) => {
+        error.log('loading doctor information failed');
+      });
     }, (error) => {
-      alert("Error: " + error.statusText);
+      this.alertBars.openErrorSnackBar('Error cargando pacientes');
+      console.log("Error: " + error.statusText);
     });
   }
 
@@ -65,20 +67,8 @@ export class PatientListComponent implements OnInit{
         title: 'Agregar paciente'
       }
     });
-
-    dialogRef.afterClosed().subscribe((result)  => {
-      console.log('Dialog result:  %O', result);
-      if (result) {
-        this.patients.push(result);
-        this.refresh();
-      }
-    });
   }
 
-  refresh(){
-    this.dataSource = new MatTableDataSource(this.patients);
-    this.dataSource.paginator = this.paginator;
-  }
   viewPatient(patientId : string){
     this.router.navigate(['patient-details' , {idPatient: patientId, idDoctor : this.idDoctor}])
   }

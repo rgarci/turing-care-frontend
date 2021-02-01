@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {DoctorItf} from '../../interfaces/doctors/doctor-itf';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Doctor} from '../../interfaces/doctors/doctor';
 
@@ -11,7 +10,7 @@ import {Doctor} from '../../interfaces/doctors/doctor';
 export class GetDoctorsService {
 
   cachedValues: Array<{
-    [id: string]: DoctorItf
+    [id: number]: Doctor
   }> = [];
 
 
@@ -19,12 +18,12 @@ export class GetDoctorsService {
     this.http = http;
   }
 
-  getDoctorById = (id: string): Promise<Doctor> => {
+  getDoctorById = (id: number): Promise<Doctor> => {
     let promise = new Promise<Doctor> ( (resolve, reject) => {
       if (this.cachedValues[id]){
-        resolve(this.cachedValues[id]);
+        resolve(this.cachedValues[id] as unknown as Doctor);
       }else {
-        this.http.get('http://localhost:3000/doctor/?id=' + id )
+        this.http.get('http://localhost:3000/doctor/' + id)
           .toPromise()
           .then((response) => {
             resolve(response as Doctor);
@@ -36,15 +35,79 @@ export class GetDoctorsService {
     return promise;
   }
 
+  getInfoDoctorById = (id): Promise<Doctor> => {
+    let promise = new Promise<Doctor> ( (resolve, reject) => {
+        this.http.get('http://localhost:3000/info/doctor/' + id )
+          .toPromise()
+          .then((response) => {
+            resolve(response as Doctor);
+          }, (error) => {
+            reject(error);
+          });
+    });
+    return promise;
+  }
+
   getDoctors = (): Promise<Doctor[]> => {
     let promise = new Promise<Doctor[]> ( (resolve, reject) => {
-     this.http.get('https://datos.cdmx.gob.mx/api/records/1.0/search/?dataset=hospitales-y-centros-de-salud&q=&rows=9'  )
+     this.http.get('http://localhost:3000/doctor/'  )
           .toPromise()
           .then((response) => {
             resolve(response as Doctor[]);
           }, (error) => {
             reject(error);
           });
+    });
+    return promise;
+  }
+
+  createDoctor = (doctor: Doctor): Promise<Doctor> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let promise = new Promise<Doctor>((resolve, reject) => {
+      this.http.post('http://localhost:3000/doctor/', doctor, httpOptions)
+        .toPromise()
+        .then((response) => {
+          resolve(response as Doctor);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
+
+  updateDoctor= (doctor: Doctor): Promise<Doctor> => {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    let promise = new Promise<Doctor>((resolve, reject) => {
+      this.http.put('http://localhost:3000/doctor/', doctor, httpOptions)
+        .toPromise()
+        .then((response) => {
+          console.log(response);
+          resolve(response as Doctor);
+        }, (error) => {
+          reject(error);
+        });
+    });
+    return promise;
+  }
+
+  sendEmail= (content):Promise<any> => {
+    let promise = new Promise((resolve, reject) => {
+      this.http.post('http://localhost:3000/sendmail/', content)
+        .toPromise()
+        .then((response) => {
+          console.log(response);
+          resolve(response);
+        }, (error) => {
+          reject(error);
+        });
     });
     return promise;
   }

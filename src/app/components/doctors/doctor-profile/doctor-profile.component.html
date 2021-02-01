@@ -1,28 +1,50 @@
-<mat-grid-list *ngIf="doctor;else loading" cols="4">
+<mat-grid-list *ngIf="doctor && clinica;else loading" cols="4">
   <mat-grid-tile class="profileImage-column" rowspan="2" >
-     <img class = profileImage src="{{doctor.url_foto}}" alt="Photo of a Shiba Inu">
+     <img class = profileImage src="{{url_foto}}" alt="{{doctor.url_foto}}">
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">
-    <div class="information-tile">
+    <div class="info">
+      <div class="information-tile">
+
       <div class="information-header">
         <h1>{{doctor.nombre}} {{doctor.apellido_paterno}} {{doctor.apellido_materno}}</h1>
-        <h2>Clinica: {{doctor.clinica_id}}</h2>
+        <h2>Clinica: {{clinica.nombre}}</h2>
+        <p>{{clinica | address }}</p>
       </div>
-      <h2 class = "direction" >{{doctor.telefono}} {{doctor.email}}</h2>
+      <div>
+         <div class="flex">
+           <mat-icon aria-hidden="false" aria-label="phone">phone</mat-icon>
+           <p>{{doctor.telefono}}</p>
+         </div>
+        <div class="flex">
+          <mat-icon aria-hidden="false" aria-label="email">email</mat-icon>
+          <p>{{doctor.email}} </p>
+        </div>
+      </div>
+
       <div class="information-footer">
-        <h2>Cédula profesional: {{doctor.url_cedula}}</h2>
+        <h2>Cédula profesional: {{cedula}}</h2>
         <h2>CURP: {{doctor.curp}}</h2>
       </div>
+
+      </div>
+      <div class="flex-start-qr" >
+        <ngx-qrcode
+        [elementType]="elementType"
+        [value]="value"
+        errorCorrectionLevel="L">
+      </ngx-qrcode>
+      </div>
     </div>
-    <button mat-raised-button class="flex-start">Editar</button>
+    <button mat-raised-button class="flex-start" (click)="editDoctor(doctor.doctor_id)">Editar</button>
   </mat-grid-tile>
 
   <mat-grid-tile colspan="3">
     <div class= "all-tile">
       <mat-tab-group>
         <mat-tab label="Áreas Medicas"> {{doctor.especialidad}} </mat-tab>
-        <mat-tab label="Otros"> Status: {{doctor.status}} </mat-tab>
+        <mat-tab label="Otros"> Status: {{doctor.status | status}} </mat-tab>
       </mat-tab-group>
     </div>
   </mat-grid-tile>

@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { Patient } from 'src/app/interfaces/patients/patient';
 import {AuthenticationService} from "../../../services/auth/authentication.service";
 import {GetPatientsService} from "../../../services/patients/get-patients.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-patient-form',
@@ -28,40 +29,35 @@ export class PatientFormComponent implements OnInit {
   idDoctor: number;
   idPaciente:number;
   title: string;
+  loading= false;
 
   constructor(private svcPatient : GetPatientsService, private fb : FormBuilder, public dialogRef: MatDialogRef<PatientFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              @Inject(MAT_DIALOG_DATA) public data,
+              private alertBars : AlertBars) {
     this.idDoctor = data.idDoctor;
     this.title = data.title;
     //pordefault. se cambia cuando se actualiza o se crea un paciente.
     this.idPaciente = null;
-    if (data.patient){
-      this.frmReactivo.controls.firstName.setValue(data.patient.nombre);
-      this.frmReactivo.controls.lastName.setValue(data.patient.nombre);
-      // this.frmReactivo.setValue({
-      //   firstName: data.patient.nombre,
-      //   lastName: data.patient.apellido_paterno
-      //   // lastName: ,
-      //   // secondLastName: ['', Validators.required],
-      //   // birthdate: ['', Validators.required],
-      //   // gender: ['', Validators.required],
-      //   // email:['', [Validators.required, Validators.email]],
-      //   // phone: ['', Validators.required],
-      //   // alergies: [''],
-      //   // previousSurgery: [''],
-      //   // cronicIllness: [''],
-      //   // treatments: ['']
-      // });
+    if (data.paciente){
+      this.frmReactivo.controls.firstName.setValue(data.paciente.nombre);
+      this.frmReactivo.controls.lastName.setValue(data.paciente.apellido_paterno);
+      this.frmReactivo.controls.secondLastName.setValue(data.paciente.apellido_materno);
+      this.frmReactivo.controls.gender.setValue(data.paciente.sexo);
+      this.frmReactivo.controls.birthdate.setValue(data.paciente.fecha_nacimiento);
+      this.frmReactivo.controls.email.setValue(data.paciente.email);
+      this.frmReactivo.controls.phone.setValue(data.paciente.telefono);
+      this.frmReactivo.controls.alergies.setValue(data.paciente.alergias);
+      this.frmReactivo.controls.previousSurgery.setValue(data.paciente.operaciones_previas);
+      this.frmReactivo.controls.cronicIllness.setValue(data.paciente.enfermedades_cronicas);
+      this.frmReactivo.controls.treatments.setValue(data.paciente.tratamientos_vigentes);
     }
-    console.log(data);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   save(){
     if(this.data.paciente) {
-      this.idPaciente = this.data.idPatient;
+      this.idPaciente = this.data.paciente.paciente_id;
     }
     var fecha = new Date(this.frmReactivo.get('birthdate').value);
 
@@ -84,15 +80,39 @@ export class PatientFormComponent implements OnInit {
     if (this.data.paciente) { //se actualiza
       this.svcPatient.updatePatient(patient).then(r =>
       {
-        this.dialogRef.close(r);
-      });
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openSuccessSnackBar('Paciente actualizado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+
+        this.loading= false;
+          this.dialogRef.close();
+          let alrt = this.alertBars.openErrorSnackBar();
+        });
     } else {
       this.svcPatient.createPatient(patient).then(r =>
       {
-        this.dialogRef.close(r);
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openSuccessSnackBar('Paciente creado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      },  (error) => {
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
       });
     }//se crea
 
+    this.loading= true;
+    this.dialogRef.disableClose = true;
   }
 
 }

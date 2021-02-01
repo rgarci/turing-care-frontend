@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {register} from "ts-node";
 import {RegisterItf} from "../../../interfaces/registers/register-itf";
 import {GetRegistersService} from "../../../services/registers/get-registers.service";
+import {AlertBars} from "../../../_helpers/alert-bars";
 
 @Component({
   selector: 'app-register-form',
@@ -27,24 +28,42 @@ export class RegisterFormComponent implements OnInit {
   idDoctor: number;
   title: string;
   idPatient: number;
+  idRegister : number;
+  loading= false;
 
   constructor(private fb: FormBuilder, private srvRegistro : GetRegistersService, public dialogRef: MatDialogRef<RegisterFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data) {
+              @Inject(MAT_DIALOG_DATA) public data, private alertBars : AlertBars) {
     this.token = data.token;
     this.idDoctor = data.idDoctor;
     this.title = data.title;
     this.idPatient = data.idPatient;
-    console.log(data);
+    this.idRegister = null;
+    if (data.registro){
+      this.frmReactivo.controls.date.setValue(data.registro.fecha_cita);
+      this.frmReactivo.controls.symptoms.setValue(data.registro.sintomas);
 
+      this.frmReactivo.controls.description.setValue(data.registro.descripcion);
+      this.frmReactivo.controls.topic.setValue(data.registro.asunto);
+
+      this.frmReactivo.controls.medications.setValue(data.registro.medicamento_recetado);
+
+      this.frmReactivo.controls.observations.setValue(data.registro.observaciones);
+
+      this.frmReactivo.controls.type_of_treatment.setValue(data.registro.tipo_tratamiento);
+      this.frmReactivo.controls.treatment_monitoring.setValue(data.registro.seguimiento_tratamiento);
+    }
   }
 
   ngOnInit(): void {
   }
 
   save(){
+    if (this.data.registro){
+      this.idRegister = this.data.registro.idRegister;
+    }
     var fecha = new Date(this.frmReactivo.get('date').value);
     const registro : RegisterItf = {
-      registro_id: null,
+      registro_id: this.idRegister,
       doctor_id: this.idDoctor,
       paciente_id: this.idPatient,
       asunto: this.frmReactivo.get('topic').value,
@@ -59,10 +78,39 @@ export class RegisterFormComponent implements OnInit {
       tipo_tratamiento: this.frmReactivo.get('type_of_treatment').value
     };
 
-    this.srvRegistro.createRegister(registro).then(r =>
-    {
-      this.dialogRef.close(r);
-    });
+    if (this.data.registro){
+      this.srvRegistro.updateRegister(registro).then(r =>
+      {
+        this.dialogRef.close();
+        this.loading= false;
+        let alrt = this.alertBars.openSuccessSnackBar('Registro actualizado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
+      });
+    }else {
+      this.srvRegistro.createRegister(registro).then(r =>
+      {
+        this.dialogRef.close();
+        this.loading= false;
+        let alrt = this.alertBars.openSuccessSnackBar('Registro creado');
+        alrt.afterDismissed().subscribe(info => {
+          window.location.reload();
+        });
+      }, (error) => {
+        this.loading= false;
+        this.dialogRef.close();
+        let alrt = this.alertBars.openErrorSnackBar();
+      });
+    }
+
+    this.dialogRef.disableClose = true;
+    this.loading= true;
   }
 
 }

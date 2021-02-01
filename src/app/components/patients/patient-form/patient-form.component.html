@@ -27,8 +27,8 @@
         <mat-form-field appearance="fill">
             <mat-label>Género</mat-label>
             <mat-select formControlName="gender">
-                <mat-option value="femenino">Mujer</mat-option>
-                <mat-option value="masculino">Hombre</mat-option>
+                <mat-option value="femenino">Femenino</mat-option>
+                <mat-option value="masculino">Masculino</mat-option>
                 <mat-option value="otro">Otro</mat-option>
             </mat-select>
         </mat-form-field>
@@ -36,7 +36,7 @@
 
         <mat-form-field class= "itext" appearance="fill">
           <mat-label>Teléfono</mat-label>
-          <input matInput #input maxlength="10" placeholder="Ex. 9991092133"
+          <input matInput type="tel" #input maxlength="10" placeholder="Ex. 9991092133"
                  formControlName="phone">
           <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
           <mat-icon matSuffix>phone</mat-icon>
@@ -45,7 +45,7 @@
 
       <mat-form-field class="itext" appearance="fill">
          <mat-label>Correo</mat-label>
-        <input matInput placeholder="pat@example.com" formControlName="email">
+        <input type="email" matInput placeholder="pat@example.com" formControlName="email">
       </mat-form-field>
 
         <mat-form-field class="tarea" appearance="fill">
@@ -75,5 +75,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cerrar</button>
-    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid">Guardar</button>
+    <button class="subBut" mat-raised-button color="primary" (click)="save()" [disabled] = "!frmReactivo.valid || loading">Guardar</button>
 </mat-dialog-actions>
