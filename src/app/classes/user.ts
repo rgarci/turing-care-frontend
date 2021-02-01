@@ -1,6 +1,7 @@
 export class User {
   token: string;
   refreshToken: string;
+  role: string;
   // tslint:disable-next-line:variable-name
   user_id : number;
   username : string;

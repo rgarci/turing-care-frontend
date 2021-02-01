@@ -32,10 +32,12 @@ export class AuthenticationService {
     return this.http.post(url , { username, password})
        .pipe(
          map(user => {
+           let us = user as User;
          // store user details and jwt token in local storage to keep user logged in between page refreshes
-         localStorage.setItem('currentUser', JSON.stringify( user));
-         this.currentUserSubject.next(user as User);
-         return user as User;
+           us.role = this.getDecodedAccessToken(us.token).role;
+           localStorage.setItem('currentUser', JSON.stringify( us));
+           this.currentUserSubject.next(us);
+           return us ;
        }),
          shareReplay(1));
   }
@@ -58,6 +60,7 @@ export class AuthenticationService {
     }).pipe(tap((response) => {
        const updateUser = this.currentUserValue;
        updateUser.token = response.token;
+       updateUser.role = this.currentUserValue.role;
        localStorage.setItem('currentUser', JSON.stringify(updateUser));
        this.currentUserSubject.next(updateUser as User);
     }));
@@ -68,8 +71,9 @@ export class AuthenticationService {
   }
 
   getRole(): string{
-    return this.getDecodedAccessToken(this.currentUserValue.token).role;
+    return this.currentUserValue.role;
   }
+
   private getDecodedAccessToken(token: string): any {
     try{
       return jwt_decode(token);
