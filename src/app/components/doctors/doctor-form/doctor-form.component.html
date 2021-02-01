@@ -104,7 +104,7 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-button mat-dialog-close class="principal-button"
-          (click)="register()" [disabled] = "!frmReactivo.valid || loading">Registrar</button>
+          (click)="register()" [disabled] = "!frmReactivo.valid || loading"> {{data.saveAction}}</button>
 </mat-dialog-actions>
 
 

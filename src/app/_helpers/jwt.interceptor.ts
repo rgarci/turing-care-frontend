@@ -29,6 +29,9 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(authReq).pipe(catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next);
+        } else if (error instanceof HttpErrorResponse && error.status === 400) {
+          console.log("error refreshing");
+          this.authenticationService.logout();
         } else {
           return throwError(error);
         }

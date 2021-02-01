@@ -4,6 +4,7 @@ import {User} from '../../classes/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -64,5 +65,17 @@ export class AuthenticationService {
 
   private getRefreshToken() {
     return this.currentUserValue.refreshToken;
+  }
+
+  getRole(): string{
+    return this.getDecodedAccessToken(this.currentUserValue.token).role;
+  }
+  private getDecodedAccessToken(token: string): any {
+    try{
+      return jwt_decode(token);
+    }
+    catch (Error){
+      return null;
+    }
   }
 }

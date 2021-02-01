@@ -7,16 +7,19 @@
     <span>SARM</span>
     <ul class="nav-options">
       <li class="nav-option" *ngIf="this.idDoctor"><a href="patients;idDoctor={{idDoctor}}">Mis pacientes</a></li>
-        <li class="nav-option"><a href="noticias/{{idDoctor}}">Noticias</a></li>
+        <li class="nav-option" *ngIf="this.idDoctor"><a href="noticias/{{idDoctor}}">Noticias</a></li>
+      <li class="nav-option" *ngIf="currentUser && this.getUserRole() == 'admin'">
+        <a href="doctores/">Mis doctores</a></li>
+
     </ul>
     <span class="example-spacer"></span>
 
 <!--  *ngIf="this.currentUser"-->
-  <button *ngIf="this.idDoctor" mat-fab class="account-icon" [mat-menu-trigger-for]="profileMenu" aria-label="My profile">
+  <button *ngIf="this.idDoctor || this.currentUser" mat-fab class="account-icon" [mat-menu-trigger-for]="profileMenu" aria-label="My profile">
     <mat-icon>account_circle</mat-icon>
   </button>
   <mat-menu #profileMenu = "matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item *ngIf="this.idDoctor">
       <a mat-menu-item href="perfil/{{idDoctor}}">Ver perfil</a>
     </button>
     <button mat-menu-item (click)="logout()">
